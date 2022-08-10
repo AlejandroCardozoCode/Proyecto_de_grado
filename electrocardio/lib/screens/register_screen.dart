@@ -24,22 +24,28 @@ class _RegistryScreenState extends State<RegistryScreen> {
     };
     final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: const BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("assets/img/app_background.jpg"),
-          fit: BoxFit.fill,
-        )),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              image: AssetImage("assets/img/app_background.jpg"),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: SingleChildScrollView(
             child: Form(
               key: myFormKey,
               child: Column(
                 children: [
+                  const Image(
+                    image: AssetImage("assets/img/user_creation_logo.png"),
+                    height: 150,
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
                   CustomForm(
                     labelText: "Nombre",
                     formField: 'firstName',
@@ -132,11 +138,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (!myFormKey.currentState!.validate()) {
-                        print("Este valor es requerido");
-                      }
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      print(formValues);
+                      Navigator.pushNamed(context, "profilePicture");
                     },
                     style: ElevatedButton.styleFrom(
                       primary: ThemeApp.appRed,
@@ -149,7 +151,10 @@ class _RegistryScreenState extends State<RegistryScreen> {
                         child: Text("Continuar"),
                       ),
                     ),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                 ],
               ),
             ),

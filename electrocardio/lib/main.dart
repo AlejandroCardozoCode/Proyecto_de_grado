@@ -13,11 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      initialRoute: "profilePicture",
+      initialRoute: "login",
       routes: {
         "register": (context) => const RegistryScreen(),
         "login": (context) => const LoginScreen(),
         "profilePicture": (context) => const ProfilePictureScreen(),
+        "newReport": (context) => const NewReportScreen(),
       },
       theme: ThemeApp.light,
     );

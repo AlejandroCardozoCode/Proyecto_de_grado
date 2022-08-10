@@ -1,7 +1,5 @@
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import '../widgets/widgets.dart';
 
@@ -15,22 +13,25 @@ class LoginScreen extends StatelessWidget {
       "pwd": "",
     };
 
-    final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> loginForm = GlobalKey<FormState>();
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/img/app_background.jpg"),
-            fit: BoxFit.cover,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/img/app_background.jpg"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: SingleChildScrollView(
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Form(
-                key: myFormKey,
-                child: Column(children: [
-                  Image(
+          child: SingleChildScrollView(
+            child: Form(
+              key: loginForm,
+              child: Column(
+                children: [
+                  const Image(
                     image: AssetImage("assets/img/logo.png"),
                     height: 400,
                   ),
@@ -55,8 +56,10 @@ class LoginScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       primary: ThemeApp.appRed,
                     ),
-                    onPressed: () {},
-                    child: Container(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "newReport");
+                    },
+                    child: const SizedBox(
                       height: 50,
                       width: 100,
                       child: Center(
@@ -68,8 +71,10 @@ class LoginScreen extends StatelessWidget {
                     height: 30,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
-                    child: Container(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "register");
+                    },
+                    child: const SizedBox(
                       height: 50,
                       width: 100,
                       child: Center(
@@ -77,8 +82,10 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                ]),
-              )),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

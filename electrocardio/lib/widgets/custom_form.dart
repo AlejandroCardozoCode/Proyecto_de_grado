@@ -25,7 +25,7 @@ class CustomForm extends StatelessWidget {
     return TextFormField(
       keyboardType: inputType,
       obscureText: protectedText,
-      autofocus: true,
+      autofocus: false,
       textCapitalization: TextCapitalization.words,
       onChanged: (value) {
         formValues[formField] = value;
