@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "register",
       routes: {
         "register": (context) => const RegistryScreen(),
+        "login": (context) => const LoginScreen(),
       },
       theme: ThemeApp.light,
     );

@@ -40,6 +40,8 @@ class CustomForm extends StatelessWidget {
         hintText: hintText,
         labelText: labelText,
         helperText: helperText,
+        filled: true,
+        fillColor: Colors.white,
       ),
     );
   }

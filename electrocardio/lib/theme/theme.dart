@@ -25,7 +25,7 @@ class ThemeApp {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           primary: primary,
-          shape: const StadiumBorder(),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           elevation: 10,
         ),
       ),
