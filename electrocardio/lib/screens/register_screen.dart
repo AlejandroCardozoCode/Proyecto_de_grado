@@ -31,7 +31,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
         decoration: const BoxDecoration(
             image: DecorationImage(
           image: AssetImage("assets/img/app_background.jpg"),
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         )),
         child: SingleChildScrollView(
           child: Padding(
