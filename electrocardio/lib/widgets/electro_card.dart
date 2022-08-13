@@ -20,32 +20,31 @@ class _ElectroCardState extends State<ElectroCard> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Container(
-        height: 350,
+      child: SizedBox(
+        height: 325,
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
             const Image(
               image: AssetImage("assets/img/electro_placeholder.png"),
               fit: BoxFit.cover,
-              height: 270,
-              width: 800,
+              height: 250,
             ),
             const SizedBox(
-              height: 15,
+              height: 20,
             ),
             Text(
               "Tomar foto de electrocardiograma (EGC)",
               style: GoogleFonts.rubik(
                 color: ThemeApp.appRed,
-                fontSize: 20,
+                fontSize: 15,
               ),
             ),
             Text(
               "Por favor, intente hacer la toma lo mejor posible",
               style: GoogleFonts.rubik(
                 color: Colors.grey,
-                fontSize: 15,
+                fontSize: 12,
               ),
             )
           ],

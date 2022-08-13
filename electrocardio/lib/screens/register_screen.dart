@@ -23,25 +23,26 @@ class _RegistryScreenState extends State<RegistryScreen> {
       "role": "",
     };
     final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/img/app_background.jpg"),
-              fit: BoxFit.fill,
-            ),
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/img/app_background.jpg"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
           child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            physics: const BouncingScrollPhysics(),
             child: Form(
               key: myFormKey,
               child: Column(
                 children: [
                   const Image(
                     image: AssetImage("assets/img/user_creation_logo.png"),
-                    height: 150,
+                    height: 100,
                   ),
                   const SizedBox(
                     height: 40,

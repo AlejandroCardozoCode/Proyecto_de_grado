@@ -41,5 +41,5 @@ class ThemeApp {
           color: primary,
           elevation: 0,
           systemOverlayStyle:
-              const SystemUiOverlayStyle(statusBarColor: Colors.transparent)));
+              const SystemUiOverlayStyle(statusBarColor: Colors.white)));
 }
