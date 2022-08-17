@@ -25,7 +25,9 @@ class NewReportScreen extends StatelessWidget {
                 height: 40,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, "clinicalHistory");
+                },
                 style: ElevatedButton.styleFrom(
                   primary: ThemeApp.appRed,
                 ),
