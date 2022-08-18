@@ -4,37 +4,42 @@ import '../theme/theme.dart';
 import '../widgets/widgets.dart';
 
 class ClinicalHistoryScreen extends StatelessWidget {
-   
   const ClinicalHistoryScreen({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
-    decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/img/app_background.jpg"),
-              fit: BoxFit.cover,
-            ),
-    ),
-    child: Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Text("Resumen de la historia clinica del paciente",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.rubik(fontSize: 20, color: Colors.red), 
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/img/app_background.jpg"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SafeArea(
+              child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(children: [
+              Text(
+                "Resumen de la historia clinica del paciente",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.rubik(
+                  fontSize: 20,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(
                 height: 20,
               ),
-              const CustomTextField(hintText: "Resumen historia clinica",),
+              const CustomTextField(
+                hintText: "Resumen historia clinica",
+              ),
               const SizedBox(
                 height: 20,
               ),
-               ElevatedButton(
+              ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, "reportList");
                 },
@@ -54,12 +59,8 @@ class ClinicalHistoryScreen extends StatelessWidget {
                   ),
                 ),
               )
-            ]
-            ),
-        )
-      )
-    ),
+            ]),
+          ))),
     );
   }
 }
-

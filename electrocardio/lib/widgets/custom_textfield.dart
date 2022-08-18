@@ -1,36 +1,31 @@
 import 'package:flutter/material.dart';
-class CustomTextField extends StatelessWidget {
 
+class CustomTextField extends StatelessWidget {
   final String? hintText;
 
-  const CustomTextField({
-    Key? key,
-    this.hintText
-  }) : super(key: key);
+  const CustomTextField({Key? key, this.hintText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(10),
+    return Card(
       elevation: 5,
-      child:TextFormField(
-        maxLines: 50,
-        autofocus: true,
-        validator: (value){
-          if(value == null) return "Formulario vacio";
-          //TODO: ARREGLAR disparo de alertas
-          //if(value.length > 70 ) 
-        },
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        decoration:  InputDecoration(
-          hintText: hintText,
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.transparent
-              )
-          )
-          ),
+      child: Container(
+        height: 500,
+        child: TextFormField(
+          maxLines: 50,
+          autofocus: true,
+          validator: (value) {
+            if (value == null) return "Formulario vacio";
+            //TODO: ARREGLAR disparo de alertas
+            //if(value.length > 70 )
+          },
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: InputDecoration(
+              hintText: hintText,
+              focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.transparent))),
+        ),
       ),
-      );
+    );
   }
 }
