@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
         "login": (context) => const LoginScreen(),
         "profilePicture": (context) => const ProfilePictureScreen(),
         "newReport": (context) => const NewReportScreen(),
+        "clinicalHistory": (context) => const ClinicalHistoryScreen(),
+        "reportList":(context) => const ReportListScreen(),
+        "profile":(context) => const ProfileScreen()
       },
       theme: ThemeApp.light,
     );
