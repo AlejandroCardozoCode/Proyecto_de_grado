@@ -1,7 +1,10 @@
+import 'package:electrocardio/models/practitioner.dart';
 import 'package:electrocardio/theme/theme.dart';
+import 'package:fhir/stu3/resource_types/resource_types.enums.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/widgets.dart';
+import 'package:fhir/r4.dart' as r4;
 
 class RegistryScreen extends StatefulWidget {
   const RegistryScreen({Key? key}) : super(key: key);
@@ -15,11 +18,14 @@ class _RegistryScreenState extends State<RegistryScreen> {
   @override
   Widget build(BuildContext context) {
     final Map<String, String> formValues = {
+      "id": "",
       "firstName": "",
       "lastName": "",
       "email": "",
       "pwd": "",
       "pwd2": "",
+      "gender": "",
+      "birthDate": "",
       "role": "",
     };
     final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
@@ -46,6 +52,15 @@ class _RegistryScreenState extends State<RegistryScreen> {
                   ),
                   const SizedBox(
                     height: 40,
+                  ),
+                  CustomForm(
+                    labelText: "Cedula",
+                    inputType: TextInputType.number,
+                    formField: 'id',
+                    formValues: formValues,
+                  ),
+                  const SizedBox(
+                    height: 30,
                   ),
                   CustomForm(
                     labelText: "Nombre",
@@ -94,6 +109,32 @@ class _RegistryScreenState extends State<RegistryScreen> {
                       decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
+                        labelText: "Genero",
+                      ),
+                      items: const [
+                        DropdownMenuItem(
+                          value: "G1",
+                          child: Text("Hombre"),
+                        ),
+                        DropdownMenuItem(
+                          value: "G2",
+                          child: Text("Mujer"),
+                        ),
+                        DropdownMenuItem(
+                          value: "G3",
+                          child: Text("Otro"),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        formValues["gender"] = value ?? "None";
+                      }),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
                         labelText: "Especialidad",
                       ),
                       items: const [
@@ -113,8 +154,16 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     height: 30,
                   ),
                   CustomForm(
-                    labelText: "Universidad",
-                    formField: 'uni',
+                    labelText: "Direcction",
+                    formField: 'address',
+                    formValues: formValues,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  CustomForm(
+                    labelText: "fecha",
+                    formField: 'birthDate',
                     formValues: formValues,
                   ),
                   const SizedBox(
@@ -140,6 +189,17 @@ class _RegistryScreenState extends State<RegistryScreen> {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, "profilePicture");
+                      var pac = AppPractitioner(
+                              active: "true",
+                              id: formValues["id"],
+                              firstName: formValues["firstName"],
+                              lastName: formValues["lastName"],
+                              email: formValues["email"],
+                              address: formValues["address"],
+                              gender: formValues["gender"],
+                              birthDate: formValues["birthDate"])
+                          .generatePractitioner;
+                      print(pac);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: ThemeApp.appRed,

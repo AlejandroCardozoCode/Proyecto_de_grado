@@ -16,9 +16,9 @@ class ClinicalHistoryScreen extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: SafeArea(
-              child: SingleChildScrollView(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: Column(children: [
               Text(
@@ -60,7 +60,9 @@ class ClinicalHistoryScreen extends StatelessWidget {
                 ),
               )
             ]),
-          ))),
+          ),
+        ),
+      ),
     );
   }
 }
