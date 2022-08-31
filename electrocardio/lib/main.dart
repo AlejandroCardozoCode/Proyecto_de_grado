@@ -1,3 +1,4 @@
+import 'package:electrocardio/screens/new_patient_contact_screen.dart';
 import 'package:electrocardio/screens/screens.dart';
 import 'package:flutter/material.dart';
 
@@ -13,15 +14,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      initialRoute: "login",
+      initialRoute: "selectPatient",
       routes: {
         "register": (context) => const RegistryScreen(),
         "login": (context) => const LoginScreen(),
         "profilePicture": (context) => const ProfilePictureScreen(),
+        "selectPatient": (context) => const SelectPatient(),
+        "newPatient": (context) => const NewPatientScreen(),
+        "contactPatientInfo": (context) => const ContactPatientInfo(),
         "newReport": (context) => const NewReportScreen(),
         "clinicalHistory": (context) => const ClinicalHistoryScreen(),
-        "reportList":(context) => const ReportListScreen(),
-        "profile":(context) => const ProfileScreen()
+        "reportList": (context) => const ReportListScreen(),
+        "profile": (context) => const ProfileScreen()
       },
       theme: ThemeApp.light,
     );
