@@ -12,8 +12,9 @@ class ProfileData extends StatefulWidget {
 class _ProfileDataState extends State<ProfileData> {
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
     return Container(
-      height: 200,
+      height: w * 0.4,
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,9 +44,9 @@ class _ProfileDataState extends State<ProfileData> {
                   ),
                 ),
                 Text(
-                  "Universidad",
+                  "Identificacion",
                   style: GoogleFonts.rubik(
-                    fontSize: 15,
+                    fontSize: 12,
                   ),
                 ),
               ],

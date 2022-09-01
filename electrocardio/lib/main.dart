@@ -13,9 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      initialRoute: "selectPatient",
+      title: 'Electrocardio',
+      initialRoute: "homeOnc",
       routes: {
+        "homeOnc": (context) => const HomeOncologo(),
         "register": (context) => const RegistryScreen(),
         "login": (context) => const LoginScreen(),
         "profilePicture": (context) => const ProfilePictureScreen(),

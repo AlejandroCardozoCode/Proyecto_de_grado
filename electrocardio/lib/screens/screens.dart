@@ -7,3 +7,4 @@ export 'clinical_history_screen.dart';
 export 'report_list_screen.dart';
 export 'select_patient_screen.dart';
 export 'new_patient_screen.dart';
+export 'home_oncologo.dart';

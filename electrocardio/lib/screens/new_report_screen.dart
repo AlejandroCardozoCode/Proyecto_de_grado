@@ -2,27 +2,23 @@ import 'package:electrocardio/theme/theme.dart';
 import 'package:electrocardio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class NewReportScreen extends StatelessWidget {
   const NewReportScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/img/app_background.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
+        child: SingleChildScrollView(
           child: Column(
             children: [
               ProfileData(),
               ElectroCard(),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: w * 0.05,
               ),
               ElevatedButton(
                 onPressed: () {
@@ -43,6 +39,9 @@ class NewReportScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 50,
               )
             ],
           ),
