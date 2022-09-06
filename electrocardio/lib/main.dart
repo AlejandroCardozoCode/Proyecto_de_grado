@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
         "newReport": (context) => const NewReportScreen(),
         "clinicalHistory": (context) => const ClinicalHistoryScreen(),
         "reportList": (context) => const ReportListScreen(),
-        "profile": (context) => const ProfileScreen()
+        "profile": (context) => const ProfileScreen(),
+        "electroView": (context) => const ElectroViewScreen(),
       },
       theme: ThemeApp.light,
     );

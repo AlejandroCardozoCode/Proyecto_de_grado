@@ -8,3 +8,4 @@ export 'report_list_screen.dart';
 export 'select_patient_screen.dart';
 export 'new_patient_screen.dart';
 export 'home_oncologo.dart';
+export 'electro_view.dart';

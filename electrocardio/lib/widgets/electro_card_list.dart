@@ -17,7 +17,7 @@ class ElectroCardList extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             child: ListTile(
               leading: const ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -41,7 +41,9 @@ class ElectroCardList extends StatelessWidget {
               SizedBox(
                 width: w * 0.4,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, "electroView");
+                  },
                   child: Text(
                     "Ver electrocardiograma",
                     maxLines: 2,

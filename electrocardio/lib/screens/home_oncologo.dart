@@ -1,8 +1,7 @@
-import 'package:electrocardio/screens/new_report_screen.dart';
-import 'package:electrocardio/screens/profile_screen.dart';
-import 'package:electrocardio/screens/report_list_screen.dart';
 import 'package:electrocardio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+
+import 'screens.dart';
 
 class HomeOncologo extends StatefulWidget {
   const HomeOncologo({Key? key}) : super(key: key);
@@ -27,9 +26,9 @@ class _HomeOncologoState extends State<HomeOncologo> {
   }
 
   final List<Widget> _body = [
-    NewReportScreen(),
-    ReportListScreen(),
-    ProfileScreen(),
+    const NewReportScreen(),
+    const ReportListScreen(),
+    const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {

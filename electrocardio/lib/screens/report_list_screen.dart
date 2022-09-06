@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:photo_view/photo_view.dart';
 
 import '../widgets/widgets.dart';
 
@@ -29,7 +30,7 @@ class ReportListScreen extends StatelessWidget {
             const ElectroCardList(
               reportDate: '20 Agosto',
               patientName: 'Diego',
-            )
+            ),
           ],
         ),
       ),
