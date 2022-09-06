@@ -29,7 +29,6 @@ class _HomeOncologoState extends State<HomeOncologo> {
   final List<Widget> _body = [
     NewReportScreen(),
     ReportListScreen(),
-    NewReportScreen(),
     ProfileScreen(),
   ];
   @override

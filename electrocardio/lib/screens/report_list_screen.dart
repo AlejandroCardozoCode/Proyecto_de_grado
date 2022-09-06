@@ -8,22 +8,31 @@ class ReportListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SafeArea(
-            child: ListView(
+        body: ListView(
           padding: const EdgeInsets.all(20),
           children: [
             Text(
               "Listado de reportes",
               textAlign: TextAlign.center,
-              style: GoogleFonts.rubik(fontSize: 20, color: Colors.red),
+              style: GoogleFonts.rubik(
+                fontSize: 20,
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
-            const ElectroCardList()
+            const ElectroCardList(
+              reportDate: '20 Agosto',
+              patientName: 'Diego',
+            )
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

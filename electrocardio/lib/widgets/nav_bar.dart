@@ -41,12 +41,8 @@ class _AppNavBarState extends State<AppNavBar> {
                 text: " Historial",
               ),
               GButton(
-                icon: Icons.messenger_outline_rounded,
-                text: " Mensajes",
-              ),
-              GButton(
                 icon: Icons.person,
-                text: " Pagos",
+                text: " Perfil",
               ),
             ],
           ),

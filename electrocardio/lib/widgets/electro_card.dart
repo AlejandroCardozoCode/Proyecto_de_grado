@@ -15,7 +15,7 @@ class ElectroCard extends StatefulWidget {
 
 class _ElectroCardState extends State<ElectroCard> {
   String imagePath = "assets/img/electro_placeholder.png";
-  File fileImage = new File('');
+  File fileImage = File('');
   bool loadImage = false;
 
   /*
@@ -35,7 +35,6 @@ class _ElectroCardState extends State<ElectroCard> {
         setState(() {
           if (image != null) {
             //imagePath = image.path;
-            print(image.path);
             fileImage = File(image.path);
             loadImage = true;
           }
@@ -56,9 +55,9 @@ class _ElectroCardState extends State<ElectroCard> {
               Image(
                 image: loadImage
                     ? FileImage(fileImage)
-                    : AssetImage("assets/img/electro_placeholder.png")
+                    : const AssetImage("assets/img/electro_placeholder.png")
                         as ImageProvider,
-                fit: BoxFit.cover,
+                fit: BoxFit.fitWidth,
                 height: 250,
               ),
               const SizedBox(
