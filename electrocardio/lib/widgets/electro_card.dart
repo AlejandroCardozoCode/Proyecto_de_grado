@@ -45,7 +45,7 @@ class _ElectroCardState extends State<ElectroCard> {
         elevation: 5,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: SizedBox(
           height: 325,
@@ -57,7 +57,7 @@ class _ElectroCardState extends State<ElectroCard> {
                     ? FileImage(fileImage)
                     : const AssetImage("assets/img/electro_placeholder.png")
                         as ImageProvider,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
                 height: 250,
               ),
               const SizedBox(

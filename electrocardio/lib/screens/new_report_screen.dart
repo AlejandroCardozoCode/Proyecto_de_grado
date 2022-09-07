@@ -15,7 +15,17 @@ class NewReportScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ProfileData(),
+              Image(
+                image: AssetImage("assets/img/banner.png"),
+                width: w * 0.8,
+              ),
+              Text(
+                "Paso 1 de de 2",
+                style: GoogleFonts.rubik(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               ElectroCard(),
               SizedBox(
                 height: w * 0.05,

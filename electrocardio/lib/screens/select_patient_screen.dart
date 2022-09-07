@@ -1,4 +1,6 @@
+import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/widgets.dart';
 
@@ -9,36 +11,47 @@ class SelectPatient extends StatelessWidget {
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     return SafeArea(
-      child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/img/app_background.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Column(
-            children: [
-              Image(
-                image: const AssetImage("assets/img/logo.png"),
-                height: w * 0.5,
+      child: Scaffold(
+        body: Column(
+          children: [
+            ProfileData(),
+            SizedBox(
+              height: w * 0.1,
+            ),
+            Container(
+              margin: const EdgeInsets.only(
+                bottom: 10,
               ),
-              SizedBox(
-                height: w * 0.15,
+              child: Text(
+                "Nuevo reporte",
+                style: GoogleFonts.rubik(
+                  color: ThemeApp.appRed,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const CustomPatientBanner(
-                icon: Icons.person_add,
-                text: "Agregar un nuevo paciente",
-                route: "newPatient",
+            ),
+            Container(
+              margin: const EdgeInsets.only(
+                left: 25,
+                right: 25,
               ),
-              const CustomPatientBanner(
-                icon: Icons.format_list_bulleted_sharp,
-                text: "Seleccionar paciente",
-                route: "login",
-              )
-            ],
-          ),
+              child: Text(
+                "Para crear un nuevo reporte por favor seleccione un paciente existente o ingrese un nuevo paciente al sistema",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.rubik(),
+              ),
+            ),
+            const CustomPatientBanner(
+              icon: Icons.person_add,
+              text: "Agregar un nuevo paciente",
+              route: "newPatient",
+            ),
+            const CustomPatientBanner(
+              icon: Icons.format_list_bulleted_sharp,
+              text: "Seleccionar paciente",
+              route: "login",
+            )
+          ],
         ),
       ),
     );

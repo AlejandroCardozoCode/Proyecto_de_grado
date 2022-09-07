@@ -8,33 +8,47 @@ class ClinicalHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(children: [
+            Image(
+              image: AssetImage("assets/img/banner.png"),
+              width: w * 0.8,
+            ),
             Text(
-              "Resumen de la historia clinica del paciente",
+              "Paso 2 de de 2",
+              style: GoogleFonts.rubik(
+                color: Colors.green,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Detalles del electrocardiograma",
               textAlign: TextAlign.center,
               style: GoogleFonts.rubik(
-                fontSize: 20,
+                fontSize: 18,
                 color: Colors.red,
-                fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(
               height: 20,
             ),
             const CustomTextField(
-              hintText: "Resumen historia clinica",
+              hintText:
+                  "Por favor ingrese informacion relevante para el cardiologo",
             ),
             const SizedBox(
               height: 20,
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, "reportList");
+                showSendElectroDialog(context);
               },
               style: ElevatedButton.styleFrom(
                 primary: ThemeApp.appRed,
@@ -57,4 +71,9 @@ class ClinicalHistoryScreen extends StatelessWidget {
       ),
     );
   }
+
+  void showSendElectroDialog(BuildContext context) => showDialog(
+        context: context,
+        builder: (_) => SendElectroDialog(),
+      );
 }

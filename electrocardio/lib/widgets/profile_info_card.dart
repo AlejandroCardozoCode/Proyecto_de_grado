@@ -25,6 +25,7 @@ class ProfileInfoCard extends StatelessWidget {
       padding: const EdgeInsets.all(15),
       child: Card(
         elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
           padding: const EdgeInsets.only(
             top: 30,
@@ -51,13 +52,13 @@ class ProfileInfoCard extends StatelessWidget {
                   Text(
                     "Email: ",
                     style: GoogleFonts.rubik(
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                   Text(
                     email,
                     style: GoogleFonts.rubik(
-                      fontSize: 20,
+                      fontSize: 18,
                       color: Colors.grey,
                     ),
                   ),
@@ -69,13 +70,13 @@ class ProfileInfoCard extends StatelessWidget {
                   Text(
                     "Direccion: ",
                     style: GoogleFonts.rubik(
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                   Text(
                     address,
                     style: GoogleFonts.rubik(
-                      fontSize: 20,
+                      fontSize: 18,
                       color: Colors.grey,
                     ),
                   ),
@@ -88,13 +89,13 @@ class ProfileInfoCard extends StatelessWidget {
                     "Fecha Nacimiento: ",
                     textAlign: TextAlign.left,
                     style: GoogleFonts.rubik(
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                   Text(
                     birthDate,
                     style: GoogleFonts.rubik(
-                      fontSize: 20,
+                      fontSize: 18,
                       color: Colors.grey,
                     ),
                   ),

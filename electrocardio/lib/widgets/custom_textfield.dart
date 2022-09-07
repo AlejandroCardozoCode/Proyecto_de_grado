@@ -8,11 +8,12 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        elevation: 5,
-          child: SizedBox(
-        height: 500,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 5,
+      child: SizedBox(
+        height: 300,
         child: TextFormField(
-              maxLines: 50,
+          maxLines: 50,
           autofocus: true,
           validator: (value) {
             if (value == null) return "Formulario vacio";

@@ -26,7 +26,7 @@ class _HomeOncologoState extends State<HomeOncologo> {
   }
 
   final List<Widget> _body = [
-    const NewReportScreen(),
+    const SelectPatient(),
     const ReportListScreen(),
     const ProfileScreen(),
   ];

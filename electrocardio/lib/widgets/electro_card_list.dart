@@ -14,6 +14,8 @@ class ElectroCardList extends StatelessWidget {
     final w = MediaQuery.of(context).size.width;
 
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 5,
       child: Column(
         children: [
           Container(
