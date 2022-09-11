@@ -9,19 +9,30 @@ class ReportListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: ListView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
           children: [
             Text(
               "Listado de reportes",
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
               style: GoogleFonts.rubik(
                 fontSize: 20,
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(
+              height: w * 0.05,
+            ),
+            Text(
+              "Aqui encontrara un listado de todos los reportes enviados junto con su respectivo analisis",
+              textAlign: TextAlign.left,
+              style: GoogleFonts.rubik(
+                fontSize: 16,
               ),
             ),
             const SizedBox(

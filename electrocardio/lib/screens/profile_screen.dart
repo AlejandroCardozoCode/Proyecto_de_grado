@@ -16,15 +16,6 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            Text(
-              "Datos del perfil",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.rubik(
-                fontSize: 25,
-                color: Colors.red,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
             const SizedBox(
               height: 40,
             ),
@@ -57,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
                   child: Text(
                     "Cerrar Sesion",
                     style: GoogleFonts.rubik(
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                 ),

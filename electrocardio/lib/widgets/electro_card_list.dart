@@ -14,72 +14,73 @@ class ElectroCardList extends StatelessWidget {
     final w = MediaQuery.of(context).size.width;
 
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 5,
       child: Column(
         children: [
-          Container(
-            margin: const EdgeInsets.all(20),
-            child: ListTile(
-              leading: const ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                child: Image(
-                  image: AssetImage("assets/img/electro_placeholder2.png"),
-                ),
+          const SizedBox(
+            height: 10,
+          ),
+          ListTile(
+            leading: const ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              child: Image(
+                image: AssetImage("assets/img/electro_placeholder2.png"),
               ),
-              title: Text(
-                "Paciente: $patientName",
-                style: GoogleFonts.rubik(),
-              ),
-              subtitle: Text(
-                "Fecha: $reportDate",
-                style: GoogleFonts.rubik(),
-              ),
+            ),
+            title: Text(
+              "Paciente: $patientName",
+              style: GoogleFonts.rubik(),
+            ),
+            subtitle: Text(
+              "Fecha: $reportDate",
+              style: GoogleFonts.rubik(),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: w * 0.4,
+                width: w * 0.25,
                 child: TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, "electroView");
                   },
                   child: Text(
-                    "Ver electrocardiograma",
-                    maxLines: 2,
+                    "Ver\nImagen",
+                    maxLines: 3,
                     textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.rubik(
-                      fontSize: 15,
+                      fontSize: 14,
                     ),
                   ),
                 ),
               ),
               SizedBox(
-                width: w * 0.2,
+                width: w * 0.25,
                 child: TextButton(
                   onPressed: () {},
                   child: Text(
-                    "Ver resumen",
+                    "Ver Resumen",
                     maxLines: 2,
                     textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.rubik(
-                      fontSize: 15,
+                      fontSize: 14,
                     ),
                   ),
                 ),
               ),
               SizedBox(
-                width: w * 0.2,
+                width: w * 0.25,
                 child: TextButton(
                   onPressed: () {},
                   child: Text(
-                    "Ver reporte",
+                    "Ver Reporte",
                     maxLines: 2,
                     textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.rubik(
-                      fontSize: 15,
+                      fontSize: 14,
                     ),
                   ),
                 ),
@@ -87,7 +88,7 @@ class ElectroCardList extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 20,
+            height: 15,
           ),
         ],
       ),

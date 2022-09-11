@@ -30,13 +30,19 @@ class CustomPatientBanner extends StatelessWidget {
               SizedBox(
                 width: w * 0.1,
               ),
-              Icon(icon, color: ThemeApp.primary),
+              Icon(
+                icon,
+                color: ThemeApp.primary,
+                size: 30,
+              ),
               SizedBox(
-                width: w * 0.15,
+                width: w * 0.1,
               ),
               Text(
                 text,
-                style: GoogleFonts.rubik(),
+                style: GoogleFonts.rubik(
+                  fontSize: 14,
+                ),
               ),
             ],
           ),

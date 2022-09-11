@@ -44,6 +44,10 @@ class _AppNavBarState extends State<AppNavBar> {
                 icon: Icons.person,
                 text: " Perfil",
               ),
+              GButton(
+                icon: Icons.credit_card,
+                text: " Pagos",
+              ),
             ],
           ),
         ),

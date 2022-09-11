@@ -9,3 +9,4 @@ export 'select_patient_screen.dart';
 export 'new_patient_screen.dart';
 export 'home_oncologo.dart';
 export 'electro_view.dart';
+export 'payment_screen.dart';

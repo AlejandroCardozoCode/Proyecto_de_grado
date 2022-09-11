@@ -29,6 +29,7 @@ class _HomeOncologoState extends State<HomeOncologo> {
     const SelectPatient(),
     const ReportListScreen(),
     const ProfileScreen(),
+    const PaymentScreen(),
   ];
   @override
   Widget build(BuildContext context) {

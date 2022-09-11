@@ -39,9 +39,9 @@ class ProfileInfoCard extends StatelessWidget {
               Text(
                 "$name $lastName",
                 style: GoogleFonts.rubik(
-                  fontSize: 20,
-                  color: ThemeApp.appRed,
-                ),
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600),
               ),
               const SizedBox(
                 height: 30,

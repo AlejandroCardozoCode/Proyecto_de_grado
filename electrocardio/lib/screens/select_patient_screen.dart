@@ -16,17 +16,20 @@ class SelectPatient extends StatelessWidget {
           children: [
             ProfileData(),
             SizedBox(
-              height: w * 0.1,
+              height: w * 0.06,
             ),
             Container(
+              width: w,
               margin: const EdgeInsets.only(
+                left: 25,
                 bottom: 10,
               ),
               child: Text(
                 "Nuevo reporte",
                 style: GoogleFonts.rubik(
-                  color: ThemeApp.appRed,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -37,8 +40,9 @@ class SelectPatient extends StatelessWidget {
               ),
               child: Text(
                 "Para crear un nuevo reporte por favor seleccione un paciente existente o ingrese un nuevo paciente al sistema",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.rubik(),
+                style: GoogleFonts.rubik(
+                  fontSize: 16,
+                ),
               ),
             ),
             const CustomPatientBanner(

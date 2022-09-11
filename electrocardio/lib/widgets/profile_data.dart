@@ -28,9 +28,11 @@ class _ProfileDataState extends State<ProfileData> {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Nombre Doctor",
+                  textAlign: TextAlign.left,
                   style: GoogleFonts.rubik(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -39,12 +41,14 @@ class _ProfileDataState extends State<ProfileData> {
                 ),
                 Text(
                   "Especialidad",
+                  textAlign: TextAlign.left,
                   style: GoogleFonts.rubik(
                     fontSize: 15,
                   ),
                 ),
                 Text(
                   "Identificacion",
+                  textAlign: TextAlign.left,
                   style: GoogleFonts.rubik(
                     fontSize: 12,
                   ),

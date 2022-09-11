@@ -26,7 +26,8 @@ class ThemeApp {
       style: ElevatedButton.styleFrom(
         primary: primary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        elevation: 10,
+        elevation: 5,
+        shadowColor: const Color.fromARGB(56, 158, 158, 158),
       ),
     ),
     floatingActionButtonTheme:
@@ -34,7 +35,14 @@ class ThemeApp {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         primary: primary,
-        textStyle: TextStyle(color: Colors.white),
+        textStyle: const TextStyle(color: Colors.white),
+      ),
+    ),
+    cardTheme: CardTheme(
+      elevation: 5,
+      shadowColor: const Color.fromARGB(56, 158, 158, 158),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
       ),
     ),
   );

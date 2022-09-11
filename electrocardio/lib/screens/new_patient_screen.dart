@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/theme.dart';
 import '../widgets/widgets.dart';
@@ -11,25 +12,26 @@ class NewPatientScreen extends StatefulWidget {
 }
 
 class _NewPatientScreenState extends State<NewPatientScreen> {
+  String birthDate = "Ingrese fecha de nacimiento";
+  final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
+  final Map<String, String> formValues = {
+    "id": "",
+    "firstName": "",
+    "lastName": "",
+    "phone": "",
+    "gender": "",
+    "birthDate": "",
+    "address": "",
+    "maritalCode": "",
+    "marialText": "",
+  };
+
   @override
   Widget build(BuildContext context) {
-    bool terms = false;
-    final Map<String, String> formValues = {
-      "id": "",
-      "firstName": "",
-      "lastName": "",
-      "phone": "",
-      "gender": "",
-      "birthDate": "",
-      "address": "",
-      "maritalCode": "",
-      "marialText": "",
-    };
-    final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
-
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    final w = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           physics: const BouncingScrollPhysics(),
           child: Form(
@@ -44,7 +46,16 @@ class _NewPatientScreenState extends State<NewPatientScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 10,
+                ),
+                Text(
+                  "Ingrese los siguientes datos del paciente",
+                  style: GoogleFonts.rubik(
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 CustomForm(
                   labelText: "Cedula Paciente",
@@ -148,10 +159,52 @@ class _NewPatientScreenState extends State<NewPatientScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                CustomForm(
-                  labelText: "fecha",
-                  formField: 'birthDate',
-                  formValues: formValues,
+                Container(
+                  width: w * 0.85,
+                  child: Text(
+                    "Fecha nacimiento",
+                    style: GoogleFonts.rubik(
+                      color: ThemeApp.primary,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.transparent,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    side: BorderSide(
+                      width: 1,
+                      color: ThemeApp.primary,
+                    ),
+                  ),
+                  child: SizedBox(
+                    height: 50,
+                    child: Center(
+                      child: Text(
+                        birthDate,
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.rubik(
+                          color: const Color.fromARGB(255, 124, 124, 124),
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    DatePicker.showDatePicker(
+                      context,
+                      maxTime: DateTime.now(),
+                      onConfirm: (date) {
+                        setState(() {
+                          birthDate = "${date.year}-${date.month}-${date.day}";
+                          formValues["birthDate"] = birthDate;
+                        });
+                      },
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 30,
@@ -161,6 +214,7 @@ class _NewPatientScreenState extends State<NewPatientScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    print(formValues);
                     Navigator.pushNamed(context, "contactPatientInfo");
                   },
                   style: ElevatedButton.styleFrom(

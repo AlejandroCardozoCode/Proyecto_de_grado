@@ -12,23 +12,22 @@ class ContactPatientInfo extends StatefulWidget {
 }
 
 class _ContactPatientInfoState extends State<ContactPatientInfo> {
+  final Map<String, String> formValues = {
+    "contactCode": "",
+    "contactTextCode": "",
+    "contactFirstName": "",
+    "contactLastName": "",
+    "contactPhone": "",
+    "contactGender": "",
+    "contactAddress": "",
+  };
+  final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    bool terms = false;
-    final Map<String, String> formValues = {
-      "contactCode": "",
-      "contactTextCode": "",
-      "contactFirstName": "",
-      "contactLastName": "",
-      "contactPhone": "",
-      "contactGender": "",
-      "contactAddress": "",
-    };
-    final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
-
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           physics: const BouncingScrollPhysics(),
           child: Form(
@@ -47,14 +46,13 @@ class _ContactPatientInfoState extends State<ContactPatientInfo> {
                 ),
                 Text(
                   "Llene estos datos con informacion del contacto de emergencia del paciente",
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                   style: GoogleFonts.rubik(
-                    color: ThemeApp.primary,
-                    fontSize: 13,
+                    fontSize: 14,
                   ),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 CustomForm(
                   labelText: "Nombre",
