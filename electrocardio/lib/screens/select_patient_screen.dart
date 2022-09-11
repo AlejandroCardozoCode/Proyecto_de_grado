@@ -1,7 +1,9 @@
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import '../models/fhir/practitioner_fhir.dart';
 import '../widgets/widgets.dart';
 
 class SelectPatient extends StatelessWidget {
@@ -9,12 +11,19 @@ class SelectPatient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppPractitioner practitioner = context.watch<AppPractitioner>();
     final w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
-            ProfileData(),
+            ProfileData(
+              practitionerName:
+                  "${practitioner.firstName} ${practitioner.lastName}",
+              id: practitioner.id,
+              role: practitioner.role,
+              imgUrl: practitioner.imgUrl,
+            ),
             SizedBox(
               height: w * 0.06,
             ),
@@ -53,7 +62,7 @@ class SelectPatient extends StatelessWidget {
             const CustomPatientBanner(
               icon: Icons.format_list_bulleted_sharp,
               text: "Seleccionar paciente",
-              route: "login",
+              route: "patientList",
             )
           ],
         ),

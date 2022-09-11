@@ -27,7 +27,7 @@ class _AppNavBarState extends State<AppNavBar> {
             activeColor: Colors.white,
             color: Colors.white,
             tabBackgroundColor: Colors.white.withOpacity(0.1),
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             onTabChange: (index) {
               widget.currentIndex(index);
             },
@@ -43,10 +43,6 @@ class _AppNavBarState extends State<AppNavBar> {
               GButton(
                 icon: Icons.person,
                 text: " Perfil",
-              ),
-              GButton(
-                icon: Icons.credit_card,
-                text: " Pagos",
               ),
             ],
           ),

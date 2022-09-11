@@ -18,14 +18,6 @@ class _ElectroCardState extends State<ElectroCard> {
   File fileImage = File('');
   bool loadImage = false;
 
-  /*
-    XFile? _image;
-    Future getImage() async {
-      final image = await ImagePicker.pickImage(source: ImageSource.camera);
-      if (image == null) return;
-      _image = image;
-    }
-*/
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -63,18 +55,22 @@ class _ElectroCardState extends State<ElectroCard> {
               const SizedBox(
                 height: 20,
               ),
-              Text(
-                "Tomar foto de electrocardiograma (EGC)",
-                style: GoogleFonts.rubik(
-                  color: ThemeApp.appRed,
-                  fontSize: 15,
+              FittedBox(
+                child: Text(
+                  "Tomar foto de electrocardiograma (EGC)",
+                  style: GoogleFonts.rubik(
+                    color: ThemeApp.appRed,
+                    fontSize: 15,
+                  ),
                 ),
               ),
-              Text(
-                "Por favor, intente hacer la toma lo mejor posible",
-                style: GoogleFonts.rubik(
-                  color: Colors.grey,
-                  fontSize: 12,
+              FittedBox(
+                child: Text(
+                  "Por favor, intente hacer la toma lo mejor posible",
+                  style: GoogleFonts.rubik(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
                 ),
               )
             ],

@@ -1,8 +1,7 @@
-import 'package:electrocardio/models/practitioner.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:fhir/stu3/resource_types/resource_types.enums.dart';
 import 'package:flutter/material.dart';
-
+import '../models/fhir/practitioner_fhir.dart';
 import '../widgets/widgets.dart';
 import 'package:fhir/r4.dart' as r4;
 
@@ -189,17 +188,6 @@ class _RegistryScreenState extends State<RegistryScreen> {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, "profilePicture");
-                      var pac = AppPractitioner(
-                              active: "true",
-                              id: formValues["id"],
-                              firstName: formValues["firstName"],
-                              lastName: formValues["lastName"],
-                              email: formValues["email"],
-                              address: formValues["address"],
-                              gender: formValues["gender"],
-                              birthDate: formValues["birthDate"])
-                          .generatePractitioner;
-                      print(pac);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: ThemeApp.appRed,

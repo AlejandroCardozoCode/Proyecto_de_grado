@@ -1,3 +1,4 @@
+import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomForm extends StatelessWidget {
@@ -22,26 +23,30 @@ class CustomForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: inputType,
-      obscureText: protectedText,
-      autofocus: false,
-      textCapitalization: TextCapitalization.words,
-      onChanged: (value) {
-        formValues[formField] = value;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Formulario No Valido";
-        }
-      },
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText,
-        helperText: helperText,
-        filled: true,
-        fillColor: Colors.white,
+    return Card(
+      elevation: 5,
+      shadowColor: ThemeApp.primary.withOpacity(0.5),
+      child: TextFormField(
+        keyboardType: inputType,
+        obscureText: protectedText,
+        autofocus: false,
+        textCapitalization: TextCapitalization.words,
+        onChanged: (value) {
+          formValues[formField] = value;
+        },
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        decoration: InputDecoration(
+          hintText: hintText,
+          labelText: labelText,
+          helperText: helperText,
+          filled: true,
+          fillColor: Colors.white,
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "Formulario No Valido";
+          }
+        },
       ),
     );
   }

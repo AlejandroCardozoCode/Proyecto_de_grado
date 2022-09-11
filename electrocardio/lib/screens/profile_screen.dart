@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import '../models/fhir/practitioner_fhir.dart';
 import '../theme/theme.dart';
 import '../widgets/widgets.dart';
 
@@ -9,6 +11,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppPractitioner practitioner = context.watch<AppPractitioner>();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -19,20 +22,14 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            const CircleAvatar(
+            CircleAvatar(
               maxRadius: 70,
-              backgroundImage: AssetImage("assets/img/profile_placeholder.png"),
+              backgroundImage: NetworkImage(practitioner.imgUrl),
             ),
             const SizedBox(
               height: 30,
             ),
-            const ProfileInfoCard(
-              address: 'calle 100',
-              birthDate: '13-12-1998',
-              email: 'dfjslfdjslf@gmial.com',
-              lastName: 'Cardozo',
-              name: 'Diego',
-            ),
+            const ProfileInfoCard(),
             const SizedBox(
               height: 50,
             ),

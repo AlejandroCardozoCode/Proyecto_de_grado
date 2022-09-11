@@ -23,28 +23,31 @@ class CustomPatientBanner extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         margin: const EdgeInsets.all(20),
-        child: SizedBox(
+        child: Container(
           height: w * 0.3,
-          child: Row(
-            children: [
-              SizedBox(
-                width: w * 0.1,
+          child: FittedBox(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 40),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: w * 0.1,
+                  ),
+                  Icon(
+                    icon,
+                    color: ThemeApp.primary,
+                    size: 30,
+                  ),
+                  SizedBox(
+                    width: w * 0.1,
+                  ),
+                  Text(
+                    text,
+                    style: GoogleFonts.rubik(),
+                  ),
+                ],
               ),
-              Icon(
-                icon,
-                color: ThemeApp.primary,
-                size: 30,
-              ),
-              SizedBox(
-                width: w * 0.1,
-              ),
-              Text(
-                text,
-                style: GoogleFonts.rubik(
-                  fontSize: 14,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

@@ -64,7 +64,7 @@ class _NewPatientScreenState extends State<NewPatientScreen> {
                   formValues: formValues,
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 CustomForm(
                   labelText: "Nombre",
@@ -72,7 +72,7 @@ class _NewPatientScreenState extends State<NewPatientScreen> {
                   formValues: formValues,
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 CustomForm(
                   labelText: "Apellido",
@@ -80,7 +80,7 @@ class _NewPatientScreenState extends State<NewPatientScreen> {
                   formValues: formValues,
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 CustomForm(
                   labelText: "Celular",
@@ -89,33 +89,37 @@ class _NewPatientScreenState extends State<NewPatientScreen> {
                   formValues: formValues,
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
-                DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: "Genero",
-                    ),
-                    items: const [
-                      DropdownMenuItem(
-                        value: "G1",
-                        child: Text("Hombre"),
+                Card(
+                  elevation: 5,
+                  shadowColor: ThemeApp.primary.withOpacity(0.5),
+                  child: DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        labelText: "Genero",
                       ),
-                      DropdownMenuItem(
-                        value: "G2",
-                        child: Text("Mujer"),
-                      ),
-                      DropdownMenuItem(
-                        value: "G3",
-                        child: Text("Otro"),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      formValues["gender"] = value ?? "None";
-                    }),
+                      items: const [
+                        DropdownMenuItem(
+                          value: "G1",
+                          child: Text("Hombre"),
+                        ),
+                        DropdownMenuItem(
+                          value: "G2",
+                          child: Text("Mujer"),
+                        ),
+                        DropdownMenuItem(
+                          value: "G3",
+                          child: Text("Otro"),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        formValues["gender"] = value ?? "None";
+                      }),
+                ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 CustomForm(
                   labelText: "Direccion",
@@ -123,41 +127,45 @@ class _NewPatientScreenState extends State<NewPatientScreen> {
                   formValues: formValues,
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
-                DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: "Estado civil",
-                    ),
-                    items: const [
-                      DropdownMenuItem(
-                        value: "D",
-                        child: Text("Divorciado"),
+                Card(
+                  elevation: 5,
+                  shadowColor: ThemeApp.primary.withOpacity(0.5),
+                  child: DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        labelText: "Estado civil",
                       ),
-                      DropdownMenuItem(
-                        value: "L",
-                        child: Text("Legalmente separado"),
-                      ),
-                      DropdownMenuItem(
-                        value: "M",
-                        child: Text("Casado"),
-                      ),
-                      DropdownMenuItem(
-                        value: "S",
-                        child: Text("Nunca casado"),
-                      ),
-                      DropdownMenuItem(
-                        value: "W",
-                        child: Text("Viudo"),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      formValues["gender"] = value ?? "None";
-                    }),
+                      items: const [
+                        DropdownMenuItem(
+                          value: "D",
+                          child: Text("Divorciado"),
+                        ),
+                        DropdownMenuItem(
+                          value: "L",
+                          child: Text("Legalmente separado"),
+                        ),
+                        DropdownMenuItem(
+                          value: "M",
+                          child: Text("Casado"),
+                        ),
+                        DropdownMenuItem(
+                          value: "S",
+                          child: Text("Nunca casado"),
+                        ),
+                        DropdownMenuItem(
+                          value: "W",
+                          child: Text("Viudo"),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        formValues["gender"] = value ?? "None";
+                      }),
+                ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 Container(
                   width: w * 0.85,
@@ -168,32 +176,8 @@ class _NewPatientScreenState extends State<NewPatientScreen> {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    side: BorderSide(
-                      width: 1,
-                      color: ThemeApp.primary,
-                    ),
-                  ),
-                  child: SizedBox(
-                    height: 50,
-                    child: Center(
-                      child: Text(
-                        birthDate,
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.rubik(
-                          color: const Color.fromARGB(255, 124, 124, 124),
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     DatePicker.showDatePicker(
                       context,
                       maxTime: DateTime.now(),
@@ -205,6 +189,23 @@ class _NewPatientScreenState extends State<NewPatientScreen> {
                       },
                     );
                   },
+                  child: Card(
+                    elevation: 5,
+                    shadowColor: ThemeApp.primary.withOpacity(0.5),
+                    child: SizedBox(
+                      height: 50,
+                      child: Center(
+                        child: Text(
+                          birthDate,
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.rubik(
+                            color: const Color.fromARGB(255, 124, 124, 124),
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 30,

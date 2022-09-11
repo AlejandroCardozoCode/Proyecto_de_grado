@@ -1,15 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProfileData extends StatefulWidget {
-  ProfileData({Key? key}) : super(key: key);
+class ProfileData extends StatelessWidget {
+  final String practitionerName;
+  final String role;
+  final String id;
+  final String imgUrl;
+  const ProfileData(
+      {Key? key,
+      required this.practitionerName,
+      required this.role,
+      required this.id,
+      required this.imgUrl})
+      : super(key: key);
 
-  @override
-  State<ProfileData> createState() => _ProfileDataState();
-}
-
-class _ProfileDataState extends State<ProfileData> {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
@@ -19,9 +25,12 @@ class _ProfileDataState extends State<ProfileData> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               maxRadius: 50,
-              backgroundImage: AssetImage("assets/img/profile_placeholder.png"),
+              backgroundColor: ThemeApp.primary,
+              backgroundImage: NetworkImage(
+                imgUrl,
+              ),
             ),
             const SizedBox(
               width: 30,
@@ -31,7 +40,7 @@ class _ProfileDataState extends State<ProfileData> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Nombre Doctor",
+                  practitionerName,
                   textAlign: TextAlign.left,
                   style: GoogleFonts.rubik(
                     fontSize: 20,
@@ -40,14 +49,14 @@ class _ProfileDataState extends State<ProfileData> {
                   ),
                 ),
                 Text(
-                  "Especialidad",
+                  role,
                   textAlign: TextAlign.left,
                   style: GoogleFonts.rubik(
                     fontSize: 15,
                   ),
                 ),
                 Text(
-                  "Identificacion",
+                  id,
                   textAlign: TextAlign.left,
                   style: GoogleFonts.rubik(
                     fontSize: 12,

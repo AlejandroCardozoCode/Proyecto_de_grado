@@ -1,8 +1,10 @@
+import 'package:electrocardio/models/fhir/practitioner_fhir.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:electrocardio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 class NewReportScreen extends StatelessWidget {
   const NewReportScreen({Key? key}) : super(key: key);
@@ -10,15 +12,19 @@ class NewReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
           child: Column(
             children: [
-              Image(
-                image: AssetImage("assets/img/banner.png"),
-                width: w * 0.8,
+              SizedBox(
+                height: 10,
               ),
+              Image(
+                image: const AssetImage("assets/img/banner.png"),
+                width: w * 0.6,
+              ),
+              //PatientBanner(enableOnTap: false),
               Text(
                 "Paso 1 de de 2",
                 style: GoogleFonts.rubik(
@@ -50,7 +56,7 @@ class NewReportScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               )
             ],

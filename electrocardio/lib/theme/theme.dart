@@ -7,21 +7,30 @@ class ThemeApp {
   static final ThemeData light = ThemeData.light().copyWith(
     primaryColor: primary,
     inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide.none,
+        )),
+    /*
+    inputDecorationTheme: InputDecorationTheme(
       floatingLabelStyle: TextStyle(
         color: primary,
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: primary),
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(20),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: primary),
         borderRadius: BorderRadius.circular(15),
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(20),
       ),
     ),
+    */
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         primary: primary,

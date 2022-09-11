@@ -79,29 +79,33 @@ class _ContactPatientInfoState extends State<ContactPatientInfo> {
                 const SizedBox(
                   height: 30,
                 ),
-                DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: "Genero",
-                    ),
-                    items: const [
-                      DropdownMenuItem(
-                        value: "G1",
-                        child: Text("Hombre"),
+                Card(
+                  elevation: 5,
+                  shadowColor: ThemeApp.primary.withOpacity(0.5),
+                  child: DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        labelText: "Genero",
                       ),
-                      DropdownMenuItem(
-                        value: "G2",
-                        child: Text("Mujer"),
-                      ),
-                      DropdownMenuItem(
-                        value: "G3",
-                        child: Text("Otro"),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      formValues["contactGender"] = value ?? "None";
-                    }),
+                      items: const [
+                        DropdownMenuItem(
+                          value: "G1",
+                          child: Text("Hombre"),
+                        ),
+                        DropdownMenuItem(
+                          value: "G2",
+                          child: Text("Mujer"),
+                        ),
+                        DropdownMenuItem(
+                          value: "G3",
+                          child: Text("Otro"),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        formValues["contactGender"] = value ?? "None";
+                      }),
+                ),
                 const SizedBox(
                   height: 30,
                 ),
@@ -113,37 +117,41 @@ class _ContactPatientInfoState extends State<ContactPatientInfo> {
                 const SizedBox(
                   height: 30,
                 ),
-                DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: "Relacion",
-                    ),
-                    items: const [
-                      DropdownMenuItem(
-                        value: "BP",
-                        child: Text("Contacto de emergencia"),
+                Card(
+                  elevation: 5,
+                  shadowColor: ThemeApp.primary.withOpacity(0.5),
+                  child: DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        labelText: "Relacion",
                       ),
-                      DropdownMenuItem(
-                        value: "E",
-                        child: Text("Empleador"),
-                      ),
-                      DropdownMenuItem(
-                        value: "F",
-                        child: Text("Agente federal"),
-                      ),
-                      DropdownMenuItem(
-                        value: "I",
-                        child: Text("Compañia de seguros"),
-                      ),
-                      DropdownMenuItem(
-                        value: "U",
-                        child: Text("Desconocido"),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      formValues["gender"] = value ?? "None";
-                    }),
+                      items: const [
+                        DropdownMenuItem(
+                          value: "BP",
+                          child: Text("Contacto de emergencia"),
+                        ),
+                        DropdownMenuItem(
+                          value: "E",
+                          child: Text("Empleador"),
+                        ),
+                        DropdownMenuItem(
+                          value: "F",
+                          child: Text("Agente federal"),
+                        ),
+                        DropdownMenuItem(
+                          value: "I",
+                          child: Text("Compañia de seguros"),
+                        ),
+                        DropdownMenuItem(
+                          value: "U",
+                          child: Text("Desconocido"),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        formValues["gender"] = value ?? "None";
+                      }),
+                ),
                 const SizedBox(
                   height: 30,
                 ),
