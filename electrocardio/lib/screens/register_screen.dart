@@ -57,6 +57,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     inputType: TextInputType.number,
                     formField: 'id',
                     formValues: formValues,
+                    validator: (value) {},
                   ),
                   const SizedBox(
                     height: 30,
@@ -65,6 +66,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     labelText: "Nombre",
                     formField: 'firstName',
                     formValues: formValues,
+                    validator: (value) {},
                   ),
                   const SizedBox(
                     height: 30,
@@ -73,6 +75,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     labelText: "Apellido",
                     formField: 'lastName',
                     formValues: formValues,
+                    validator: (value) {},
                   ),
                   const SizedBox(
                     height: 30,
@@ -82,6 +85,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     inputType: TextInputType.emailAddress,
                     formField: 'email',
                     formValues: formValues,
+                    validator: (value) {},
                   ),
                   const SizedBox(
                     height: 30,
@@ -91,6 +95,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     protectedText: true,
                     formField: 'pwd',
                     formValues: formValues,
+                    validator: (value) {},
                   ),
                   const SizedBox(
                     height: 30,
@@ -100,6 +105,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     protectedText: true,
                     formField: 'pwd2',
                     formValues: formValues,
+                    validator: (value) {},
                   ),
                   const SizedBox(
                     height: 30,
@@ -156,6 +162,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     labelText: "Direcction",
                     formField: 'address',
                     formValues: formValues,
+                    validator: (value) {},
                   ),
                   const SizedBox(
                     height: 30,
@@ -164,6 +171,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     labelText: "fecha",
                     formField: 'birthDate',
                     formValues: formValues,
+                    validator: (value) {},
                   ),
                   const SizedBox(
                     height: 30,

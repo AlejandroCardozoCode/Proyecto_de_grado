@@ -7,5 +7,6 @@ export 'custom_textfield.dart';
 export 'custom_patient_banner.dart';
 export 'nav_bar.dart';
 export 'profile_info_card.dart';
-export 'send_electro.dart';
+export 'alert_send_electro.dart';
 export 'patient_banner.dart';
+export 'alert_global.dart';

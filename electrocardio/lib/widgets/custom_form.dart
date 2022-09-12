@@ -7,6 +7,7 @@ class CustomForm extends StatelessWidget {
   final String? helperText;
   final TextInputType? inputType;
   final bool protectedText;
+  final String? Function(String?)? validator;
 
   final String formField;
   final Map<String, String> formValues;
@@ -19,6 +20,7 @@ class CustomForm extends StatelessWidget {
     this.protectedText = false,
     required this.formField,
     required this.formValues,
+    required this.validator,
   }) : super(key: key);
 
   @override
@@ -36,17 +38,15 @@ class CustomForm extends StatelessWidget {
         },
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
+          floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: hintText,
+          errorMaxLines: 2,
           labelText: labelText,
           helperText: helperText,
           filled: true,
           fillColor: Colors.white,
         ),
-        validator: (value) {
-          if (value!.isEmpty) {
-            return "Formulario No Valido";
-          }
-        },
+        validator: validator,
       ),
     );
   }

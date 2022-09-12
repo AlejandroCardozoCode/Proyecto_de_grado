@@ -13,47 +13,40 @@ class AppPractitioner with ChangeNotifier {
   late String birthDate;
   late String role;
   late String imgUrl;
+  late r4.Practitioner practitionerFHIR;
 
   late List<AppPatient> patientList = [];
+
+  addPatientToList(AppPatient patient) {
+    patientList.add(patient);
+  }
 
   generatePatients() {
     AppPatient newPatient = AppPatient();
     newPatient.setValues(
-        "123123",
-        "Estiben",
-        "Giraldo",
-        "319192929",
-        "Hombre",
-        "12-12-2001",
-        "calle 100",
-        "F2",
-        "Casado",
-        "33",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "");
+      "123123",
+      "Estiben",
+      "Giraldo",
+      "319192929",
+      "Hombre",
+      "12-12-2001",
+      "calle 100",
+      "F2",
+      "Casado",
+    );
     patientList.add(newPatient);
     newPatient = AppPatient();
     newPatient.setValues(
-        "456456",
-        "diego",
-        "Giraldo",
-        "319192929",
-        "Hombre",
-        "12-12-2001",
-        "calle 100",
-        "F2",
-        "Casado",
-        "33",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "");
+      "456456",
+      "diego",
+      "Giraldo",
+      "319192929",
+      "Hombre",
+      "12-12-2001",
+      "calle 100",
+      "F2",
+      "Casado",
+    );
     patientList.add(newPatient);
   }
 
@@ -111,6 +104,7 @@ class AppPractitioner with ChangeNotifier {
       gender: r4.Code(gender),
       birthDate: r4.Date(birthDate),
     );
+    practitionerFHIR = practitioner;
     return practitioner;
   }
 }

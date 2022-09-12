@@ -16,10 +16,9 @@ class PatientBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppPractitioner currentPractitioner = context.watch<AppPractitioner>();
     AppPatient currentPatient = context.watch<AppPatient>();
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Card(
         child: ListTile(
           shape: RoundedRectangleBorder(

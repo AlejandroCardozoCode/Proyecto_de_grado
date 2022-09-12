@@ -74,6 +74,6 @@ class ClinicalHistoryScreen extends StatelessWidget {
 
   void showSendElectroDialog(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => SendElectroDialog(),
+        builder: (_) => AlertSendElectro(),
       );
 }

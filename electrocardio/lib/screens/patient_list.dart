@@ -75,7 +75,6 @@ class _PatientListScreenState extends State<PatientListScreen> {
                   return PatientBanner(
                     enableOnTap: true,
                     bannerPatient: patientsList[index],
-                    index: index,
                   );
                 },
               ),

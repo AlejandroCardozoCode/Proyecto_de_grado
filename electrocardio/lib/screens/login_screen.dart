@@ -41,6 +41,7 @@ class LoginScreen extends StatelessWidget {
                         labelText: "Usuario",
                         formField: 'userName',
                         formValues: formValues,
+                        validator: (value) {},
                       ),
                       const SizedBox(
                         height: 30,
@@ -50,6 +51,7 @@ class LoginScreen extends StatelessWidget {
                         protectedText: true,
                         formField: 'pwd',
                         formValues: formValues,
+                        validator: (value) {},
                       ),
                       const SizedBox(
                         height: 30,
