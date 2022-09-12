@@ -1,20 +1,23 @@
+import 'package:electrocardio/models/fhir/patient_fhir.dart';
+import 'package:electrocardio/models/fhir/practitioner_fhir.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class PatientBanner extends StatelessWidget {
   final bool enableOnTap;
-  final String name;
-  final String id;
-  const PatientBanner(
-      {Key? key,
-      required this.enableOnTap,
-      required this.name,
-      required this.id})
-      : super(key: key);
+  final AppPatient bannerPatient;
+  const PatientBanner({
+    Key? key,
+    required this.enableOnTap,
+    required this.bannerPatient,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AppPractitioner currentPractitioner = context.watch<AppPractitioner>();
+    AppPatient currentPatient = context.watch<AppPatient>();
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: Card(
@@ -23,11 +26,11 @@ class PatientBanner extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           subtitle: Text(
-            "Cedula: ${id}",
+            "Cedula: ${bannerPatient.id}",
             style: GoogleFonts.rubik(),
           ),
           title: Text(
-            name,
+            bannerPatient.firstName,
             style: GoogleFonts.rubik(),
           ),
           leading: Icon(
@@ -36,7 +39,10 @@ class PatientBanner extends StatelessWidget {
             size: 50,
           ),
           onTap: () {
-            if (enableOnTap) Navigator.pushNamed(context, "newReport");
+            if (enableOnTap) {
+              currentPatient.setPatient(bannerPatient);
+              Navigator.pushNamed(context, "newReport");
+            }
           },
         ),
       ),

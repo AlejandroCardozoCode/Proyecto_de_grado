@@ -2,6 +2,7 @@ import 'package:electrocardio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/fhir/patient_fhir.dart';
 import '../models/fhir/practitioner_fhir.dart';
 import 'screens.dart';
 
@@ -18,6 +19,7 @@ class _HomeOncologoState extends State<HomeOncologo> {
   @override
   void initState() {
     super.initState();
+
     navBar = AppNavBar(
       currentIndex: (i) {
         setState(() {
@@ -33,6 +35,7 @@ class _HomeOncologoState extends State<HomeOncologo> {
     const ProfileScreen(),
     const PaymentScreen(),
   ];
+
   @override
   Widget build(BuildContext context) {
     context.read<AppPractitioner>().setValues(
@@ -50,10 +53,9 @@ class _HomeOncologoState extends State<HomeOncologo> {
         );
 
     return SafeArea(
-      child: Scaffold(
-        body: _body[index],
-        bottomNavigationBar: navBar,
-      ),
-    );
+        child: Scaffold(
+      body: _body[index],
+      bottomNavigationBar: navBar,
+    ));
   }
 }

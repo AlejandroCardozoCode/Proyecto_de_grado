@@ -27,6 +27,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
   @override
   Widget build(BuildContext context) {
     AppPractitioner practitioner = context.watch<AppPractitioner>();
+
     if (applyFilter) {
       patientsList = practitioner.patientList
           .where((element) => element.id.contains(filter))
@@ -72,9 +73,10 @@ class _PatientListScreenState extends State<PatientListScreen> {
                 itemCount: patientsList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return PatientBanner(
-                      enableOnTap: true,
-                      name: patientsList[index].firstName,
-                      id: patientsList[index].id);
+                    enableOnTap: true,
+                    bannerPatient: patientsList[index],
+                    index: index,
+                  );
                 },
               ),
             ),

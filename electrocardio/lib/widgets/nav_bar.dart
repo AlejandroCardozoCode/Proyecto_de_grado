@@ -13,13 +13,10 @@ class AppNavBar extends StatefulWidget {
 class _AppNavBarState extends State<AppNavBar> {
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(15),
-        topLeft: Radius.circular(15),
-      ),
-      child: Container(
-        color: ThemeApp.primary,
+    return Container(
+      height: 70,
+      color: ThemeApp.primary,
+      child: FittedBox(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: GNav(
@@ -33,16 +30,19 @@ class _AppNavBarState extends State<AppNavBar> {
             },
             tabs: const [
               GButton(
+                gap: 10,
                 icon: Icons.monitor_heart_outlined,
-                text: " Reporte",
+                text: "Nuevo Reporte",
               ),
               GButton(
+                gap: 10,
                 icon: Icons.document_scanner_outlined,
-                text: " Historial",
+                text: "Historial Reportes",
               ),
               GButton(
+                gap: 10,
                 icon: Icons.person,
-                text: " Perfil",
+                text: "Perfil",
               ),
             ],
           ),

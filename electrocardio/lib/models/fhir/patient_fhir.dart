@@ -2,7 +2,44 @@ import 'package:fhir/r4.dart' as r4;
 import 'package:flutter/cupertino.dart';
 
 class AppPatient with ChangeNotifier {
-  AppPatient(
+  late String id;
+  late String firstName;
+  late String lastName;
+  late String phone;
+  late String gender;
+  late String birthDate;
+  late String address;
+  late String maritalCode;
+  late String maritalText;
+  late String contactCode;
+  late String contactTextCode;
+  late String contactFirstName;
+  late String contactLastName;
+  late String contactPhone;
+  late String contactGender;
+  late String contactAddress;
+
+  AppPatient();
+  void setPatient(AppPatient patient) {
+    id = patient.id;
+    firstName = patient.firstName;
+    lastName = patient.lastName;
+    phone = patient.phone;
+    gender = patient.gender;
+    birthDate = patient.birthDate;
+    address = patient.address;
+    maritalCode = patient.maritalCode;
+    maritalText = patient.maritalText;
+    contactCode = patient.contactCode;
+    contactTextCode = patient.contactTextCode;
+    contactFirstName = patient.contactFirstName;
+    contactLastName = patient.contactLastName;
+    contactPhone = patient.contactPhone;
+    contactGender = patient.contactGender;
+    contactAddress = patient.contactAddress;
+  }
+
+  void setValues(
     id,
     firstName,
     lastName,
@@ -37,22 +74,6 @@ class AppPatient with ChangeNotifier {
     this.contactGender = contactGender;
     this.contactAddress = contactAddress;
   }
-  late String id;
-  late String firstName;
-  late String lastName;
-  late String phone;
-  late String gender;
-  late String birthDate;
-  late String address;
-  late String maritalCode;
-  late String maritalText;
-  late String contactCode;
-  late String contactTextCode;
-  late String contactFirstName;
-  late String contactLastName;
-  late String contactPhone;
-  late String contactGender;
-  late String contactAddress;
 
   r4.Patient get generateFhirPatient {
     final patient = r4.Patient(

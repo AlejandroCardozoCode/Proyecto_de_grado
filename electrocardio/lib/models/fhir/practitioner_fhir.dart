@@ -14,10 +14,11 @@ class AppPractitioner with ChangeNotifier {
   late String role;
   late String imgUrl;
 
-  late List<AppPatient> patientList;
+  late List<AppPatient> patientList = [];
 
-  generatePatients() async {
-    AppPatient newPatient = AppPatient(
+  generatePatients() {
+    AppPatient newPatient = AppPatient();
+    newPatient.setValues(
         "123123",
         "Estiben",
         "Giraldo",
@@ -35,7 +36,8 @@ class AppPractitioner with ChangeNotifier {
         "",
         "");
     patientList.add(newPatient);
-    newPatient = AppPatient(
+    newPatient = AppPatient();
+    newPatient.setValues(
         "456456",
         "diego",
         "Giraldo",
@@ -53,8 +55,6 @@ class AppPractitioner with ChangeNotifier {
         "",
         "");
     patientList.add(newPatient);
-
-    await Future.delayed(Duration(microseconds: 1));
   }
 
   Future<void> setValues({
@@ -79,8 +79,7 @@ class AppPractitioner with ChangeNotifier {
     this.birthDate = birthDate;
     this.role = role;
     this.imgUrl = imgUrl;
-    this.patientList = [];
-    await Future.delayed(Duration(microseconds: 1));
+    await Future.delayed(const Duration(microseconds: 1));
     notifyListeners();
   }
 
