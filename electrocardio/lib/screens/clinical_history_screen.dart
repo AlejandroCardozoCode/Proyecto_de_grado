@@ -15,7 +15,7 @@ class ClinicalHistoryScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(children: [
             Image(
-              image: AssetImage("assets/img/banner.png"),
+              image: const AssetImage("assets/img/banner.png"),
               width: w * 0.8,
             ),
             Text(
@@ -25,7 +25,7 @@ class ClinicalHistoryScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
@@ -39,9 +39,14 @@ class ClinicalHistoryScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const CustomTextField(
-              hintText:
-                  "Por favor ingrese informacion relevante para el cardiologo",
+            const Card(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CustomTextField(
+                  hintText:
+                      "Por favor ingrese informacion relevante para el cardiologo",
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -51,7 +56,7 @@ class ClinicalHistoryScreen extends StatelessWidget {
                 showSendElectroDialog(context);
               },
               style: ElevatedButton.styleFrom(
-                primary: ThemeApp.appRed,
+                backgroundColor: ThemeApp.appRed,
               ),
               child: SizedBox(
                 height: 50,
@@ -74,6 +79,6 @@ class ClinicalHistoryScreen extends StatelessWidget {
 
   void showSendElectroDialog(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => AlertSendElectro(),
+        builder: (_) => const AlertSendElectro(),
       );
 }

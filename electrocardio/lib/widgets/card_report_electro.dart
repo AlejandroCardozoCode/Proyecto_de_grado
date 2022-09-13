@@ -1,18 +1,24 @@
+import 'package:electrocardio/widgets/card_pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ElectroCardList extends StatelessWidget {
+class CardReportElectro extends StatelessWidget {
   final String patientName;
   final String reportDate;
+  final String textReport;
+  final String textResume;
 
-  const ElectroCardList(
-      {Key? key, required this.patientName, required this.reportDate})
+  const CardReportElectro(
+      {Key? key,
+      required this.patientName,
+      required this.reportDate,
+      required this.textReport,
+      required this.textResume})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
-
     return Card(
       child: Column(
         children: [
@@ -58,7 +64,9 @@ class ElectroCardList extends StatelessWidget {
               SizedBox(
                 width: w * 0.25,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showAlert(context, textResume, "Resumen");
+                  },
                   child: Text(
                     "Ver Resumen",
                     maxLines: 2,
@@ -73,7 +81,9 @@ class ElectroCardList extends StatelessWidget {
               SizedBox(
                 width: w * 0.25,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showAlert(context, textReport, "Reporte");
+                  },
                   child: Text(
                     "Ver Reporte",
                     maxLines: 2,
@@ -87,11 +97,20 @@ class ElectroCardList extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
         ],
       ),
     );
   }
+
+  void showAlert(BuildContext context, String text, String tittle) =>
+      showDialog(
+        context: context,
+        builder: (_) => CardPopUp(
+          text: text,
+          tittle: tittle,
+        ),
+      );
 }

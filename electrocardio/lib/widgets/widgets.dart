@@ -1,4 +1,4 @@
-export 'electro_card_list.dart';
+export 'card_report_electro.dart';
 
 export 'custom_form.dart';
 export 'profile_data.dart';

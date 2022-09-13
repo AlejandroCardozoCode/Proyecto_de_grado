@@ -59,7 +59,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
                   },
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    hintText: "Busque paciente por cedula",
+                    hintText: "Buscar por cedula",
                     suffixIcon: Icon(
                       Icons.search,
                       color: ThemeApp.primary,
@@ -70,6 +70,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
             ),
             Expanded(
               child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemCount: patientsList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return PatientBanner(

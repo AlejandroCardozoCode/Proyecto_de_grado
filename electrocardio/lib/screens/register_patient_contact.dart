@@ -261,7 +261,7 @@ class _RegisterPatientContactState extends State<RegisterPatientContact> {
 
   void showAlert(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => AlertGlobal(
+        builder: (_) => const AlertGlobal(
             alertText: "Alguno de los campos no esta llenado correctamente"),
       );
 }
