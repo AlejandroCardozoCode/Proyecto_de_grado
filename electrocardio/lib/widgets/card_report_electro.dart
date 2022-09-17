@@ -2,6 +2,8 @@ import 'package:electrocardio/widgets/card_pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'widgets.dart';
+
 class CardReportElectro extends StatelessWidget {
   final String patientName;
   final String reportDate;
@@ -82,7 +84,11 @@ class CardReportElectro extends StatelessWidget {
                 width: w * 0.25,
                 child: TextButton(
                   onPressed: () {
-                    showAlert(context, textReport, "Reporte");
+                    if (textReport.isEmpty) {
+                      showAlert2(context);
+                    } else {
+                      showAlert(context, textReport, "Reporte");
+                    }
                   },
                   child: Text(
                     "Ver Reporte",
@@ -112,5 +118,11 @@ class CardReportElectro extends StatelessWidget {
           text: text,
           tittle: tittle,
         ),
+      );
+  void showAlert2(BuildContext context) => showDialog(
+        context: context,
+        builder: (_) => const AlertGlobal(
+            alertText:
+                "Aun no se ha generado el reporte para este electrocardiograma"),
       );
 }
