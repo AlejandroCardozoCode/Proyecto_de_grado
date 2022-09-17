@@ -38,7 +38,9 @@ class _HomeOncologoState extends State<HomeOncologo> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<AppPractitioner>().setValues(
+    // crear el practitioner de la aplicacion
+    //TODO se tiene que cargar desde un string ymal que va a estar en firebase
+    context.read<AppPractitioner>().create(
           firstName: "Diego",
           lastName: "Cardozo",
           id: "1023974032",
@@ -53,9 +55,10 @@ class _HomeOncologoState extends State<HomeOncologo> {
         );
 
     return SafeArea(
-        child: Scaffold(
-      body: _body[index],
-      bottomNavigationBar: navBar,
-    ));
+      child: Scaffold(
+        body: _body[index],
+        bottomNavigationBar: navBar,
+      ),
+    );
   }
 }

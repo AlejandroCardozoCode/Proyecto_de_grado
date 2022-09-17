@@ -220,6 +220,7 @@ class _RegisterPatientContactState extends State<RegisterPatientContact> {
                         isValidName &&
                         isValidPhone &&
                         isValidRelation) {
+                      //create patient emergency contact
                       currentPatientContact.setValues(
                           formValues["contactCode"],
                           formValues["contactTextCode"],
@@ -228,8 +229,9 @@ class _RegisterPatientContactState extends State<RegisterPatientContact> {
                           formValues["contactPhone"],
                           formValues["contactGender"],
                           formValues["contactAddress"]);
+
                       currentPatient.emergencyContact = currentPatientContact;
-                      currentPatient.generateFhirPatient;
+                      currentPatient.addEmergencyContact(currentPatientContact);
                       curentPractitioner.addPatientToList(currentPatient);
                       Navigator.popAndPushNamed(context, "newReport");
                     } else {

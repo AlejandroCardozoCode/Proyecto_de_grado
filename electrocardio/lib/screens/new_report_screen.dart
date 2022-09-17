@@ -1,3 +1,5 @@
+import 'package:electrocardio/models/fhir/diagnostic_report_fhir.dart';
+import 'package:electrocardio/models/fhir/observation_fhir.dart';
 import 'package:electrocardio/models/fhir/patient_fhir.dart';
 import 'package:electrocardio/models/fhir/practitioner_fhir.dart';
 import 'package:electrocardio/theme/theme.dart';

@@ -39,7 +39,7 @@ class PatientBanner extends StatelessWidget {
           ),
           onTap: () {
             if (enableOnTap) {
-              currentPatient.setPatient(bannerPatient);
+              currentPatient.copyPatient(bannerPatient);
               Navigator.pushNamed(context, "newReport");
             }
           },

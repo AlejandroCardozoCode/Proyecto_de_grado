@@ -12,22 +12,26 @@ class AppPatient with ChangeNotifier {
   late String address;
   late String maritalCode;
   late String maritalText;
+  late String practitionerId;
   late AppPatientContact emergencyContact;
   late r4.Patient patientFHIR;
   AppPatient();
-  void setPatient(AppPatient patient) {
-    id = patient.id;
-    firstName = patient.firstName;
-    lastName = patient.lastName;
-    phone = patient.phone;
-    gender = patient.gender;
-    birthDate = patient.birthDate;
-    address = patient.address;
-    maritalCode = patient.maritalCode;
-    maritalText = patient.maritalText;
+
+  void loadFromYaml(String patientYaml) {
+    r4.Patient patient = r4.Patient.fromYaml(patientYaml);
+    id = patient.identifier![0].value!;
+    firstName = patient.name![0].given![0];
+    lastName = patient.name![0].family!;
+    phone = patient.telecom![0].value!;
+    gender = patient.gender!.value!;
+    birthDate = patient.birthDate!.valueString;
+    address = patient.address![0].text!;
+    maritalCode = patient.maritalStatus!.coding![0].display!;
+    maritalText = patient.maritalStatus!.text!;
+    practitionerId = patient.generalPractitioner![0].reference!;
   }
 
-  void setValues(
+  void setPatientValues(
     id,
     firstName,
     lastName,
@@ -37,6 +41,7 @@ class AppPatient with ChangeNotifier {
     address,
     maritalCode,
     maritalText,
+    practitionerId,
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -47,14 +52,34 @@ class AppPatient with ChangeNotifier {
     this.address = address;
     this.maritalCode = maritalCode;
     this.maritalText = maritalText;
+    this.practitionerId = practitionerId;
+  }
+
+  void copyPatient(AppPatient patient) {
+    this.id = patient.id;
+    this.firstName = patient.firstName;
+    this.lastName = patient.lastName;
+    this.phone = patient.phone;
+    this.gender = patient.gender;
+    this.birthDate = patient.birthDate;
+    this.address = patient.address;
+    this.maritalCode = patient.maritalCode;
+    this.maritalText = patient.maritalText;
+    this.practitionerId = patient.practitionerId;
   }
 
   addEmergencyContact(AppPatientContact contact) {
     emergencyContact = contact;
   }
 
-  r4.Patient generateFhirPatient() {
+  void createFHIR() {
     final patient = r4.Patient(
+      generalPractitioner: <r4.Reference>[
+        r4.Reference(
+          reference: practitionerId,
+          type: r4.FhirUri("Practitioner"),
+        ),
+      ],
       active: r4.Boolean("true"),
       identifier: <r4.Identifier>[r4.Identifier(value: id)],
       name: <r4.HumanName>[
@@ -121,7 +146,6 @@ class AppPatient with ChangeNotifier {
         ),
       ],
     );
-    this.patientFHIR = patient;
-    return patient;
+    patientFHIR = patient;
   }
 }

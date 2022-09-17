@@ -1,3 +1,5 @@
+import 'package:electrocardio/models/fhir/diagnostic_report_fhir.dart';
+import 'package:electrocardio/models/fhir/observation_fhir.dart';
 import 'package:electrocardio/models/fhir/patient_fhir.dart';
 import 'package:fhir/r4.dart' as r4;
 import 'package:flutter/cupertino.dart';
@@ -13,9 +15,10 @@ class AppPractitioner with ChangeNotifier {
   late String birthDate;
   late String role;
   late String imgUrl;
-  late r4.Practitioner practitionerFHIR;
 
   late List<AppPatient> patientList = [];
+  late List<AppObservation> observationList = [];
+  late List<AppDiagosticReport> diagnosticList = [];
 
   addPatientToList(AppPatient patient) {
     patientList.add(patient);
@@ -23,7 +26,7 @@ class AppPractitioner with ChangeNotifier {
 
   generatePatients() {
     AppPatient newPatient = AppPatient();
-    newPatient.setValues(
+    newPatient.setPatientValues(
       "123123",
       "Estiben",
       "Giraldo",
@@ -33,10 +36,11 @@ class AppPractitioner with ChangeNotifier {
       "calle 100",
       "F2",
       "Casado",
+      this.id,
     );
-    patientList.add(newPatient);
+    patientList.insert(0, newPatient);
     newPatient = AppPatient();
-    newPatient.setValues(
+    newPatient.setPatientValues(
       "456456",
       "diego",
       "Giraldo",
@@ -46,11 +50,28 @@ class AppPractitioner with ChangeNotifier {
       "calle 100",
       "F2",
       "Casado",
+      this.id,
     );
-    patientList.add(newPatient);
+    patientList.insert(0, newPatient);
   }
 
-  Future<void> setValues({
+  void loadFromYaml(String practitionerYaml) async {
+    r4.Practitioner practitioner = r4.Practitioner.fromYaml(practitionerYaml);
+    active = practitioner.active.toString();
+    id = practitioner.identifier![0].value!;
+    firstName = practitioner.name![0].given![0];
+    lastName = practitioner.name![0].family!;
+    email = practitioner.telecom![0].value!;
+    address = practitioner.address![0].text!;
+    gender = practitioner.gender!.value!;
+    birthDate = practitioner.birthDate.toString();
+    imgUrl = practitioner.photo![0].url.toString();
+    role = practitioner.qualification![0].code.text!;
+    await Future.delayed(const Duration(microseconds: 1));
+    notifyListeners();
+  }
+
+  create({
     required active,
     required id,
     required firstName,
@@ -62,21 +83,6 @@ class AppPractitioner with ChangeNotifier {
     required role,
     required imgUrl,
   }) async {
-    this.active = active;
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.address = address;
-    this.gender = gender;
-    this.birthDate = birthDate;
-    this.role = role;
-    this.imgUrl = imgUrl;
-    await Future.delayed(const Duration(microseconds: 1));
-    notifyListeners();
-  }
-
-  r4.Practitioner get generatePractitioner {
     final practitioner = r4.Practitioner(
       active: r4.Boolean(active),
       identifier: <r4.Identifier>[r4.Identifier(value: id)],
@@ -103,8 +109,59 @@ class AppPractitioner with ChangeNotifier {
       ],
       gender: r4.Code(gender),
       birthDate: r4.Date(birthDate),
+      photo: <r4.Attachment>[
+        r4.Attachment(
+          url: r4.FhirUrl(imgUrl),
+        )
+      ],
+      qualification: <r4.PractitionerQualification>[
+        r4.PractitionerQualification(
+            code: r4.CodeableConcept(
+          text: role,
+        ))
+      ],
     );
-    practitionerFHIR = practitioner;
-    return practitioner;
+
+    loadFromYaml(practitioner.toYaml());
+    await Future.delayed(const Duration(microseconds: 1));
+    notifyListeners();
+    return practitioner.toYaml();
+  }
+
+  AppPatient? findPatientById(String patientId) {
+    var patientFound = patientList.where((element) => element.id == patientId);
+    if (patientFound.isNotEmpty) {
+      return patientFound.first;
+    } else {
+      return null;
+    }
+  }
+
+  AppObservation? findObservationById(String id) {
+    var observationFound =
+        observationList.where((element) => element.observationId == id);
+    if (observationFound.isNotEmpty) {
+      return observationFound.first;
+    } else {
+      return null;
+    }
+  }
+
+  findDiagnosticById(String diagnosticId) {
+    var diagnosticFound =
+        diagnosticList.where((element) => element.id == diagnosticId);
+    if (diagnosticFound.isNotEmpty) {
+      return diagnosticFound.first;
+    } else {
+      return null;
+    }
+  }
+
+  void addObservation(AppObservation currentObservation) {
+    observationList.insert(0, currentObservation);
+  }
+
+  void addDiagnostic(AppDiagosticReport currentDiagnostic) {
+    diagnosticList.insert(0, currentDiagnostic);
   }
 }

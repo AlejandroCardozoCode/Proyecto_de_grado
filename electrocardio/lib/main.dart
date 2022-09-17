@@ -1,3 +1,5 @@
+import 'package:electrocardio/models/fhir/diagnostic_report_fhir.dart';
+import 'package:electrocardio/models/fhir/observation_fhir.dart';
 import 'package:electrocardio/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //creacion de providers para el manejo de los objetos dentro de la aplicacion
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AppPractitioner>(
@@ -21,6 +24,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<AppPatientContact>(
           create: (_) => AppPatientContact(),
+        ),
+        ChangeNotifierProvider<AppDiagosticReport>(
+          create: (_) => AppDiagosticReport(),
+        ),
+        ChangeNotifierProvider<AppObservation>(
+          create: (_) => AppObservation(),
         ),
       ],
       builder: (context, _) {
@@ -37,7 +46,7 @@ class MyApp extends StatelessWidget {
             "newPatient": (context) => const RegisterPatient(),
             "contactPatientInfo": (context) => const RegisterPatientContact(),
             "newReport": (context) => const NewReportScreen(),
-            "clinicalHistory": (context) => const ClinicalHistoryScreen(),
+            "clinicalHistory": (context) => const ObservationScreen(),
             "reportList": (context) => const ReportListScreen(),
             "profile": (context) => const ProfileScreen(),
             "electroView": (context) => const ElectroViewScreen(),

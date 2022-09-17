@@ -21,13 +21,12 @@ class _PatientListScreenState extends State<PatientListScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<AppPractitioner>().generatePatients();
   }
 
   @override
   Widget build(BuildContext context) {
     AppPractitioner practitioner = context.watch<AppPractitioner>();
-
+    practitioner.generatePatients();
     if (applyFilter) {
       patientsList = practitioner.patientList
           .where((element) => element.id.contains(filter))

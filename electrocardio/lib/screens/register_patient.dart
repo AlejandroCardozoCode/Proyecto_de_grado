@@ -40,6 +40,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
   @override
   Widget build(BuildContext context) {
     AppPatient currentPatient = context.watch<AppPatient>();
+    AppPractitioner currentPractitioner = context.watch<AppPractitioner>();
     final w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -286,7 +287,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
                         isValidLastName &&
                         isValidMarital &&
                         isValidPhone) {
-                      currentPatient.setValues(
+                      currentPatient.setPatientValues(
                         formValues["id"],
                         formValues["firstName"],
                         formValues["lastName"],
@@ -296,6 +297,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
                         formValues["address"],
                         formValues["maritalCode"],
                         formValues["maritalText"],
+                        currentPractitioner.id,
                       );
                       Navigator.popAndPushNamed(context, "contactPatientInfo");
                     } else {
