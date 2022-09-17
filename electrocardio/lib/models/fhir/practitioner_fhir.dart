@@ -158,10 +158,13 @@ class AppPractitioner with ChangeNotifier {
   }
 
   void addObservation(AppObservation currentObservation) {
-    observationList.insert(0, currentObservation);
+    AppObservation observation = AppObservation().copy(currentObservation);
+    observationList.insert(0, observation);
   }
 
   void addDiagnostic(AppDiagosticReport currentDiagnostic) {
-    diagnosticList.insert(0, currentDiagnostic);
+    AppDiagosticReport diagnostic =
+        AppDiagosticReport().copy(currentDiagnostic);
+    diagnosticList.insert(0, diagnostic);
   }
 }

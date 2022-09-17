@@ -8,6 +8,15 @@ class AppObservation with ChangeNotifier {
   late String dateTime;
   late String actualObservation;
 
+  copy(AppObservation parameterObservation) {
+    observationId = parameterObservation.observationId;
+    patientIdReference = parameterObservation.patientIdReference;
+    practitionerIdReference = parameterObservation.practitionerIdReference;
+    dateTime = parameterObservation.dateTime;
+    actualObservation = parameterObservation.actualObservation;
+    return this;
+  }
+
   setClassValues(
     String observationId,
     String patientIdReference,

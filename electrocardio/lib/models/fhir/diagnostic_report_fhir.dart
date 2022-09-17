@@ -12,6 +12,19 @@ class AppDiagosticReport with ChangeNotifier {
   late String imageReference;
   late String diagnostic;
 
+  copy(AppDiagosticReport currentDiagnostic) {
+    id = currentDiagnostic.id;
+    patientIdReference = currentDiagnostic.patientIdReference;
+    dateTime = currentDiagnostic.dateTime;
+    practitionerIdReferenceOnco = currentDiagnostic.practitionerIdReferenceOnco;
+    practitionerIdReferenceCardio =
+        currentDiagnostic.practitionerIdReferenceCardio;
+    observationId = currentDiagnostic.observationId;
+    imageReference = currentDiagnostic.imageReference;
+    diagnostic = currentDiagnostic.diagnostic;
+    return this;
+  }
+
   loadFromYaml(String diagnosticYaml) {
     r4.DiagnosticReport diagnosticReport =
         r4.DiagnosticReport.fromYaml(diagnosticYaml);

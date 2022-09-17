@@ -67,15 +67,17 @@ class CardReportElectro extends StatelessWidget {
                 width: w * 0.25,
                 child: TextButton(
                   onPressed: () {
-                    showAlert(context, textResume, "Resumen");
+                    showAlert(context, textResume, "Observacion");
                   },
-                  child: Text(
-                    "Ver Resumen",
-                    maxLines: 2,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.rubik(
-                      fontSize: 14,
+                  child: FittedBox(
+                    child: Text(
+                      "Ver\nObservacion",
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.rubik(
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                 ),
@@ -90,13 +92,15 @@ class CardReportElectro extends StatelessWidget {
                       showAlert(context, textReport, "Reporte");
                     }
                   },
-                  child: Text(
-                    "Ver Reporte",
-                    maxLines: 2,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.rubik(
-                      fontSize: 14,
+                  child: FittedBox(
+                    child: Text(
+                      "Ver\nDiagnostico",
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.rubik(
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                 ),
