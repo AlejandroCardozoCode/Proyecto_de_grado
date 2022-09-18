@@ -2,15 +2,15 @@ import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-class AppNavBar extends StatefulWidget {
+class AppNavBarOnco extends StatefulWidget {
   final Function currentIndex;
-  const AppNavBar({Key? key, required this.currentIndex}) : super(key: key);
+  const AppNavBarOnco({Key? key, required this.currentIndex}) : super(key: key);
 
   @override
-  State<AppNavBar> createState() => _AppNavBarState();
+  State<AppNavBarOnco> createState() => _AppNavBarOncoState();
 }
 
-class _AppNavBarState extends State<AppNavBar> {
+class _AppNavBarOncoState extends State<AppNavBarOnco> {
   @override
   Widget build(BuildContext context) {
     return Container(

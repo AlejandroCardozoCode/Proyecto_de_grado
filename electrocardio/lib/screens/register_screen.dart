@@ -14,29 +14,24 @@ class RegistryScreen extends StatefulWidget {
 
 class _RegistryScreenState extends State<RegistryScreen> {
   bool terms = false;
+
+  final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
+  final Map<String, String> formValues = {
+    "id": "",
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "pwd": "",
+    "pwd2": "",
+    "gender": "",
+    "birthDate": "",
+    "role": "",
+  };
+
   @override
   Widget build(BuildContext context) {
-    final Map<String, String> formValues = {
-      "id": "",
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "pwd": "",
-      "pwd2": "",
-      "gender": "",
-      "birthDate": "",
-      "role": "",
-    };
-    final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/img/app_background.jpg"),
-          fit: BoxFit.cover,
-        ),
-      ),
+    return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.transparent,
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20),

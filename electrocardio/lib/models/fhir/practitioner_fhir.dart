@@ -167,4 +167,26 @@ class AppPractitioner with ChangeNotifier {
         AppDiagosticReport().copy(currentDiagnostic);
     diagnosticList.insert(0, diagnostic);
   }
+
+  void diagnosticTestValues() {
+    AppObservation observation = AppObservation();
+    observation.observationId = "obs1";
+    observation.patientIdReference = "testtest";
+    observation.practitionerIdReference = "testtest";
+    observation.dateTime = "2022-02";
+    observation.actualObservation =
+        "Dolor voluptua clita eos takimata sed rebum rebum takimata dolores. Labore accusam consetetur lorem sea eos kasd, et gubergren justo voluptua nonumy duo dolores erat. Diam kasd est sanctus magna et labore vero aliquyam, magna lorem sed lorem invidunt duo stet sanctus diam. Elitr accusam sea ipsum takimata, lorem et.";
+    addObservation(observation);
+
+    AppDiagosticReport diagnostic = AppDiagosticReport();
+    diagnostic.id = "diag1";
+    diagnostic.patientIdReference = "testtest";
+    diagnostic.dateTime = "2022-02";
+    diagnostic.practitionerIdReferenceOnco = "testtest";
+    diagnostic.practitionerIdReferenceCardio = "testtest";
+    diagnostic.observationId = "obs1";
+    diagnostic.imageReference = "testtest";
+    diagnostic.diagnostic = "";
+    addDiagnostic(diagnostic);
+  }
 }

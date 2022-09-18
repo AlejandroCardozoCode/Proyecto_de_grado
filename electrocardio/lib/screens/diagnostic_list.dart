@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import '../models/fhir/app_fhir_clases.dart';
 import '../widgets/widgets.dart';
 
-class ReportListScreen extends StatelessWidget {
-  const ReportListScreen({Key? key}) : super(key: key);
+class DiagnosticListScreen extends StatelessWidget {
+  const DiagnosticListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +31,23 @@ class ReportListScreen extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                "Aqui encontrara un listado de todos los reportes enviados junto con su respectivo analisis",
+                "Aqui encontrara un listado de todos los reportes pendientes que tiene que fueron asignado a usted, por favor respondalos en orden",
                 textAlign: TextAlign.left,
                 style: GoogleFonts.rubik(
                   fontSize: 16,
                 ),
               ),
+              CardGenerateDiagnostic(
+                patientName: "nombre paciente",
+                reportDate: "fecha ",
+                textObservation:
+                    "Sea ea ipsum erat duo lorem clita eirmod. Magna sed eirmod diam lorem dolores. Et dolores lorem sanctus voluptua sed.",
+              ),
+              /*
               Expanded(
                 child: getChild(currentPractitioner),
-              )
+              ),
+              */
             ],
           ),
         ),
@@ -49,19 +57,18 @@ class ReportListScreen extends StatelessWidget {
 
   Widget getChild(AppPractitioner currentPractitioner) {
     if (currentPractitioner.diagnosticList.length > 0) {
+      print(currentPractitioner.diagnosticList);
       return ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: currentPractitioner.diagnosticList.length,
         itemBuilder: (BuildContext context, int index) {
-          return CardReportElectro(
+          return CardGenerateDiagnostic(
             patientName: currentPractitioner
                 .findPatientById(currentPractitioner
                     .diagnosticList[index].patientIdReference)!
                 .firstName,
             reportDate: currentPractitioner.diagnosticList[index].dateTime,
-            textObservation:
-                currentPractitioner.diagnosticList[index].diagnostic,
-            textDiagnostic: currentPractitioner
+            textObservation: currentPractitioner
                 .findObservationById(
                     currentPractitioner.diagnosticList[index].observationId)!
                 .actualObservation,

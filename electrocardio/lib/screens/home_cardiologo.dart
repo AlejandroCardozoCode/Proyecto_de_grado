@@ -1,24 +1,26 @@
-import 'package:electrocardio/widgets/widgets.dart';
+import 'package:electrocardio/widgets/nav_bar_cardio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/fhir/practitioner_fhir.dart';
+
+import '../models/fhir/app_fhir_clases.dart';
+import '../widgets/widgets.dart';
 import 'screens.dart';
 
-class HomeOncologo extends StatefulWidget {
-  const HomeOncologo({Key? key}) : super(key: key);
+class HomeCardiologo extends StatefulWidget {
+  const HomeCardiologo({Key? key}) : super(key: key);
 
   @override
-  State<HomeOncologo> createState() => _HomeOncologoState();
+  State<HomeCardiologo> createState() => _HomeCardiologoState();
 }
 
-class _HomeOncologoState extends State<HomeOncologo> {
+class _HomeCardiologoState extends State<HomeCardiologo> {
   int index = 0;
-  AppNavBarOnco? navBar;
+  AppNavBarCardio? navBar;
   @override
   void initState() {
     super.initState();
 
-    navBar = AppNavBarOnco(
+    navBar = AppNavBarCardio(
       currentIndex: (i) {
         setState(() {
           index = i;
@@ -28,10 +30,8 @@ class _HomeOncologoState extends State<HomeOncologo> {
   }
 
   final List<Widget> _body = [
-    const SelectPatient(),
-    const ReportListScreen(),
+    const DiagnosticListScreen(),
     const ProfileScreen(),
-    const PaymentScreen(),
   ];
 
   @override
@@ -39,19 +39,19 @@ class _HomeOncologoState extends State<HomeOncologo> {
     // crear el practitioner de la aplicacion
     //TODO se tiene que cargar desde un string ymal que va a estar en firebase
     context.read<AppPractitioner>().create(
-          firstName: "Diego",
-          lastName: "Cardozo",
+          firstName: "Ricardo",
+          lastName: "Gomez",
           id: "1023974032",
-          role: "Oncologo",
+          role: "Cardiologo",
           active: "true",
           address: "calle 15 sur # 10 - 60",
           birthDate: "31-12-1998",
-          email: "d.alejandro198@gmail.com",
+          email: "abcdef@gmail.com",
           gender: "Hombre",
           imgUrl:
-              "https://pps.whatsapp.net/v/t61.24694-24/263593069_462535585801501_2048855126496712424_n.jpg?ccb=11-4&oh=01_AVznr0Ttssh_q-XCoeuWLUqCjRfMEcwANHXeR88WbK-WSQ&oe=632CC9E4",
+              "https://painlesshire.com/wp-content/uploads/2017/07/doctor.jpg",
         );
-
+    context.read<AppPractitioner>().diagnosticTestValues();
     return SafeArea(
       child: Scaffold(
         body: _body[index],

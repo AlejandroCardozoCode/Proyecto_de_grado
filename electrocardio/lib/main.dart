@@ -35,10 +35,11 @@ class MyApp extends StatelessWidget {
       builder: (context, _) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Electrocardio',
-          initialRoute: "homeOnc",
+          title: 'Electrocardio Telegraph',
+          initialRoute: "login",
           routes: {
             "homeOnc": (context) => const HomeOncologo(),
+            "homeCar": (context) => const HomeCardiologo(),
             "register": (context) => const RegistryScreen(),
             "login": (context) => const LoginScreen(),
             "profilePicture": (context) => const ProfilePictureScreen(),
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
             "electroView": (context) => const ElectroViewScreen(),
             //"payment": (context) => const PaymentScreen(),
             "patientList": (context) => const PatientListScreen(),
+            "writeDiagnostic": (context) => const WriteDiagnostic(),
           },
           theme: ThemeApp.light,
         );

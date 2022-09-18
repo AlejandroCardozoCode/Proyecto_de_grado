@@ -4,17 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'widgets.dart';
 
-class CardReportElectro extends StatelessWidget {
+class CardGenerateDiagnostic extends StatelessWidget {
   final String patientName;
   final String reportDate;
-  final String textDiagnostic;
   final String textObservation;
 
-  const CardReportElectro(
+  const CardGenerateDiagnostic(
       {Key? key,
       required this.patientName,
       required this.reportDate,
-      required this.textDiagnostic,
       required this.textObservation})
       : super(key: key);
 
@@ -86,15 +84,11 @@ class CardReportElectro extends StatelessWidget {
                 width: w * 0.25,
                 child: TextButton(
                   onPressed: () {
-                    if (textObservation.isEmpty) {
-                      showAlert2(context);
-                    } else {
-                      showAlert(context, textDiagnostic, "Reporte");
-                    }
+                    Navigator.pushNamed(context, "writeDiagnostic");
                   },
                   child: FittedBox(
                     child: Text(
-                      "Ver\nDiagnostico",
+                      "Dar\nDiagnostico",
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,

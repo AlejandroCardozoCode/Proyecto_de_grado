@@ -34,9 +34,12 @@ class ProfileScreen extends StatelessWidget {
               height: 50,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, "login", (route) => false);
+              },
               style: ElevatedButton.styleFrom(
-                primary: ThemeApp.appRed,
+                backgroundColor: ThemeApp.appRed,
               ),
               child: SizedBox(
                 height: 50,
