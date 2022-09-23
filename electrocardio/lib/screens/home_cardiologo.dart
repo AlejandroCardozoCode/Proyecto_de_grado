@@ -19,6 +19,20 @@ class _HomeCardiologoState extends State<HomeCardiologo> {
   @override
   void initState() {
     super.initState();
+    context.read<AppPractitioner>().create(
+          firstName: "Ricardo",
+          lastName: "Gomez",
+          id: "1023974032",
+          role: "Cardiologo",
+          active: "true",
+          address: "calle 15 sur # 10 - 60",
+          birthDate: "31-12-1998",
+          email: "abcdef@gmail.com",
+          gender: "Hombre",
+          imgUrl:
+              "https://painlesshire.com/wp-content/uploads/2017/07/doctor.jpg",
+        );
+    context.read<AppPractitioner>()..diagnosticTestValues();
 
     navBar = AppNavBarCardio(
       currentIndex: (i) {
@@ -38,20 +52,6 @@ class _HomeCardiologoState extends State<HomeCardiologo> {
   Widget build(BuildContext context) {
     // crear el practitioner de la aplicacion
     //TODO se tiene que cargar desde un string ymal que va a estar en firebase
-    context.read<AppPractitioner>().create(
-          firstName: "Ricardo",
-          lastName: "Gomez",
-          id: "1023974032",
-          role: "Cardiologo",
-          active: "true",
-          address: "calle 15 sur # 10 - 60",
-          birthDate: "31-12-1998",
-          email: "abcdef@gmail.com",
-          gender: "Hombre",
-          imgUrl:
-              "https://painlesshire.com/wp-content/uploads/2017/07/doctor.jpg",
-        );
-    context.read<AppPractitioner>().diagnosticTestValues();
     return SafeArea(
       child: Scaffold(
         body: _body[index],

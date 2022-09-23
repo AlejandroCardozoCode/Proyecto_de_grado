@@ -59,9 +59,9 @@ class ReportListScreen extends StatelessWidget {
                     .diagnosticList[index].patientIdReference)!
                 .firstName,
             reportDate: currentPractitioner.diagnosticList[index].dateTime,
-            textObservation:
+            textDiagnostic:
                 currentPractitioner.diagnosticList[index].diagnostic,
-            textDiagnostic: currentPractitioner
+            textObservation: currentPractitioner
                 .findObservationById(
                     currentPractitioner.diagnosticList[index].observationId)!
                 .actualObservation,

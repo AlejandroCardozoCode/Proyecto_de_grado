@@ -17,6 +17,19 @@ class _HomeOncologoState extends State<HomeOncologo> {
   @override
   void initState() {
     super.initState();
+    context.read<AppPractitioner>().create(
+          firstName: "Diego",
+          lastName: "Cardozo",
+          id: "1023974032",
+          role: "Oncologo",
+          active: "true",
+          address: "calle 15 sur # 10 - 60",
+          birthDate: "31-12-1998",
+          email: "d.alejandro198@gmail.com",
+          gender: "Hombre",
+          imgUrl:
+              "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.forwardthinkinguk.com%2Fwp-content%2Fuploads%2F2015%2F08%2Fdoctor.jpg&f=1&nofb=1",
+        );
 
     navBar = AppNavBarOnco(
       currentIndex: (i) {
@@ -38,19 +51,6 @@ class _HomeOncologoState extends State<HomeOncologo> {
   Widget build(BuildContext context) {
     // crear el practitioner de la aplicacion
     //TODO se tiene que cargar desde un string ymal que va a estar en firebase
-    context.read<AppPractitioner>().create(
-          firstName: "Diego",
-          lastName: "Cardozo",
-          id: "1023974032",
-          role: "Oncologo",
-          active: "true",
-          address: "calle 15 sur # 10 - 60",
-          birthDate: "31-12-1998",
-          email: "d.alejandro198@gmail.com",
-          gender: "Hombre",
-          imgUrl:
-              "https://pps.whatsapp.net/v/t61.24694-24/263593069_462535585801501_2048855126496712424_n.jpg?ccb=11-4&oh=01_AVznr0Ttssh_q-XCoeuWLUqCjRfMEcwANHXeR88WbK-WSQ&oe=632CC9E4",
-        );
 
     return SafeArea(
       child: Scaffold(

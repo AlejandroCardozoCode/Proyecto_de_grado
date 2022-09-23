@@ -12,6 +12,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppPractitioner practitioner = context.watch<AppPractitioner>();
+    print(practitioner.firstName);
+
     return Scaffold(
       body: SafeArea(
         child: Column(

@@ -86,7 +86,7 @@ class CardReportElectro extends StatelessWidget {
                 width: w * 0.25,
                 child: TextButton(
                   onPressed: () {
-                    if (textObservation.isEmpty) {
+                    if (textDiagnostic.isEmpty) {
                       showAlert2(context);
                     } else {
                       showAlert(context, textDiagnostic, "Reporte");

@@ -20,8 +20,15 @@ class AppPractitioner with ChangeNotifier {
   late List<AppObservation> observationList = [];
   late List<AppDiagosticReport> diagnosticList = [];
 
+  AppPractitioner() {}
   addPatientToList(AppPatient patient) {
     patientList.add(patient);
+  }
+
+  clearLists() {
+    this.patientList = [];
+    this.diagnosticList = [];
+    this.observationList = [];
   }
 
   generatePatients() {
