@@ -74,7 +74,9 @@ class ProfilePictureScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: ThemeApp.appRed,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+                      },
                       child: SizedBox(
                         height: 40,
                         width: 200,

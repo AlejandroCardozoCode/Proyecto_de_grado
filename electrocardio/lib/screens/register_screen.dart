@@ -1,3 +1,5 @@
+import 'package:electrocardio/communicators/all_communicator.dart';
+import 'package:electrocardio/services/services.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:fhir/stu3/resource_types/resource_types.enums.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final PractitionerService practitionerService = PractitionerService();
     return SafeArea(
       child: Scaffold(
         body: SafeArea(
@@ -190,6 +193,10 @@ class _RegistryScreenState extends State<RegistryScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
+                      AllCommunicator practitioner = AllCommunicator(yaml: "klmscd");
+                      practitioner.id = "123456";
+                      practitioner.isNew = true;
+                      practitionerService.createNewPractitioner(practitioner);
                       Navigator.pushNamed(context, "profilePicture");
                     },
                     style: ElevatedButton.styleFrom(
