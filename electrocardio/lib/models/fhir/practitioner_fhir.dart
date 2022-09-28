@@ -4,6 +4,9 @@ import 'package:electrocardio/models/fhir/patient_fhir.dart';
 import 'package:fhir/r4.dart' as r4;
 import 'package:flutter/cupertino.dart';
 
+import '../../communicators/all_communicator.dart';
+import '../../services/services.dart';
+
 class AppPractitioner with ChangeNotifier {
   late String active;
   late String id;
@@ -128,8 +131,15 @@ class AppPractitioner with ChangeNotifier {
         ))
       ],
     );
+    //Firebase
 
-    loadFromYaml(practitioner.toYaml());
+    final PractitionerService practitionerService = PractitionerService();
+    AllCommunicator practitionerComunicator =
+        AllCommunicator(yaml: practitioner.toYaml());
+    practitionerComunicator.id = id;
+    practitionerComunicator.isNew = true;
+    practitionerService.createNewPractitioner(practitionerComunicator);
+
     await Future.delayed(const Duration(microseconds: 1));
     notifyListeners();
     return practitioner.toYaml();

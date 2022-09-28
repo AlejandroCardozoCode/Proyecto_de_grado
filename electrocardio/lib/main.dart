@@ -1,5 +1,3 @@
-import 'package:electrocardio/models/fhir/diagnostic_report_fhir.dart';
-import 'package:electrocardio/models/fhir/observation_fhir.dart';
 import 'package:electrocardio/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

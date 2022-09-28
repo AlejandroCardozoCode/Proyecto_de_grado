@@ -82,6 +82,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
                       return "La cedula tiene que tener minimo 6 digitos\n";
                     }
                     isValidId = true;
+                    return null;
                   },
                 ),
                 const SizedBox(
@@ -98,6 +99,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
                     }
 
                     isValidName = true;
+                    return null;
                   },
                 ),
                 const SizedBox(
@@ -114,6 +116,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
                     }
 
                     isValidLastName = true;
+                    return null;
                   },
                 ),
                 const SizedBox(
@@ -130,6 +133,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
                       return "Ingrese un numero con almenos 6 dijitos\n";
                     }
                     isValidPhone = true;
+                    return null;
                   },
                 ),
                 const SizedBox(
@@ -181,6 +185,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
                       return "Ingrese una direccion valida\n";
                     }
                     isValidAddress = true;
+                    return null;
                   },
                 ),
                 const SizedBox(
