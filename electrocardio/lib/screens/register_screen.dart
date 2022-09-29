@@ -1,5 +1,3 @@
-import 'package:electrocardio/communicators/all_communicator.dart';
-import 'package:electrocardio/services/services.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -326,7 +324,8 @@ class _RegistryScreenState extends State<RegistryScreen> {
                           isValidRole) {
                         print(formValues);
                         //ToDo crear usuario en autenticacion y obtener el uid en firebase y asignarlo en una variable
-                        AppPractitioner().create(
+                        AppPractitioner newPractitioer =
+                            AppPractitioner().create(
                           firstName: formValues["firstName"],
                           lastName: formValues["lastName"],
                           id: formValues["id"],
@@ -339,7 +338,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                           imgUrl:
                               "https://painlesshire.com/wp-content/uploads/2017/07/doctor.jpg",
                         );
-
+                        newPractitioer.uploadToFirebase();
                         Navigator.popAndPushNamed(context, "profilePicture");
                       } else {
                         print(formValues);

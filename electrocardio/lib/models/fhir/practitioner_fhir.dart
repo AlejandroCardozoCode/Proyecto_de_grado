@@ -19,6 +19,8 @@ class AppPractitioner with ChangeNotifier {
   late String role;
   late String imgUrl;
 
+  late r4.Practitioner r4Class;
+
   late List<AppPatient> patientList = [];
   late List<AppObservation> observationList = [];
   late List<AppDiagosticReport> diagnosticList = [];
@@ -92,7 +94,7 @@ class AppPractitioner with ChangeNotifier {
     required birthDate,
     required role,
     required imgUrl,
-  }) async {
+  }) {
     final practitioner = r4.Practitioner(
       active: r4.Boolean(active),
       identifier: <r4.Identifier>[r4.Identifier(value: id)],
@@ -131,18 +133,19 @@ class AppPractitioner with ChangeNotifier {
         ))
       ],
     );
-    //Firebase
+    this.r4Class = practitioner;
+    this.loadFromYaml(practitioner.toYaml());
+    return this;
+  }
 
+  uploadToFirebase() {
+    //Firebase
     final PractitionerService practitionerService = PractitionerService();
     AllCommunicator practitionerComunicator =
-        AllCommunicator(yaml: practitioner.toYaml());
+        AllCommunicator(yaml: this.r4Class.toYaml());
     practitionerComunicator.id = id;
     practitionerComunicator.isNew = true;
     practitionerService.createNewPractitioner(practitionerComunicator);
-
-    await Future.delayed(const Duration(microseconds: 1));
-    notifyListeners();
-    return practitioner.toYaml();
   }
 
   AppPatient? findPatientById(String patientId) {

@@ -27,15 +27,17 @@ class _ElectroCardState extends State<ElectroCard> {
       onTap: () async {
         XFile? image =
             await ImagePicker().pickImage(source: ImageSource.camera);
-        setState(() {
-          if (image != null) {
-            //imagePath = image.path;
-            fileImage = File(image.path);
-            loadImage = true;
-            currentDiagnostic.imageReference =
-                "https://i1.wp.com/electrocardiografia.wordpress.com/files/2008/11/ecg-2.png";
-          }
-        });
+        setState(
+          () {
+            if (image != null) {
+              //imagePath = image.path;
+              fileImage = File(image.path);
+              loadImage = true;
+              currentDiagnostic.imageReference =
+                  "https://i1.wp.com/electrocardiografia.wordpress.com/files/2008/11/ecg-2.png";
+            }
+          },
+        );
       },
       child: Card(
         margin: const EdgeInsets.all(30),
