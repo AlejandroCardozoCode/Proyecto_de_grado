@@ -152,12 +152,12 @@ class AppPractitioner with ChangeNotifier {
     return this;
   }
 
-  uploadToFirebase() {
+  uploadToFirebase(String uId) {
     //Firebase
     final PractitionerService practitionerService = PractitionerService();
     AllCommunicator practitionerComunicator =
         AllCommunicator(yaml: this.r4Class.toYaml());
-    practitionerComunicator.id = id;
+    practitionerComunicator.id = uId;
     practitionerComunicator.isNew = true;
     practitionerService.createNewPractitioner(practitionerComunicator);
   }

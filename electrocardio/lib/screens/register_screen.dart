@@ -1,3 +1,4 @@
+import 'package:electrocardio/services/services.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -310,7 +311,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     height: 30,
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
 // nuevo
                       if (isValidName &&
                           isValidId &&
@@ -323,6 +324,8 @@ class _RegistryScreenState extends State<RegistryScreen> {
                           isValidEmail &&
                           isValidRole) {
                         print(formValues);
+                        final authService = Provider.of<AuthService>(context, listen: false);
+                        final String? userId = await authService.createUser(formValues["email"]!, formValues["pwd"]!);
                         //ToDo crear usuario en autenticacion y obtener el uid en firebase y asignarlo en una variable
                         AppPractitioner newPractitioer =
                             AppPractitioner().create(
@@ -338,8 +341,12 @@ class _RegistryScreenState extends State<RegistryScreen> {
                           imgUrl:
                               "https://painlesshire.com/wp-content/uploads/2017/07/doctor.jpg",
                         );
-                        newPractitioer.uploadToFirebase();
-                        Navigator.popAndPushNamed(context, "profilePicture");
+                        if(userId != null)
+                        {
+                          newPractitioer.uploadToFirebase(userId);
+                          Navigator.popAndPushNamed(context, "profilePicture");
+                        }
+                        
                       } else {
                         print(formValues);
                         showAlert(context);
