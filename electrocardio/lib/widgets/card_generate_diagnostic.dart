@@ -8,13 +8,15 @@ class CardGenerateDiagnostic extends StatelessWidget {
   final String patientName;
   final String reportDate;
   final String textObservation;
+  final String textpriority;
 
-  const CardGenerateDiagnostic(
-      {Key? key,
-      required this.patientName,
-      required this.reportDate,
-      required this.textObservation})
-      : super(key: key);
+  const CardGenerateDiagnostic({
+    Key? key,
+    required this.patientName,
+    required this.reportDate,
+    required this.textObservation,
+    required this.textpriority,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class CardGenerateDiagnostic extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
+          getPriority(textpriority),
           ListTile(
             leading: const ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -107,6 +110,38 @@ class CardGenerateDiagnostic extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget getPriority(String priority) {
+    if (priority == "TOP") {
+      return Text(
+        "Prioridad: Urgente",
+        style: GoogleFonts.rubik(
+          color: Colors.red,
+          fontWeight: FontWeight.w500,
+        ),
+      );
+    }
+    if (priority == "MID") {
+      return Text(
+        "Prioridad: Media",
+        style: GoogleFonts.rubik(
+          color: Color.fromARGB(255, 234, 175, 0),
+          fontWeight: FontWeight.w500,
+        ),
+      );
+    }
+    if (priority == "LOW") {
+      return Text(
+        "Prioridad: Baja",
+        style: GoogleFonts.rubik(
+          color: Colors.green,
+          fontWeight: FontWeight.w500,
+        ),
+      );
+    }
+
+    return Container();
   }
 
   void showAlert(BuildContext context, String text, String tittle) =>

@@ -1,12 +1,9 @@
 import 'package:electrocardio/models/fhir/diagnostic_report_fhir.dart';
-import 'package:electrocardio/models/fhir/observation_fhir.dart';
 import 'package:electrocardio/models/fhir/patient_fhir.dart';
-import 'package:electrocardio/models/fhir/practitioner_fhir.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:electrocardio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 class NewReportScreen extends StatelessWidget {
@@ -15,6 +12,7 @@ class NewReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppPatient currentPatient = context.watch<AppPatient>();
+    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
     final w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Builder(builder: (context) {
@@ -49,7 +47,11 @@ class NewReportScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "clinicalHistory");
+                    if (currentDiagnostic.imageReference == "") {
+                      showAlert(context);
+                    } else {
+                      Navigator.pushNamed(context, "clinicalHistory");
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     primary: ThemeApp.appRed,
@@ -77,4 +79,10 @@ class NewReportScreen extends StatelessWidget {
       }),
     );
   }
+
+  void showAlert(BuildContext context) => showDialog(
+        context: context,
+        builder: (_) => AlertGlobal(
+            alertText: "No se ha tomado la foto del electrocardiograma"),
+      );
 }

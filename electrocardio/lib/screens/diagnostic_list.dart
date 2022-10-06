@@ -42,6 +42,7 @@ class DiagnosticListScreen extends StatelessWidget {
                 reportDate: "fecha ",
                 textObservation:
                     "Sea ea ipsum erat duo lorem clita eirmod. Magna sed eirmod diam lorem dolores. Et dolores lorem sanctus voluptua sed.",
+                textpriority: "TOP",
               ),
               /*
               Expanded(
@@ -72,6 +73,7 @@ class DiagnosticListScreen extends StatelessWidget {
                 .findObservationById(
                     currentPractitioner.diagnosticList[index].observationId)!
                 .actualObservation,
+            textpriority: '',
           );
         },
       );

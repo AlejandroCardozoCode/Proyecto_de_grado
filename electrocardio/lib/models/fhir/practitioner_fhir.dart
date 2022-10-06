@@ -36,6 +36,20 @@ class AppPractitioner with ChangeNotifier {
     this.observationList = [];
   }
 
+  clearValues() {
+    active = "";
+    id = "";
+    firstName = "";
+    lastName = "";
+    email = "";
+    address = "";
+    gender = "";
+    birthDate = "";
+    role = "";
+    imgUrl = "";
+    clearLists();
+  }
+
   generatePatients() {
     AppPatient newPatient = AppPatient();
     newPatient.setPatientValues(
@@ -207,6 +221,7 @@ class AppPractitioner with ChangeNotifier {
     diagnostic.observationId = "obs1";
     diagnostic.imageReference = "testtest";
     diagnostic.diagnostic = "";
+    diagnostic.priority = "TOP";
     addDiagnostic(diagnostic);
   }
 }

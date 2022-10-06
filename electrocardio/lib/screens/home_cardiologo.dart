@@ -19,6 +19,7 @@ class _HomeCardiologoState extends State<HomeCardiologo> {
   @override
   void initState() {
     super.initState();
+    context.read<AppPractitioner>().clearValues();
     context.read<AppPractitioner>().create(
           firstName: "Ricardo",
           lastName: "Gomez",
@@ -32,7 +33,7 @@ class _HomeCardiologoState extends State<HomeCardiologo> {
           imgUrl:
               "https://painlesshire.com/wp-content/uploads/2017/07/doctor.jpg",
         );
-    context.read<AppPractitioner>()..diagnosticTestValues();
+    context.read<AppPractitioner>().diagnosticTestValues();
 
     navBar = AppNavBarCardio(
       currentIndex: (i) {

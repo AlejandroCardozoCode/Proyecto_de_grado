@@ -11,6 +11,7 @@ class AppDiagosticReport with ChangeNotifier {
   late String observationId;
   late String imageReference;
   late String diagnostic;
+  late String priority;
 
   copy(AppDiagosticReport currentDiagnostic) {
     id = currentDiagnostic.id;
@@ -22,6 +23,7 @@ class AppDiagosticReport with ChangeNotifier {
     observationId = currentDiagnostic.observationId;
     imageReference = currentDiagnostic.imageReference;
     diagnostic = currentDiagnostic.diagnostic;
+    priority = currentDiagnostic.priority;
     return this;
   }
 
@@ -37,11 +39,15 @@ class AppDiagosticReport with ChangeNotifier {
     observationId = diagnosticReport.result![0].reference!;
     imageReference = diagnosticReport.media![0].link.reference!;
     diagnostic = diagnosticReport.conclusion!;
+    priority = diagnosticReport.identifier![1].value!;
   }
 
   create() {
     r4.DiagnosticReport diagnosticReport = r4.DiagnosticReport(
-      identifier: <r4.Identifier>[r4.Identifier(value: id)],
+      identifier: <r4.Identifier>[
+        r4.Identifier(value: id),
+        r4.Identifier(value: priority),
+      ],
       //revisar
       basedOn: <r4.Reference>[
         r4.Reference(
@@ -101,5 +107,17 @@ class AppDiagosticReport with ChangeNotifier {
       ],
       conclusion: diagnostic,
     );
+  }
+
+  void resetValues() {
+    id = "";
+    patientIdReference = "";
+    dateTime = "";
+    practitionerIdReferenceOnco = "";
+    practitionerIdReferenceCardio = "";
+    observationId = "";
+    imageReference = "";
+    diagnostic = "";
+    priority = "";
   }
 }

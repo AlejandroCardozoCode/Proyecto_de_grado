@@ -48,6 +48,8 @@ class AlertSendElectro extends StatelessWidget {
             currentDiagnostic.practitionerIdReferenceCardio = "";
             currentDiagnostic.observationId = uuidObservation;
             currentDiagnostic.diagnostic = "";
+            currentDiagnostic.priority =
+                currentDiagnostic.priority + uuidDiagnostic;
 
             currentPractitioner.addDiagnostic(currentDiagnostic);
             Navigator.pushNamedAndRemoveUntil(

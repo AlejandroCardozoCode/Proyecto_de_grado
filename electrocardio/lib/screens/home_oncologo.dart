@@ -17,6 +17,7 @@ class _HomeOncologoState extends State<HomeOncologo> {
   @override
   void initState() {
     super.initState();
+    context.read<AppPractitioner>().clearValues();
     context.read<AppPractitioner>().create(
           firstName: "Diego",
           lastName: "Cardozo",

@@ -55,7 +55,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: ThemeApp.primary,
+                      backgroundColor: ThemeApp.primary,
                     ),
                     onPressed: () async {
                       XFile? image = await ImagePicker()

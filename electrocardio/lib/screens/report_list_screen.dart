@@ -65,6 +65,8 @@ class ReportListScreen extends StatelessWidget {
                 .findObservationById(
                     currentPractitioner.diagnosticList[index].observationId)!
                 .actualObservation,
+            textpriority: currentPractitioner.diagnosticList[index].priority
+                .substring(0, 3),
           );
         },
       );

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../models/fhir/app_fhir_clases.dart';
+
 class PatientBanner extends StatelessWidget {
   final bool enableOnTap;
   final AppPatient bannerPatient;
@@ -17,6 +19,8 @@ class PatientBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppPatient currentPatient = context.watch<AppPatient>();
+    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Card(
@@ -40,6 +44,7 @@ class PatientBanner extends StatelessWidget {
           onTap: () {
             if (enableOnTap) {
               currentPatient.copyPatient(bannerPatient);
+              currentDiagnostic.resetValues();
               Navigator.pushNamed(context, "newReport");
             }
           },
