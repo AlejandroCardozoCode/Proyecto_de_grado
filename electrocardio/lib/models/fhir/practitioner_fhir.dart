@@ -10,6 +10,7 @@ import '../../services/services.dart';
 class AppPractitioner with ChangeNotifier {
   late String active;
   late String id;
+  late String idFirebase;
   late String firstName;
   late String lastName;
   late String email;
@@ -39,6 +40,7 @@ class AppPractitioner with ChangeNotifier {
   clearValues() {
     active = "";
     id = "";
+    idFirebase = "";
     firstName = "";
     lastName = "";
     email = "";
@@ -85,6 +87,7 @@ class AppPractitioner with ChangeNotifier {
     r4.Practitioner practitioner = r4.Practitioner.fromYaml(practitionerYaml);
     active = practitioner.active.toString();
     id = practitioner.identifier![0].value!;
+    idFirebase = practitioner.identifier![1].value!;
     firstName = practitioner.name![0].given![0];
     lastName = practitioner.name![0].family!;
     email = practitioner.telecom![0].value!;
@@ -100,7 +103,10 @@ class AppPractitioner with ChangeNotifier {
   create() {
     final practitioner = r4.Practitioner(
       active: r4.Boolean(active),
-      identifier: <r4.Identifier>[r4.Identifier(value: id)],
+      identifier: <r4.Identifier>[
+        r4.Identifier(value: id),
+        r4.Identifier(value: idFirebase),
+      ],
       name: <r4.HumanName>[
         r4.HumanName(
           use: r4.HumanNameUse.official,

@@ -43,6 +43,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppPractitioner practitioner = context.watch<AppPractitioner>();
     return SafeArea(
       child: Scaffold(
         body: SafeArea(
@@ -324,29 +325,25 @@ class _RegistryScreenState extends State<RegistryScreen> {
                           isValidEmail &&
                           isValidRole) {
                         print(formValues);
-                        final authService = Provider.of<AuthService>(context, listen: false);
-                        final String? userId = await authService.createUser(formValues["email"]!, formValues["pwd"]!);
+                        final authService =
+                            Provider.of<AuthService>(context, listen: false);
+                        final String? userId = await authService.createUser(
+                            formValues["email"]!, formValues["pwd"]!);
                         //ToDo crear usuario en autenticacion y obtener el uid en firebase y asignarlo en una variable
-                        AppPractitioner newPractitioer =
-                            AppPractitioner().create(
-                          firstName: formValues["firstName"],
-                          lastName: formValues["lastName"],
-                          id: formValues["id"],
-                          role: formValues["role"],
-                          active: "true",
-                          address: formValues["address"],
-                          birthDate: formValues["birthDate"],
-                          email: formValues["email"],
-                          gender: formValues["gender"],
-                          imgUrl:
-                              "https://painlesshire.com/wp-content/uploads/2017/07/doctor.jpg",
-                        );
-                        if(userId != null)
-                        {
-                          newPractitioer.uploadToFirebase(userId);
+                        if (userId != null) {
+                          practitioner.firstName = formValues["firstName"]!;
+                          practitioner.lastName = formValues["lastName"]!;
+                          practitioner.id = formValues["id"]!;
+                          practitioner.idFirebase = userId;
+                          practitioner.role = formValues["role"]!;
+                          practitioner.active = "true";
+                          practitioner.address = formValues["address"]!;
+                          practitioner.birthDate = formValues["birthDate"]!;
+                          practitioner.email = formValues["email"]!;
+                          practitioner.gender = formValues["gender"]!;
+
                           Navigator.popAndPushNamed(context, "profilePicture");
                         }
-                        
                       } else {
                         print(formValues);
                         showAlert(context);

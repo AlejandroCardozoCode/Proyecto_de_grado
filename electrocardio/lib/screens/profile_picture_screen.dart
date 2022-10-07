@@ -123,7 +123,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                     onPressed: () {
                       print(practitioner.imgUrl);
                       practitioner.create();
-                      practitioner.uploadToFirebase();
+                      practitioner.uploadToFirebase(practitioner.idFirebase);
                       Navigator.pushNamedAndRemoveUntil(
                           context, 'login', (route) => false);
                     },
