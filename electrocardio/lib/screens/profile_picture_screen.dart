@@ -1,10 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:electrocardio/theme/theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../models/fhir/app_fhir_clases.dart';
 
 class ProfilePictureScreen extends StatefulWidget {
   const ProfilePictureScreen({Key? key}) : super(key: key);
@@ -20,6 +26,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppPractitioner practitioner = context.read<AppPractitioner>();
     var w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -65,6 +72,8 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                           if (image != null) {
                             //imagePath = image.path;
                             fileImage = File(image.path);
+                            var base64img = convertToBase64(image);
+                            practitioner.imgUrl = base64img;
                             loadImage = true;
                           }
                         },
@@ -91,6 +100,8 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                           if (image != null) {
                             //imagePath = image.path;
                             fileImage = File(image.path);
+                            var base64img = convertToBase64(image);
+                            practitioner.imgUrl = base64img;
                             loadImage = true;
                           }
                         },
@@ -110,6 +121,9 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                       primary: ThemeApp.appRed,
                     ),
                     onPressed: () {
+                      print(practitioner.imgUrl);
+                      practitioner.create();
+                      practitioner.uploadToFirebase();
                       Navigator.pushNamedAndRemoveUntil(
                           context, 'login', (route) => false);
                     },
@@ -129,5 +143,16 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
         ),
       ),
     );
+  }
+
+  String convertToBase64(XFile image) {
+    String value = "";
+    String imageType = image.name.split(".").last;
+    File imagePath = File(image.path);
+    Uint8List bitImage = imagePath.readAsBytesSync();
+    String base64Image = base64Encode(bitImage);
+    print(base64Image);
+    value = "data:image/$imageType;base64,$base64Image";
+    return value;
   }
 }

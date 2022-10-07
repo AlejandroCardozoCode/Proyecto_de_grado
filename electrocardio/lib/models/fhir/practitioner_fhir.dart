@@ -97,18 +97,7 @@ class AppPractitioner with ChangeNotifier {
     notifyListeners();
   }
 
-  create({
-    required active,
-    required id,
-    required firstName,
-    required lastName,
-    required email,
-    required address,
-    required gender,
-    required birthDate,
-    required role,
-    required imgUrl,
-  }) {
+  create() {
     final practitioner = r4.Practitioner(
       active: r4.Boolean(active),
       identifier: <r4.Identifier>[r4.Identifier(value: id)],
@@ -137,7 +126,7 @@ class AppPractitioner with ChangeNotifier {
       birthDate: r4.Date(birthDate),
       photo: <r4.Attachment>[
         r4.Attachment(
-          url: r4.FhirUrl(imgUrl),
+          data: r4.Base64Binary(imgUrl),
         )
       ],
       qualification: <r4.PractitionerQualification>[

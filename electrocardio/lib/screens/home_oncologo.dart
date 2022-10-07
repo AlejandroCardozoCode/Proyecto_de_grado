@@ -17,7 +17,8 @@ class _HomeOncologoState extends State<HomeOncologo> {
   @override
   void initState() {
     super.initState();
-    context.read<AppPractitioner>().clearValues();
+//    context.read<AppPractitioner>().clearValues();
+/*
     context.read<AppPractitioner>().create(
           firstName: "Diego",
           lastName: "Cardozo",
@@ -31,7 +32,7 @@ class _HomeOncologoState extends State<HomeOncologo> {
           imgUrl:
               "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.forwardthinkinguk.com%2Fwp-content%2Fuploads%2F2015%2F08%2Fdoctor.jpg&f=1&nofb=1",
         );
-
+*/
     navBar = AppNavBarOnco(
       currentIndex: (i) {
         setState(() {
