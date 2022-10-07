@@ -1,4 +1,5 @@
 import 'package:electrocardio/screens/screens.dart';
+import 'package:electrocardio/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'models/fhir/app_fhir_clases.dart';
@@ -14,6 +15,9 @@ class MyApp extends StatelessWidget {
     //creacion de providers para el manejo de los objetos dentro de la aplicacion
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => AuthService(),
+        ),
         ChangeNotifierProvider<AppPractitioner>(
           create: (_) => AppPractitioner(),
         ),
