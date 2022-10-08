@@ -61,25 +61,17 @@ class LoginScreen extends StatelessWidget {
                         final authService = Provider.of<AuthService>(context, listen: false);
                         final practitionerService = PractitionerService();
                         final String? uId = await authService.loginUser(formValues["userName"]!, formValues["pwd"]!);
+                        print(formValues);
+                        print(uId);
                         if (uId != null) {
                           context.read<AppPractitioner>().loadFromYaml(await practitionerService.getPtactitioner(uId));
                           if (context.read<AppPractitioner>().role == "Oncologo") {
                             Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
+                          } else if (context.read<AppPractitioner>().role == "Cardiologo") {
+                            Navigator.pushNamedAndRemoveUntil(context, "homeCar", (route) => false);
                           }
                         } else {
-                          print("no se pudo ingresar");
-                        }
-
-                        if (formValues["userName"] == "1") {
-                          /*
-                          context.read<AppPractitioner>().clearValues();
-                          Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
-                          */
-                        } else {
-                          /*
-                          context.read<AppPractitioner>().clearValues();
-                          Navigator.pushNamedAndRemoveUntil(context, "homeCar", (route) => false);
-                          */
+                          showAlert(context);
                         }
                       },
                       child: const SizedBox(
@@ -114,4 +106,9 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+
+  void showAlert(BuildContext context) => showDialog(
+        context: context,
+        builder: (_) => AlertGlobal(alertText: "Datos incorrectos"),
+      );
 }

@@ -49,7 +49,7 @@ class PractitionerService {
     final url = Uri.https(_baseUrl, 'practitioner/${uId}.json');
     final respuesta = await http.get(url);
     final decodeData = json.decode(respuesta.body);
-    String yaml = decodeData['yaml'];
+    String yaml = decodeData['yaml']!;
     return yaml;
   }
 

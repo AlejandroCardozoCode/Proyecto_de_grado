@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:electrocardio/services/images_service.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,8 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                           if (image != null) {
                             //imagePath = image.path;
                             fileImage = File(image.path);
-                            var base64img = convertToBase64(image);
+                            ImageService imageService = ImageService();
+                            var base64img = imageService.convertToBase64(image);
                             practitioner.imgUrl = base64img;
                             loadImage = true;
                           }
@@ -94,7 +96,8 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                           if (image != null) {
                             //imagePath = image.path;
                             fileImage = File(image.path);
-                            var base64img = convertToBase64(image);
+                            ImageService imageService = ImageService();
+                            var base64img = imageService.convertToBase64(image);
                             practitioner.imgUrl = base64img;
                             loadImage = true;
                           }
@@ -136,12 +139,5 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
         ),
       ),
     );
-  }
-
-  String convertToBase64(XFile image) {
-    File imagePath = File(image.path);
-    Uint8List bitImage = imagePath.readAsBytesSync();
-    String base64Image = base64Encode(bitImage);
-    return base64Image;
   }
 }
