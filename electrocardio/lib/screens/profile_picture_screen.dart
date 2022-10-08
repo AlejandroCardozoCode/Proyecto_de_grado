@@ -47,11 +47,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                   ),
                   ClipOval(
                     child: Image(
-                      image: loadImage
-                          ? FileImage(fileImage)
-                          : const AssetImage(
-                                  "assets/img/profile_placeholder.png")
-                              as ImageProvider,
+                      image: loadImage ? FileImage(fileImage) : const AssetImage("assets/img/profile_placeholder.png") as ImageProvider,
                       fit: BoxFit.cover,
                       height: 200,
                       width: 200,
@@ -65,8 +61,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                       backgroundColor: ThemeApp.primary,
                     ),
                     onPressed: () async {
-                      XFile? image = await ImagePicker()
-                          .pickImage(source: ImageSource.gallery);
+                      XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
                       setState(
                         () {
                           if (image != null) {
@@ -93,8 +88,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                       primary: ThemeApp.primary,
                     ),
                     onPressed: () async {
-                      XFile? image = await ImagePicker()
-                          .pickImage(source: ImageSource.camera);
+                      XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
                       setState(
                         () {
                           if (image != null) {
@@ -124,8 +118,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                       print(practitioner.imgUrl);
                       practitioner.create();
                       practitioner.uploadToFirebase(practitioner.idFirebase);
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, 'login', (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
                     },
                     child: SizedBox(
                       height: 40,
@@ -146,13 +139,9 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
   }
 
   String convertToBase64(XFile image) {
-    String value = "";
-    String imageType = image.name.split(".").last;
     File imagePath = File(image.path);
     Uint8List bitImage = imagePath.readAsBytesSync();
     String base64Image = base64Encode(bitImage);
-    print(base64Image);
-    value = "data:image/$imageType;base64,$base64Image";
-    return value;
+    return base64Image;
   }
 }

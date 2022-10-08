@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,12 +26,13 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            CircleAvatar(
-              maxRadius: 70,
-              backgroundImage: NetworkImage(practitioner.imgUrl),
-            ),
-            const SizedBox(
-              height: 30,
+            ClipOval(
+              child: Image.memory(
+                base64Decode(practitioner.imgUrl),
+                height: 120,
+                width: 120,
+                fit: BoxFit.cover,
+              ),
             ),
             const ProfileInfoCard(),
             const SizedBox(
@@ -37,8 +40,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, "login", (route) => false);
+                Navigator.pushNamedAndRemoveUntil(context, "login", (route) => false);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: ThemeApp.appRed,

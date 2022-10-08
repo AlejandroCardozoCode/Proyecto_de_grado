@@ -1,6 +1,9 @@
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../models/fhir/app_fhir_clases.dart';
+import '../services/services.dart';
 import '../widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -53,14 +56,30 @@ class LoginScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ThemeApp.appRed,
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         print(formValues);
-                        if (formValues["userName"] == "1") {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "homeOnc", (route) => false);
+                        final authService = Provider.of<AuthService>(context, listen: false);
+                        final practitionerService = PractitionerService();
+                        final String? uId = await authService.loginUser(formValues["userName"]!, formValues["pwd"]!);
+                        if (uId != null) {
+                          context.read<AppPractitioner>().loadFromYaml(await practitionerService.getPtactitioner(uId));
+                          if (context.read<AppPractitioner>().role == "onco") {
+                            Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
+                          }
                         } else {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "homeCar", (route) => false);
+                          print("no se pudo ingresar");
+                        }
+
+                        if (formValues["userName"] == "1") {
+                          /*
+                          context.read<AppPractitioner>().clearValues();
+                          Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
+                          */
+                        } else {
+                          /*
+                          context.read<AppPractitioner>().clearValues();
+                          Navigator.pushNamedAndRemoveUntil(context, "homeCar", (route) => false);
+                          */
                         }
                       },
                       child: const SizedBox(
