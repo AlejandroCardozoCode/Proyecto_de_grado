@@ -1,10 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:electrocardio/theme/theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../models/fhir/app_fhir_clases.dart';
 
 class ProfilePictureScreen extends StatefulWidget {
   const ProfilePictureScreen({Key? key}) : super(key: key);
@@ -20,6 +26,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppPractitioner practitioner = context.read<AppPractitioner>();
     var w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -40,11 +47,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                   ),
                   ClipOval(
                     child: Image(
-                      image: loadImage
-                          ? FileImage(fileImage)
-                          : const AssetImage(
-                                  "assets/img/profile_placeholder.png")
-                              as ImageProvider,
+                      image: loadImage ? FileImage(fileImage) : const AssetImage("assets/img/profile_placeholder.png") as ImageProvider,
                       fit: BoxFit.cover,
                       height: 200,
                       width: 200,
@@ -58,13 +61,14 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                       backgroundColor: ThemeApp.primary,
                     ),
                     onPressed: () async {
-                      XFile? image = await ImagePicker()
-                          .pickImage(source: ImageSource.gallery);
+                      XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
                       setState(
                         () {
                           if (image != null) {
                             //imagePath = image.path;
                             fileImage = File(image.path);
+                            var base64img = convertToBase64(image);
+                            practitioner.imgUrl = base64img;
                             loadImage = true;
                           }
                         },
@@ -84,13 +88,14 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                       primary: ThemeApp.primary,
                     ),
                     onPressed: () async {
-                      XFile? image = await ImagePicker()
-                          .pickImage(source: ImageSource.camera);
+                      XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
                       setState(
                         () {
                           if (image != null) {
                             //imagePath = image.path;
                             fileImage = File(image.path);
+                            var base64img = convertToBase64(image);
+                            practitioner.imgUrl = base64img;
                             loadImage = true;
                           }
                         },
@@ -110,8 +115,10 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                       primary: ThemeApp.appRed,
                     ),
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, 'login', (route) => false);
+                      print(practitioner.imgUrl);
+                      practitioner.create();
+                      practitioner.uploadToFirebase(practitioner.idFirebase);
+                      Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
                     },
                     child: SizedBox(
                       height: 40,
@@ -129,5 +136,12 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
         ),
       ),
     );
+  }
+
+  String convertToBase64(XFile image) {
+    File imagePath = File(image.path);
+    Uint8List bitImage = imagePath.readAsBytesSync();
+    String base64Image = base64Encode(bitImage);
+    return base64Image;
   }
 }

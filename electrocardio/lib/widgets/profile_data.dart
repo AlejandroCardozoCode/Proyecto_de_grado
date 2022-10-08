@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +10,7 @@ class ProfileData extends StatelessWidget {
   final String role;
   final String id;
   final String imgUrl;
-  const ProfileData(
-      {Key? key,
-      required this.practitionerName,
-      required this.role,
-      required this.id,
-      required this.imgUrl})
-      : super(key: key);
+  const ProfileData({Key? key, required this.practitionerName, required this.role, required this.id, required this.imgUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +21,12 @@ class ProfileData extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              maxRadius: 50,
-              backgroundColor: ThemeApp.primary,
-              backgroundImage: NetworkImage(
-                imgUrl,
+            ClipOval(
+              child: Image.memory(
+                base64Decode(imgUrl),
+                height: 100,
+                width: 100,
+                fit: BoxFit.cover,
               ),
             ),
             const SizedBox(
