@@ -186,15 +186,15 @@ class _RegistryScreenState extends State<RegistryScreen> {
                         ),
                         items: const [
                           DropdownMenuItem(
-                            value: "G1",
+                            value: "male",
                             child: Text("Hombre"),
                           ),
                           DropdownMenuItem(
-                            value: "G2",
+                            value: "female",
                             child: Text("Mujer"),
                           ),
                           DropdownMenuItem(
-                            value: "G3",
+                            value: "other",
                             child: Text("Otro"),
                           ),
                         ],
@@ -221,11 +221,11 @@ class _RegistryScreenState extends State<RegistryScreen> {
                       ),
                       items: const [
                         DropdownMenuItem(
-                          value: "cardio",
+                          value: "Cardiologo",
                           child: Text("Cardiologo"),
                         ),
                         DropdownMenuItem(
-                          value: "onco",
+                          value: "Oncologo",
                           child: Text("Oncologo"),
                         ),
                       ],
@@ -265,8 +265,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                         maxTime: DateTime.now(),
                         onConfirm: (date) {
                           setState(() {
-                            birthDate =
-                                "${date.year}-${date.month}-${date.day}";
+                            birthDate = "${date.year}-${date.month}-${date.day}";
                             formValues["birthDate"] = birthDate;
                             isValidBirth = true;
                           });
@@ -314,21 +313,10 @@ class _RegistryScreenState extends State<RegistryScreen> {
                   ElevatedButton(
                     onPressed: () async {
 // nuevo
-                      if (isValidName &&
-                          isValidId &&
-                          isValidAddress &&
-                          isValidBirth &&
-                          isValidGender &&
-                          isValidLastName &&
-                          isValidPass &&
-                          isValidPass2 &&
-                          isValidEmail &&
-                          isValidRole) {
+                      if (isValidName && isValidId && isValidAddress && isValidBirth && isValidGender && isValidLastName && isValidPass && isValidPass2 && isValidEmail && isValidRole) {
                         print(formValues);
-                        final authService =
-                            Provider.of<AuthService>(context, listen: false);
-                        final String? userId = await authService.createUser(
-                            formValues["email"]!, formValues["pwd"]!);
+                        final authService = Provider.of<AuthService>(context, listen: false);
+                        final String? userId = await authService.createUser(formValues["email"]!, formValues["pwd"]!);
                         //ToDo crear usuario en autenticacion y obtener el uid en firebase y asignarlo en una variable
                         if (userId != null) {
                           practitioner.firstName = formValues["firstName"]!;
@@ -377,7 +365,6 @@ class _RegistryScreenState extends State<RegistryScreen> {
 
   void showAlert(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => AlertGlobal(
-            alertText: "Alguno de los campos no esta llenado correctamente"),
+        builder: (_) => AlertGlobal(alertText: "Alguno de los campos no esta llenado correctamente"),
       );
 }

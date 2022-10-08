@@ -2,19 +2,23 @@ import 'package:fhir/r4.dart' as r4;
 import 'package:flutter/cupertino.dart';
 
 class AppPatientContact with ChangeNotifier {
-  late String contactCode;
-  late String contactTextCode;
+  late String contactRelationCode;
   late String contactFirstName;
   late String contactLastName;
   late String contactPhone;
   late String contactGender;
   late String contactAddress;
-  late r4.PatientContact patientContactFHIR;
 
-  AppPatientContact();
+  AppPatientContact() {
+    contactRelationCode = "None";
+    contactFirstName = "None";
+    contactLastName = "None";
+    contactPhone = "None";
+    contactGender = "None";
+    contactAddress = "None";
+  }
   void setPatient(AppPatientContact patient) {
-    contactCode = patient.contactCode;
-    contactTextCode = patient.contactTextCode;
+    contactRelationCode = patient.contactRelationCode;
     contactFirstName = patient.contactFirstName;
     contactLastName = patient.contactLastName;
     contactPhone = patient.contactPhone;
@@ -23,16 +27,14 @@ class AppPatientContact with ChangeNotifier {
   }
 
   void setValues(
-    contactCode,
-    contactTextCode,
+    contactRelationCode,
     contactFirstName,
     contactLastName,
     contactPhone,
     contactGender,
     contactAddress,
   ) {
-    this.contactCode = contactCode;
-    this.contactTextCode = contactTextCode;
+    this.contactRelationCode = contactRelationCode;
     this.contactFirstName = contactFirstName;
     this.contactLastName = contactLastName;
     this.contactPhone = contactPhone;
@@ -46,10 +48,9 @@ class AppPatientContact with ChangeNotifier {
         r4.CodeableConcept(
           coding: <r4.Coding>[
             r4.Coding(
-              display: contactCode,
+              display: contactRelationCode,
             )
           ],
-          text: contactTextCode,
         ),
       ],
       name: r4.HumanName(
@@ -71,7 +72,6 @@ class AppPatientContact with ChangeNotifier {
         text: contactAddress,
       ),
     );
-    patientContactFHIR = patient;
     return patient;
   }
 }

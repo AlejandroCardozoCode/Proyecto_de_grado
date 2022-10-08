@@ -31,6 +31,19 @@ class AppPatient with ChangeNotifier {
     practitionerId = patient.generalPractitioner![0].reference!;
   }
 
+  void clearValues() {
+    id = "";
+    firstName = "";
+    lastName = "";
+    phone = "";
+    gender = "";
+    birthDate = "";
+    address = "";
+    maritalCode = "";
+    maritalText = "";
+    practitionerId = "";
+  }
+
   void setPatientValues(
     id,
     firstName,
@@ -42,6 +55,7 @@ class AppPatient with ChangeNotifier {
     maritalCode,
     maritalText,
     practitionerId,
+    emergencyContact,
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -53,6 +67,7 @@ class AppPatient with ChangeNotifier {
     this.maritalCode = maritalCode;
     this.maritalText = maritalText;
     this.practitionerId = practitionerId;
+    this.emergencyContact = emergencyContact;
   }
 
   void copyPatient(AppPatient patient) {
@@ -119,10 +134,9 @@ class AppPatient with ChangeNotifier {
             r4.CodeableConcept(
               coding: <r4.Coding>[
                 r4.Coding(
-                  display: emergencyContact.contactCode,
+                  code: r4.Code(emergencyContact.contactRelationCode),
                 )
               ],
-              text: emergencyContact.contactTextCode,
             ),
           ],
           name: r4.HumanName(

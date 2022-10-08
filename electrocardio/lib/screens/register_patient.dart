@@ -26,8 +26,15 @@ class _RegisterPatientState extends State<RegisterPatient> {
     "address": "",
     "maritalCode": "",
     "marialText": "",
+    "contactFirstName": "",
+    "contactLastName": "",
+    "contactPhone": "",
+    "contactGender": "",
+    "contactAddress": "",
+    "contactRelationCode": "",
   };
 
+  // paciente validadores
   bool isValidId = false;
   bool isValidName = false;
   bool isValidLastName = false;
@@ -37,10 +44,26 @@ class _RegisterPatientState extends State<RegisterPatient> {
   bool isValidMarital = false;
   bool isValidBirth = false;
 
+  // contacto de emergencia validdores
+  bool isValidNameE = false;
+  bool isValidLastNameE = false;
+  bool isValidPhoneE = false;
+  bool isValidGenderE = false;
+  bool isValidAddressE = false;
+  bool isValidRelationCode = false;
+
   bool optionals = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     AppPatient currentPatient = context.watch<AppPatient>();
+    currentPatient.clearValues();
     AppPractitioner currentPractitioner = context.watch<AppPractitioner>();
     final w = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -145,15 +168,15 @@ class _RegisterPatientState extends State<RegisterPatient> {
                       ),
                       items: const [
                         DropdownMenuItem(
-                          value: "G1",
+                          value: "male",
                           child: Text("Hombre"),
                         ),
                         DropdownMenuItem(
-                          value: "G2",
+                          value: "female",
                           child: Text("Mujer"),
                         ),
                         DropdownMenuItem(
-                          value: "G3",
+                          value: "other",
                           child: Text("Otro"),
                         ),
                       ],
@@ -191,20 +214,55 @@ class _RegisterPatientState extends State<RegisterPatient> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (isValidName && isValidId && isValidAddress && isValidBirth && isValidGender && isValidLastName && isValidMarital && isValidPhone) {
-                        currentPatient.setPatientValues(
-                          formValues["id"],
-                          formValues["firstName"],
-                          formValues["lastName"],
-                          formValues["phone"],
-                          formValues["gender"],
-                          formValues["birthDate"],
-                          formValues["address"],
-                          formValues["maritalCode"],
-                          formValues["maritalText"],
-                          currentPractitioner.id,
-                        );
-                        Navigator.popAndPushNamed(context, "contactPatientInfo");
+                      if (isValidId && isValidBirth && isValidGender) {
+                        if (optionals &&
+                            isValidName &&
+                            isValidLastName &&
+                            isValidPhone &&
+                            isValidAddress &&
+                            isValidMarital &&
+                            isValidNameE &&
+                            isValidPhoneE &&
+                            isValidGenderE &&
+                            isValidAddressE &&
+                            isValidLastNameE) {
+                          AppPatientContact emergencyContact = AppPatientContact();
+                          emergencyContact.setValues(formValues["contactRelationCode"], formValues["contactFirstName"], formValues["contactLastName"], formValues["contactPhone"],
+                              formValues["contactGender"], formValues["contactAddress"]);
+                          currentPatient.setPatientValues(
+                            formValues["id"],
+                            formValues["firstName"],
+                            formValues["lastName"],
+                            formValues["phone"],
+                            formValues["gender"],
+                            formValues["birthDate"],
+                            formValues["address"],
+                            formValues["maritalCode"],
+                            formValues["maritalText"],
+                            currentPractitioner.id,
+                            emergencyContact,
+                          );
+                          //TODO subir informacion del paciente a firebase
+                          Navigator.popAndPushNamed(context, "contactPatientInfo");
+                        } else if (!optionals) {
+                          currentPatient.setPatientValues(
+                            formValues["id"],
+                            formValues["id"],
+                            formValues["id"],
+                            formValues["id"],
+                            formValues["gender"],
+                            formValues["birthDate"],
+                            formValues["id"],
+                            formValues["id"],
+                            formValues["id"],
+                            currentPractitioner.id,
+                            AppPatientContact(),
+                          );
+                          //TODO subir informacion del paciente a firebase
+                          Navigator.popAndPushNamed(context, "homeOnc");
+                        } else {
+                          showAlert(context);
+                        }
                       } else {
                         showAlert(context);
                       }
@@ -349,6 +407,169 @@ class _RegisterPatientState extends State<RegisterPatient> {
         ),
         const SizedBox(
           height: 20,
+        ),
+        Text(
+          "Contacto emergencia",
+          style: GoogleFonts.rubik(
+            color: ThemeApp.appRed,
+            fontSize: 20,
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          "Llene estos datos con informacion del contacto de emergencia del paciente",
+          textAlign: TextAlign.center,
+          style: GoogleFonts.rubik(
+            fontSize: 14,
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        CustomForm(
+            labelText: "Nombre",
+            formField: 'contactFirstName',
+            formValues: formValues,
+            validator: (value) {
+              if (value!.length < 1) {
+                isValidNameE = false;
+                return "Ingrese un nombre\n";
+              }
+
+              isValidNameE = true;
+            }),
+        const SizedBox(
+          height: 30,
+        ),
+        CustomForm(
+          labelText: "Apellido",
+          formField: 'contactLastName',
+          formValues: formValues,
+          validator: (value) {
+            if (value!.length < 1) {
+              isValidLastNameE = false;
+              return "Ingrese un apellido\n";
+            }
+
+            isValidLastNameE = true;
+          },
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        CustomForm(
+          labelText: "Celular",
+          inputType: TextInputType.number,
+          formField: 'contactPhone',
+          formValues: formValues,
+          validator: (value) {
+            if (value!.length < 6) {
+              isValidPhoneE = false;
+              return "Ingrese un numero con almenos 6 dijitos\n";
+            }
+            isValidPhoneE = true;
+          },
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        Card(
+          elevation: 5,
+          shadowColor: ThemeApp.primary.withOpacity(0.5),
+          child: DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              labelText: "Genero",
+            ),
+            items: const [
+              DropdownMenuItem(
+                value: "male",
+                child: Text("Hombre"),
+              ),
+              DropdownMenuItem(
+                value: "female",
+                child: Text("Mujer"),
+              ),
+              DropdownMenuItem(
+                value: "other",
+                child: Text("Otro"),
+              ),
+            ],
+            onChanged: (value) {
+              if (value != null) {
+                formValues["contactGender"] = value;
+                isValidGenderE = true;
+              } else {
+                isValidGenderE = false;
+              }
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        CustomForm(
+          labelText: "Direccion",
+          formField: 'contactAddress',
+          formValues: formValues,
+          validator: (value) {
+            if (value!.length < 5) {
+              isValidAddressE = false;
+              return "Ingrese una direccion valida\n";
+            }
+            isValidAddressE = true;
+          },
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        Card(
+          elevation: 5,
+          shadowColor: ThemeApp.primary.withOpacity(0.5),
+          child: DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              labelText: "Relacion",
+            ),
+            items: const [
+              DropdownMenuItem(
+                value: "BP",
+                child: Text("Persona de contacto de facturación"),
+              ),
+              DropdownMenuItem(
+                value: "CP",
+                child: Text("Persona de contacto"),
+              ),
+              DropdownMenuItem(
+                value: "EP",
+                child: Text("Persona de contacto de emergencia"),
+              ),
+              DropdownMenuItem(
+                value: "E",
+                child: Text("Empleador"),
+              ),
+              DropdownMenuItem(
+                value: "I",
+                child: Text("Compañía de seguros"),
+              ),
+              DropdownMenuItem(
+                value: "U",
+                child: Text("Desconocido"),
+              ),
+            ],
+            onChanged: (value) {
+              if (value != null) {
+                isValidRelationCode = true;
+                formValues["contactRelationCode"] = value;
+              } else {
+                isValidRelationCode = false;
+              }
+            },
+          ),
         ),
         const SizedBox(
           height: 30,

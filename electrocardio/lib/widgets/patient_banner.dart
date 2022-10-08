@@ -1,5 +1,3 @@
-import 'package:electrocardio/models/fhir/patient_fhir.dart';
-import 'package:electrocardio/models/fhir/practitioner_fhir.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,11 +27,11 @@ class PatientBanner extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           subtitle: Text(
-            "Cedula: ${bannerPatient.id}",
+            "Genero: ${bannerPatient.gender}",
             style: GoogleFonts.rubik(),
           ),
           title: Text(
-            bannerPatient.firstName,
+            "Cedula: ${bannerPatient.id}",
             style: GoogleFonts.rubik(),
           ),
           leading: Icon(

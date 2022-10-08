@@ -37,8 +37,7 @@ class _RegisterPatientContactState extends State<RegisterPatientContact> {
   Widget build(BuildContext context) {
     AppPractitioner curentPractitioner = context.watch<AppPractitioner>();
     AppPatient currentPatient = context.watch<AppPatient>();
-    AppPatientContact currentPatientContact =
-        context.watch<AppPatientContact>();
+    AppPatientContact currentPatientContact = context.watch<AppPatientContact>();
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -214,21 +213,10 @@ class _RegisterPatientContactState extends State<RegisterPatientContact> {
                 ElevatedButton(
                   onPressed: () {
                     print(formValues);
-                    if (isValidAddress &&
-                        isValidGender &&
-                        isValidLastName &&
-                        isValidName &&
-                        isValidPhone &&
-                        isValidRelation) {
+                    if (isValidAddress && isValidGender && isValidLastName && isValidName && isValidPhone && isValidRelation) {
                       //create patient emergency contact
-                      currentPatientContact.setValues(
-                          formValues["contactCode"],
-                          formValues["contactTextCode"],
-                          formValues["contactFirstName"],
-                          formValues["contactLastName"],
-                          formValues["contactPhone"],
-                          formValues["contactGender"],
-                          formValues["contactAddress"]);
+                      currentPatientContact.setValues(formValues["contactCode"], formValues["contactTextCode"], formValues["contactFirstName"], formValues["contactLastName"],
+                          formValues["contactPhone"], formValues["contactAddress"]);
 
                       currentPatient.emergencyContact = currentPatientContact;
                       currentPatient.addEmergencyContact(currentPatientContact);
@@ -263,7 +251,6 @@ class _RegisterPatientContactState extends State<RegisterPatientContact> {
 
   void showAlert(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => const AlertGlobal(
-            alertText: "Alguno de los campos no esta llenado correctamente"),
+        builder: (_) => const AlertGlobal(alertText: "Alguno de los campos no esta llenado correctamente"),
       );
 }
