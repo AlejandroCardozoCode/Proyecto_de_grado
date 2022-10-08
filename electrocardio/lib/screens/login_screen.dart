@@ -63,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                         final String? uId = await authService.loginUser(formValues["userName"]!, formValues["pwd"]!);
                         if (uId != null) {
                           context.read<AppPractitioner>().loadFromYaml(await practitionerService.getPtactitioner(uId));
-                          if (context.read<AppPractitioner>().role == "onco") {
+                          if (context.read<AppPractitioner>().role == "Oncologo") {
                             Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
                           }
                         } else {

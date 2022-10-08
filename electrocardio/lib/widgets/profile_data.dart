@@ -15,9 +15,9 @@ class ProfileData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
-    return Container(
-      height: w * 0.4,
-      child: Center(
+    return FittedBox(
+      child: Container(
+        height: w * 0.4,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -32,34 +32,36 @@ class ProfileData extends StatelessWidget {
             const SizedBox(
               width: 30,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  practitionerName,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.rubik(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: ThemeApp.appRed,
+            FittedBox(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    practitionerName,
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.rubik(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: ThemeApp.appRed,
+                    ),
                   ),
-                ),
-                Text(
-                  role,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.rubik(
-                    fontSize: 15,
+                  Text(
+                    role,
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.rubik(
+                      fontSize: 15,
+                    ),
                   ),
-                ),
-                Text(
-                  id,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.rubik(
-                    fontSize: 12,
+                  Text(
+                    id,
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.rubik(
+                      fontSize: 12,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),
