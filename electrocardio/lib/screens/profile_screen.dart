@@ -1,10 +1,7 @@
 import 'dart:convert';
-
-import 'package:electrocardio/services/images_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../models/fhir/practitioner_fhir.dart';
 import '../theme/theme.dart';
 import '../widgets/widgets.dart';
@@ -15,8 +12,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppPractitioner practitioner = context.watch<AppPractitioner>();
-    ImageService imageService = ImageService();
-
     return Scaffold(
       body: SafeArea(
         child: Column(

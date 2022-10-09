@@ -11,3 +11,5 @@ export 'profile_info_card.dart';
 export 'alert_send_electro.dart';
 export 'patient_banner.dart';
 export 'alert_global.dart';
+export 'custom_progress_indicator.dart';
+export 'alert_send_diagnostic.dart';

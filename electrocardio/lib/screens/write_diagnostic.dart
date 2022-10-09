@@ -47,8 +47,7 @@ class _WriteDiagnostic extends State<WriteDiagnostic> {
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: CustomTextField(
-                  hintText:
-                      "Por favor escriba la informacion respectiva a el diagnostico del electrocardiograma",
+                  hintText: "Por favor escriba la informacion respectiva a el diagnostico del electrocardiograma",
                   controller: controller,
                 ),
               ),
@@ -59,11 +58,11 @@ class _WriteDiagnostic extends State<WriteDiagnostic> {
             ElevatedButton(
               onPressed: () {
                 diagnosticValue = controller.text;
-                if (diagnosticValue.length < 75) {
+                if (diagnosticValue.length < 40) {
                   showAlert(context);
                 } else {
                   currentDiagnostic.diagnostic = diagnosticValue;
-                  showSendElectroDialog(context);
+                  showSendDiagnostic(context);
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -90,13 +89,11 @@ class _WriteDiagnostic extends State<WriteDiagnostic> {
 
   void showAlert(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => AlertGlobal(
-            alertText:
-                "Se necesitan al menos 75 caracteres, usted a escrito ${controller.text.length}"),
+        builder: (_) => AlertGlobal(alertText: "Se necesitan al menos 40 caracteres, usted a escrito ${controller.text.length}"),
       );
 
-  void showSendElectroDialog(BuildContext context) => showDialog(
+  void showSendDiagnostic(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => const AlertSendElectro(),
+        builder: (_) => const AlertSendDiagnostic(),
       );
 }

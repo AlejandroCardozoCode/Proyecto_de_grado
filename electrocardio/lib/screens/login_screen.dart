@@ -37,6 +37,7 @@ class LoginScreen extends StatelessWidget {
                       formField: 'userName',
                       inputType: TextInputType.emailAddress,
                       formValues: formValues,
+                      capitalization: TextCapitalization.none,
                       validator: (value) {},
                     ),
                     const SizedBox(
@@ -57,19 +58,31 @@ class LoginScreen extends StatelessWidget {
                         backgroundColor: ThemeApp.appRed,
                       ),
                       onPressed: () async {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          barrierColor: Color.fromARGB(122, 255, 255, 255),
+                          builder: (context) {
+                            return customProgressIndicator();
+                          },
+                        );
                         final authService = Provider.of<AuthService>(context, listen: false);
                         final practitionerService = PractitionerService();
                         final String? uId = await authService.loginUser(formValues["userName"]!, formValues["pwd"]!);
                         if (uId != null) {
                           context.read<AppPractitioner>().loadFromYaml(await practitionerService.getPtactitioner(uId));
                           if (context.read<AppPractitioner>().role == "Oncologo") {
-                            context.read<AppPractitioner>().loadPractitionerData();
+                            await context.read<AppPractitioner>().loadPractitionerOncoData();
+                            Navigator.of(context).pop();
                             Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
                           } else if (context.read<AppPractitioner>().role == "Cardiologo") {
-                            context.read<AppPractitioner>().loadPractitionerData();
+                            await context.read<AppPractitioner>().loadPractitionerCardioData();
+                            print(context.read<AppPractitioner>().id);
+                            Navigator.of(context).pop();
                             Navigator.pushNamedAndRemoveUntil(context, "homeCar", (route) => false);
                           }
                         } else {
+                          Navigator.of(context).pop();
                           showAlert(context);
                         }
                       },

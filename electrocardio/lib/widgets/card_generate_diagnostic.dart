@@ -1,25 +1,34 @@
+import 'dart:developer';
+
+import 'package:electrocardio/models/fhir/app_fhir_clases.dart';
 import 'package:electrocardio/widgets/card_pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets.dart';
 
 class CardGenerateDiagnostic extends StatelessWidget {
-  final String patientName;
+  final String patientId;
   final String reportDate;
   final String textObservation;
   final String textpriority;
+  final String imageData;
+  final AppDiagosticReport currentDiagnostic;
 
   const CardGenerateDiagnostic({
     Key? key,
-    required this.patientName,
+    required this.patientId,
     required this.reportDate,
     required this.textObservation,
     required this.textpriority,
+    required this.imageData,
+    required this.currentDiagnostic,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
     final w = MediaQuery.of(context).size.width;
     return Card(
       child: Column(
@@ -36,7 +45,7 @@ class CardGenerateDiagnostic extends StatelessWidget {
               ),
             ),
             title: Text(
-              "Paciente: $patientName",
+              "Paciente: $patientId",
               style: GoogleFonts.rubik(),
             ),
             subtitle: Text(
@@ -51,7 +60,7 @@ class CardGenerateDiagnostic extends StatelessWidget {
                 width: w * 0.25,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "electroView");
+                    Navigator.pushNamed(context, "electroView", arguments: {'imageData': imageData});
                   },
                   child: Text(
                     "Ver\nImagen",
@@ -87,6 +96,7 @@ class CardGenerateDiagnostic extends StatelessWidget {
                 width: w * 0.25,
                 child: TextButton(
                   onPressed: () {
+                    currentDiagnostic.copy(this.currentDiagnostic);
                     Navigator.pushNamed(context, "writeDiagnostic");
                   },
                   child: FittedBox(
@@ -144,8 +154,7 @@ class CardGenerateDiagnostic extends StatelessWidget {
     return Container();
   }
 
-  void showAlert(BuildContext context, String text, String tittle) =>
-      showDialog(
+  void showAlert(BuildContext context, String text, String tittle) => showDialog(
         context: context,
         builder: (_) => CardPopUp(
           text: text,
@@ -154,8 +163,6 @@ class CardGenerateDiagnostic extends StatelessWidget {
       );
   void showAlert2(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => const AlertGlobal(
-            alertText:
-                "Aun no se ha generado el reporte para este electrocardiograma"),
+        builder: (_) => const AlertGlobal(alertText: "Aun no se ha generado el reporte para este electrocardiograma"),
       );
 }

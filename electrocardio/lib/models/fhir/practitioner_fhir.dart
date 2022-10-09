@@ -29,24 +29,15 @@ class AppPractitioner with ChangeNotifier {
 
   AppPractitioner() {}
 
-  clearValues() {
-    active = "";
-    id = "";
-    idFirebase = "";
-    firstName = "";
-    lastName = "";
-    email = "";
-    address = "";
-    gender = "";
-    birthDate = "";
-    role = "";
-    imgUrl = "";
+  loadPractitionerOncoData() async {
+    await generateDiagnostic();
+    await generateObservations();
+    await generatePatients();
   }
 
-  loadPractitionerData() {
-    generateDiagnostic();
-    generateObservations();
-    generatePatients();
+  loadPractitionerCardioData() async {
+    await generateObservationsCardio();
+    await generateDiagnosticCardio();
   }
 
   generatePatients() async {
@@ -83,6 +74,41 @@ class AppPractitioner with ChangeNotifier {
       }
     });
 
+    notifyListeners();
+  }
+
+  generateDiagnosticCardio() async {
+    DiagnosticReportService diagnosticReportService = DiagnosticReportService();
+    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports();
+    this.diagnosticList.clear();
+    List<AppDiagosticReport> topList = [];
+    List<AppDiagosticReport> midList = [];
+    List<AppDiagosticReport> lowList = [];
+    allDiagnostics.forEach(
+      (diagnostic) {
+        if (diagnostic.diagnostic == "") {
+          if (diagnostic.priority.substring(0, 3) == "TOP") {
+            topList.add(diagnostic);
+          } else if (diagnostic.priority.substring(0, 3) == "MID") {
+            midList.add(diagnostic);
+          } else {
+            lowList.add(diagnostic);
+          }
+          ;
+        }
+      },
+    );
+    diagnosticList.addAll(topList);
+    diagnosticList.addAll(midList);
+    diagnosticList.addAll(lowList);
+    notifyListeners();
+  }
+
+  generateObservationsCardio() async {
+    ObservationService observationService = ObservationService();
+    List<AppObservation> allObservations = await observationService.loadObservations();
+    this.observationList.clear();
+    this.observationList.addAll(allObservations);
     notifyListeners();
   }
 

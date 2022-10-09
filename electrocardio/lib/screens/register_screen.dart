@@ -118,6 +118,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     inputType: TextInputType.emailAddress,
                     formField: 'email',
                     formValues: formValues,
+                    capitalization: TextCapitalization.none,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         isValidEmail = false;

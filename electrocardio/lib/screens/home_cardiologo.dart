@@ -19,7 +19,6 @@ class _HomeCardiologoState extends State<HomeCardiologo> {
   @override
   void initState() {
     super.initState();
-    context.read<AppPractitioner>().clearValues();
     /*
     context.read<AppPractitioner>().create(
           firstName: "Ricardo",

@@ -49,19 +49,25 @@ class ReportListScreen extends StatelessWidget {
 
   Widget getChild(AppPractitioner currentPractitioner) {
     if (currentPractitioner.diagnosticList.length > 0) {
-      return ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        itemCount: currentPractitioner.diagnosticList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return CardReportElectro(
-            patientName: currentPractitioner.findPatientById(currentPractitioner.diagnosticList[index].patientIdReference)!.firstName,
-            reportDate: currentPractitioner.diagnosticList[index].dateTime,
-            textDiagnostic: currentPractitioner.diagnosticList[index].diagnostic,
-            textObservation: currentPractitioner.findObservationById(currentPractitioner.diagnosticList[index].observationId)!.actualObservation,
-            textpriority: currentPractitioner.diagnosticList[index].priority.substring(0, 3),
-            imageData: currentPractitioner.diagnosticList[index].imageReference,
-          );
+      return RefreshIndicator(
+        onRefresh: () async {
+          await currentPractitioner.generateObservations();
+          await currentPractitioner.generateDiagnostic();
         },
+        child: ListView.builder(
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: currentPractitioner.diagnosticList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return CardReportElectro(
+              patientName: currentPractitioner.findPatientById(currentPractitioner.diagnosticList[index].patientIdReference)!.firstName,
+              reportDate: currentPractitioner.diagnosticList[index].dateTime,
+              textDiagnostic: currentPractitioner.diagnosticList[index].diagnostic,
+              textObservation: currentPractitioner.findObservationById(currentPractitioner.diagnosticList[index].observationId)!.actualObservation,
+              textpriority: currentPractitioner.diagnosticList[index].priority.substring(0, 3),
+              imageData: currentPractitioner.diagnosticList[index].imageReference,
+            );
+          },
+        ),
       );
     } else {
       return Center(

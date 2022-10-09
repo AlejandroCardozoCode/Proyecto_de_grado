@@ -6,6 +6,7 @@ class CustomForm extends StatelessWidget {
   final String? labelText;
   final String? helperText;
   final TextInputType? inputType;
+  final TextCapitalization? capitalization;
   final bool protectedText;
   final String? Function(String?)? validator;
 
@@ -21,6 +22,7 @@ class CustomForm extends StatelessWidget {
     required this.formField,
     required this.formValues,
     required this.validator,
+    this.capitalization = TextCapitalization.words,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,7 @@ class CustomForm extends StatelessWidget {
         keyboardType: inputType,
         obscureText: protectedText,
         autofocus: false,
-        textCapitalization: TextCapitalization.words,
+        textCapitalization: capitalization!,
         onChanged: (value) {
           formValues[formField] = value;
         },

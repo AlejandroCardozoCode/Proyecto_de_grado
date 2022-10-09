@@ -37,18 +37,9 @@ class DiagnosticListScreen extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-              CardGenerateDiagnostic(
-                patientName: "nombre paciente",
-                reportDate: "fecha ",
-                textObservation:
-                    "Sea ea ipsum erat duo lorem clita eirmod. Magna sed eirmod diam lorem dolores. Et dolores lorem sanctus voluptua sed.",
-                textpriority: "TOP",
-              ),
-              /*
               Expanded(
                 child: getChild(currentPractitioner),
               ),
-              */
             ],
           ),
         ),
@@ -59,23 +50,24 @@ class DiagnosticListScreen extends StatelessWidget {
   Widget getChild(AppPractitioner currentPractitioner) {
     if (currentPractitioner.diagnosticList.length > 0) {
       print(currentPractitioner.diagnosticList);
-      return ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        itemCount: currentPractitioner.diagnosticList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return CardGenerateDiagnostic(
-            patientName: currentPractitioner
-                .findPatientById(currentPractitioner
-                    .diagnosticList[index].patientIdReference)!
-                .firstName,
-            reportDate: currentPractitioner.diagnosticList[index].dateTime,
-            textObservation: currentPractitioner
-                .findObservationById(
-                    currentPractitioner.diagnosticList[index].observationId)!
-                .actualObservation,
-            textpriority: '',
-          );
+      return RefreshIndicator(
+        onRefresh: () async {
+          await currentPractitioner.generateDiagnosticCardio();
         },
+        child: ListView.builder(
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: currentPractitioner.diagnosticList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return CardGenerateDiagnostic(
+              patientId: currentPractitioner.diagnosticList[index].patientIdReference,
+              reportDate: currentPractitioner.diagnosticList[index].dateTime,
+              textObservation: currentPractitioner.findObservationById(currentPractitioner.diagnosticList[index].observationId)!.actualObservation,
+              textpriority: currentPractitioner.diagnosticList[index].priority.substring(0, 3),
+              imageData: currentPractitioner.diagnosticList[index].imageReference,
+              currentDiagnostic: currentPractitioner.diagnosticList[index],
+            );
+          },
+        ),
       );
     } else {
       return Center(

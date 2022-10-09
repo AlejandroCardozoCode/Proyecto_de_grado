@@ -27,7 +27,6 @@ class _PatientListScreenState extends State<PatientListScreen> {
   @override
   Widget build(BuildContext context) {
     AppPractitioner practitioner = context.watch<AppPractitioner>();
-    practitioner.generatePatients();
     if (applyFilter) {
       patientsList = practitioner.patientList.where((element) => element.id.contains(filter)).toList();
     } else {
@@ -67,15 +66,20 @@ class _PatientListScreenState extends State<PatientListScreen> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: patientsList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return PatientBanner(
-                    enableOnTap: true,
-                    bannerPatient: patientsList[index],
-                  );
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  await practitioner.generatePatients();
                 },
+                child: ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemCount: patientsList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return PatientBanner(
+                      enableOnTap: true,
+                      bannerPatient: patientsList[index],
+                    );
+                  },
+                ),
               ),
             ),
           ],

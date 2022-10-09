@@ -22,7 +22,6 @@ class _HomeOncologoState extends State<HomeOncologo> {
         setState(
           () {
             index = i;
-            context.read<AppPractitioner>().loadPractitionerData();
           },
         );
       },
