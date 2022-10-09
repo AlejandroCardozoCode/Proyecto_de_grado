@@ -132,16 +132,4 @@ class AppDiagosticReport with ChangeNotifier {
     diagnostic = "";
     priority = "";
   }
-
-  void copyDiagnostic(AppDiagosticReport currentDiagnostic) {
-    id = currentDiagnostic.id;
-    patientIdReference = currentDiagnostic.patientIdReference;
-    dateTime = currentDiagnostic.dateTime;
-    practitionerIdReferenceOnco = currentDiagnostic.practitionerIdReferenceOnco;
-    practitionerIdReferenceCardio = currentDiagnostic.practitionerIdReferenceCardio;
-    observationId = currentDiagnostic.observationId;
-    imageReference = currentDiagnostic.imageReference;
-    diagnostic = currentDiagnostic.diagnostic;
-    priority = currentDiagnostic.priority;
-  }
 }

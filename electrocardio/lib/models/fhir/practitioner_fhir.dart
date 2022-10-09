@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:electrocardio/models/fhir/app_fhir_clases.dart';
 import 'package:electrocardio/models/fhir/diagnostic_report_fhir.dart';
 import 'package:electrocardio/models/fhir/observation_fhir.dart';
@@ -27,91 +29,11 @@ class AppPractitioner with ChangeNotifier {
   late List<AppObservation> observationList = [];
   late List<AppDiagosticReport> diagnosticList = [];
 
+  PatientService patientService = PatientService();
+  ObservationService observationService = ObservationService();
+  DiagnosticReportService diagnosticReportService = DiagnosticReportService();
+
   AppPractitioner() {}
-
-  loadPractitionerOncoData() async {
-    await generateDiagnostic();
-    await generateObservations();
-    await generatePatients();
-  }
-
-  loadPractitionerCardioData() async {
-    await generateObservationsCardio();
-    await generateDiagnosticCardio();
-  }
-
-  generatePatients() async {
-    PatientService patientService = PatientService();
-    List<AppPatient> allPatients = await patientService.loadPatients();
-    this.patientList.clear();
-    allPatients.forEach((patient) {
-      if (patient.practitionerId == this.id) {
-        patientList.add(patient);
-      }
-    });
-    notifyListeners();
-  }
-
-  generateObservations() async {
-    ObservationService observationService = ObservationService();
-    List<AppObservation> allObservations = await observationService.loadObservations();
-    this.observationList.clear();
-    allObservations.forEach((observation) {
-      if (observation.practitionerIdReference == this.id) {
-        observationList.add(observation);
-      }
-    });
-    notifyListeners();
-  }
-
-  generateDiagnostic() async {
-    DiagnosticReportService diagnosticReportService = DiagnosticReportService();
-    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports();
-    this.diagnosticList.clear();
-    allDiagnostics.forEach((diagnostic) {
-      if (diagnostic.practitionerIdReferenceOnco == this.id) {
-        diagnosticList.add(diagnostic);
-      }
-    });
-
-    notifyListeners();
-  }
-
-  generateDiagnosticCardio() async {
-    DiagnosticReportService diagnosticReportService = DiagnosticReportService();
-    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports();
-    this.diagnosticList.clear();
-    List<AppDiagosticReport> topList = [];
-    List<AppDiagosticReport> midList = [];
-    List<AppDiagosticReport> lowList = [];
-    allDiagnostics.forEach(
-      (diagnostic) {
-        if (diagnostic.diagnostic == "") {
-          if (diagnostic.priority.substring(0, 3) == "TOP") {
-            topList.add(diagnostic);
-          } else if (diagnostic.priority.substring(0, 3) == "MID") {
-            midList.add(diagnostic);
-          } else {
-            lowList.add(diagnostic);
-          }
-          ;
-        }
-      },
-    );
-    diagnosticList.addAll(topList);
-    diagnosticList.addAll(midList);
-    diagnosticList.addAll(lowList);
-    notifyListeners();
-  }
-
-  generateObservationsCardio() async {
-    ObservationService observationService = ObservationService();
-    List<AppObservation> allObservations = await observationService.loadObservations();
-    this.observationList.clear();
-    this.observationList.addAll(allObservations);
-    notifyListeners();
-  }
-
   void loadFromYaml(String practitionerYaml) async {
     r4.Practitioner practitioner = r4.Practitioner.fromYaml(practitionerYaml);
     active = practitioner.active.toString();
@@ -172,6 +94,157 @@ class AppPractitioner with ChangeNotifier {
       ],
     );
     this.r4Class = practitioner;
+  }
+
+  loadPractitionerOncoData() async {
+    final result = await Future.wait([
+      patientService.loadPatients(),
+      observationService.loadObservations(),
+      diagnosticReportService.loadDiagnosticReports(),
+    ]);
+    this.patientList.clear();
+    this.observationList.clear();
+    this.diagnosticList.clear();
+    result[0].forEach((patient) {
+      if (patient.practitionerId == this.id) {
+        patientList.add(patient);
+      }
+    });
+    result[1].forEach((observation) {
+      if (observation.practitionerIdReference == this.id) {
+        observationList.add(observation);
+      }
+    });
+    result[2].forEach((diagnostic) {
+      if (diagnostic.practitionerIdReferenceOnco == this.id) {
+        diagnosticList.add(diagnostic);
+      }
+    });
+    notifyListeners();
+  }
+
+  loadPractitionerCardioData() async {
+    final result = await Future.wait([
+      diagnosticReportService.loadDiagnosticReports(),
+      observationService.loadObservations(),
+    ]);
+
+    this.diagnosticList.clear();
+    List<AppDiagosticReport> topList = [];
+    List<AppDiagosticReport> midList = [];
+    List<AppDiagosticReport> lowList = [];
+
+    result[0].forEach(
+      (diagnostic) {
+        if (diagnostic.diagnostic == "") {
+          if (diagnostic.priority.substring(0, 3) == "TOP") {
+            topList.add(diagnostic);
+          } else if (diagnostic.priority.substring(0, 3) == "MID") {
+            midList.add(diagnostic);
+          } else {
+            lowList.add(diagnostic);
+          }
+          ;
+        }
+      },
+    );
+    diagnosticList.addAll(topList);
+    diagnosticList.addAll(midList);
+    diagnosticList.addAll(lowList);
+
+    this.observationList.clear();
+    this.observationList.addAll(result[1]);
+    notifyListeners();
+  }
+
+  generatePatients() async {
+    List<AppPatient> allPatients = await patientService.loadPatients();
+    this.patientList.clear();
+    allPatients.forEach((patient) {
+      if (patient.practitionerId == this.id) {
+        patientList.add(patient);
+      }
+    });
+    notifyListeners();
+  }
+
+  generateObservations() async {
+    List<AppObservation> allObservations = await observationService.loadObservations();
+    this.observationList.clear();
+    allObservations.forEach((observation) {
+      if (observation.practitionerIdReference == this.id) {
+        observationList.insert(0, observation);
+      }
+    });
+    notifyListeners();
+  }
+
+  generateDiagnostic() async {
+    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports();
+    this.diagnosticList.clear();
+    allDiagnostics.forEach((diagnostic) {
+      if (diagnostic.practitionerIdReferenceOnco == this.id) {
+        diagnosticList.insert(0, diagnostic);
+      }
+    });
+
+    notifyListeners();
+  }
+
+  generateDiagnosticCardio() async {
+    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports();
+    this.diagnosticList.clear();
+    List<AppDiagosticReport> topList = [];
+    List<AppDiagosticReport> midList = [];
+    List<AppDiagosticReport> lowList = [];
+    allDiagnostics.forEach(
+      (diagnostic) {
+        if (diagnostic.diagnostic == "") {
+          if (diagnostic.priority.substring(0, 3) == "TOP") {
+            topList.add(diagnostic);
+          } else if (diagnostic.priority.substring(0, 3) == "MID") {
+            midList.add(diagnostic);
+          } else {
+            lowList.add(diagnostic);
+          }
+          ;
+        }
+      },
+    );
+    diagnosticList.addAll(topList);
+    diagnosticList.addAll(midList);
+    diagnosticList.addAll(lowList);
+    notifyListeners();
+  }
+
+  generateObservationsCardio() async {
+    List<AppObservation> allObservations = await observationService.loadObservations();
+    this.observationList.clear();
+    this.observationList.addAll(allObservations);
+    notifyListeners();
+  }
+
+  addObservationToList(AppObservation observation) {
+    AppObservation newObservation = AppObservation().copy(observation);
+    this.observationList.add(newObservation);
+    notifyListeners();
+  }
+
+  addDiagnosticToList(AppDiagosticReport diagosticReport) {
+    AppDiagosticReport newDiagnostic = AppDiagosticReport().copy(diagosticReport);
+    this.diagnosticList.add(newDiagnostic);
+    notifyListeners();
+  }
+
+  addPatientToList(AppPatient patient) {
+    AppPatient newPatient = AppPatient().copyPatient(patient);
+    this.patientList.add(newPatient);
+    notifyListeners();
+  }
+
+  removeDiagnosticFromList(AppDiagosticReport diagosticReport) {
+    this.diagnosticList.removeWhere((AppDiagosticReport element) => element.id == diagosticReport.id);
+    notifyListeners();
   }
 
   uploadToFirebase(String uId) {

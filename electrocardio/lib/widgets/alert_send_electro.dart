@@ -37,6 +37,7 @@ class AlertSendElectro extends StatelessWidget {
             // subir observacion a la lista de observaciones
             currentObservation.create();
             currentObservation.uploadToFirebase(currentObservation.observationId);
+            currentPractitioner.addObservationToList(currentObservation);
 
             currentDiagnostic.id = uuidDiagnostic.toString();
             currentDiagnostic.patientIdReference = currentPatient.id;
@@ -48,6 +49,7 @@ class AlertSendElectro extends StatelessWidget {
             currentDiagnostic.priority = currentDiagnostic.priority + uuidDiagnostic;
             currentDiagnostic.create();
             currentDiagnostic.uploadToFirebase(currentDiagnostic.id);
+            currentPractitioner.addDiagnosticToList(currentDiagnostic);
 
             Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
           },

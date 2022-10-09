@@ -1,11 +1,14 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:electrocardio/models/fhir/app_fhir_clases.dart';
 import 'package:electrocardio/widgets/card_pop_up.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../services/images_service.dart';
 import 'widgets.dart';
 
 class CardGenerateDiagnostic extends StatelessWidget {
@@ -59,8 +62,21 @@ class CardGenerateDiagnostic extends StatelessWidget {
               SizedBox(
                 width: w * 0.25,
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "electroView", arguments: {'imageData': imageData});
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      barrierColor: Color.fromARGB(122, 255, 255, 255),
+                      builder: (context) {
+                        return customProgressIndicator();
+                      },
+                    );
+
+                    String data = await compute(ImageService.decryptImage, imageData);
+                    Uint8List decoded = await compute(base64Decode, data);
+                    ImageProvider image = Image.memory(decoded).image;
+                    Navigator.of(context).pop();
+                    Navigator.pushNamed(context, "electroView", arguments: {'imageData': image});
                   },
                   child: Text(
                     "Ver\nImagen",

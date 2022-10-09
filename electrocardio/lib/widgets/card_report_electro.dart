@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:electrocardio/widgets/card_pop_up.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../services/services.dart';
 import 'widgets.dart';
 
 class CardReportElectro extends StatelessWidget {
@@ -25,6 +29,7 @@ class CardReportElectro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
+    ImageService imageService = ImageService();
     return Card(
       child: Column(
         children: [
@@ -54,8 +59,21 @@ class CardReportElectro extends StatelessWidget {
               SizedBox(
                 width: w * 0.25,
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "electroView", arguments: {'imageData': imageData});
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      barrierColor: Color.fromARGB(122, 255, 255, 255),
+                      builder: (context) {
+                        return customProgressIndicator();
+                      },
+                    );
+
+                    String data = await compute(ImageService.decryptImage, imageData);
+                    Uint8List decoded = await compute(base64Decode, data);
+                    ImageProvider image = Image.memory(decoded).image;
+                    Navigator.of(context).pop();
+                    Navigator.pushNamed(context, "electroView", arguments: {'imageData': image});
                   },
                   child: Text(
                     "Ver\nImagen",

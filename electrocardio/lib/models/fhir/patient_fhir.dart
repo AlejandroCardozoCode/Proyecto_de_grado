@@ -73,7 +73,7 @@ class AppPatient with ChangeNotifier {
     this.emergencyContact = emergencyContact;
   }
 
-  void copyPatient(AppPatient patient) {
+  AppPatient copyPatient(AppPatient patient) {
     this.id = patient.id;
     this.firstName = patient.firstName;
     this.lastName = patient.lastName;
@@ -84,6 +84,7 @@ class AppPatient with ChangeNotifier {
     this.maritalCode = patient.maritalCode;
     this.maritalText = patient.maritalText;
     this.practitionerId = patient.practitionerId;
+    return this;
   }
 
   addEmergencyContact(AppPatientContact contact) {

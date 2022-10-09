@@ -30,7 +30,8 @@ class AlertSendDiagnostic extends StatelessWidget {
             log(currentDiagnostic.id);
             log(currentDiagnostic.diagnostic);
             currentDiagnostic.uploadToFirebase(currentDiagnostic.id);
-            await currentPractitioner.generateDiagnosticCardio();
+            log(currentPractitioner.diagnosticList.length.toString());
+            await currentPractitioner.removeDiagnosticFromList(currentDiagnostic);
             Navigator.pushNamedAndRemoveUntil(context, "homeCar", (route) => false);
           },
         ),

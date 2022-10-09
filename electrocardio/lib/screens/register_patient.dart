@@ -242,10 +242,10 @@ class _RegisterPatientState extends State<RegisterPatient> {
                             currentPractitioner.id,
                             emergencyContact,
                           );
-                          //TODO subir informacion del paciente a firebase
                           currentPatient.create();
                           currentPatient.uploadToFirebase(currentPatient.id);
-                          Navigator.popAndPushNamed(context, "contactPatientInfo");
+                          currentPractitioner.addPatientToList(currentPatient);
+                          Navigator.popAndPushNamed(context, "homeOnc");
                         } else if (!optionals) {
                           currentPatient.setPatientValues(
                             formValues["id"],
@@ -260,9 +260,9 @@ class _RegisterPatientState extends State<RegisterPatient> {
                             currentPractitioner.id,
                             AppPatientContact(),
                           );
-                          //TODO subir informacion del paciente a firebase
                           currentPatient.create();
                           currentPatient.uploadToFirebase(currentPatient.id);
+                          currentPractitioner.addPatientToList(currentPatient);
                           Navigator.popAndPushNamed(context, "homeOnc");
                         } else {
                           showAlert(context);

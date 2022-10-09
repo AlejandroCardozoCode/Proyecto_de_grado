@@ -24,8 +24,8 @@ class ImageService {
     return encrypted.base64;
   }
 
-  String decryptImage(String image) {
-    final key = Key.fromUtf8(_key);
+  static String decryptImage(String image) {
+    final key = Key.fromUtf8("D17F3622C00136307E4A75801F85B67F");
     final iv = IV.fromLength(16);
     final encrypter = Encrypter(AES(key));
     final decrypted = encrypter.decrypt64(image, iv: iv);
