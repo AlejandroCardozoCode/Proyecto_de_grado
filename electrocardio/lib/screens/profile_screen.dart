@@ -16,7 +16,6 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppPractitioner practitioner = context.watch<AppPractitioner>();
     ImageService imageService = ImageService();
-    print(practitioner.firstName);
 
     return Scaffold(
       body: SafeArea(

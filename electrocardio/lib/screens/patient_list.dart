@@ -1,4 +1,5 @@
 import 'package:electrocardio/models/fhir/patient_fhir.dart';
+import 'package:electrocardio/services/patient_service.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:electrocardio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
     AppPractitioner practitioner = context.watch<AppPractitioner>();
     practitioner.generatePatients();
     if (applyFilter) {
-      patientsList = practitioner.patientList
-          .where((element) => element.id.contains(filter))
-          .toList();
+      patientsList = practitioner.patientList.where((element) => element.id.contains(filter)).toList();
     } else {
       patientsList = practitioner.patientList;
     }

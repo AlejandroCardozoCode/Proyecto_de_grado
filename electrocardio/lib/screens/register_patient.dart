@@ -243,6 +243,8 @@ class _RegisterPatientState extends State<RegisterPatient> {
                             emergencyContact,
                           );
                           //TODO subir informacion del paciente a firebase
+                          currentPatient.create();
+                          currentPatient.uploadToFirebase(currentPatient.id);
                           Navigator.popAndPushNamed(context, "contactPatientInfo");
                         } else if (!optionals) {
                           currentPatient.setPatientValues(
@@ -259,6 +261,8 @@ class _RegisterPatientState extends State<RegisterPatient> {
                             AppPatientContact(),
                           );
                           //TODO subir informacion del paciente a firebase
+                          currentPatient.create();
+                          currentPatient.uploadToFirebase(currentPatient.id);
                           Navigator.popAndPushNamed(context, "homeOnc");
                         } else {
                           showAlert(context);

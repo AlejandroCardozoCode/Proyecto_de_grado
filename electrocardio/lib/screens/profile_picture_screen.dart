@@ -66,7 +66,6 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                       setState(
                         () {
                           if (image != null) {
-                            //imagePath = image.path;
                             fileImage = File(image.path);
                             ImageService imageService = ImageService();
                             var base64img = imageService.convertToBase64(image);

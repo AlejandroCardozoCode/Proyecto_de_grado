@@ -10,6 +10,7 @@ class CardReportElectro extends StatelessWidget {
   final String textDiagnostic;
   final String textObservation;
   final String textpriority;
+  final String imageData;
 
   const CardReportElectro({
     Key? key,
@@ -18,6 +19,7 @@ class CardReportElectro extends StatelessWidget {
     required this.textDiagnostic,
     required this.textObservation,
     required this.textpriority,
+    required this.imageData,
   }) : super(key: key);
 
   @override
@@ -53,7 +55,7 @@ class CardReportElectro extends StatelessWidget {
                 width: w * 0.25,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "electroView");
+                    Navigator.pushNamed(context, "electroView", arguments: {'imageData': imageData});
                   },
                   child: Text(
                     "Ver\nImagen",
@@ -150,8 +152,7 @@ class CardReportElectro extends StatelessWidget {
     return Container();
   }
 
-  void showAlert(BuildContext context, String text, String tittle) =>
-      showDialog(
+  void showAlert(BuildContext context, String text, String tittle) => showDialog(
         context: context,
         builder: (_) => CardPopUp(
           text: text,
@@ -160,8 +161,6 @@ class CardReportElectro extends StatelessWidget {
       );
   void showAlert2(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => const AlertGlobal(
-            alertText:
-                "Aun no se ha generado el reporte para este electrocardiograma"),
+        builder: (_) => const AlertGlobal(alertText: "Aun no se ha generado el reporte para este electrocardiograma"),
       );
 }

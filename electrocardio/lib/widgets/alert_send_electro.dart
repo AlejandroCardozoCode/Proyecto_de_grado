@@ -15,8 +15,7 @@ class AlertSendElectro extends StatelessWidget {
 
     return AlertDialog(
       title: const Text("Enviar reorte"),
-      content: const Text(
-          "Su reporte sera recivido por un cardiologo y sera respondido lo mas pronto posible"),
+      content: const Text("Su reporte sera recivido por un cardiologo y sera respondido lo mas pronto posible"),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: [
         TextButton(
@@ -34,26 +33,23 @@ class AlertSendElectro extends StatelessWidget {
             currentObservation.observationId = uuidObservation.toString();
             currentObservation.patientIdReference = currentPatient.id;
             currentObservation.practitionerIdReference = currentPractitioner.id;
-            currentObservation.dateTime =
-                "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
+            currentObservation.dateTime = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
             // subir observacion a la lista de observaciones
-            currentPractitioner.addObservation(currentObservation);
+            currentObservation.create();
+            currentObservation.uploadToFirebase(currentObservation.observationId);
 
             currentDiagnostic.id = uuidDiagnostic.toString();
             currentDiagnostic.patientIdReference = currentPatient.id;
-            currentDiagnostic.dateTime =
-                "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
-            currentDiagnostic.practitionerIdReferenceOnco =
-                currentPractitioner.id;
+            currentDiagnostic.dateTime = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
+            currentDiagnostic.practitionerIdReferenceOnco = currentPractitioner.id;
             currentDiagnostic.practitionerIdReferenceCardio = "";
             currentDiagnostic.observationId = uuidObservation;
             currentDiagnostic.diagnostic = "";
-            currentDiagnostic.priority =
-                currentDiagnostic.priority + uuidDiagnostic;
+            currentDiagnostic.priority = currentDiagnostic.priority + uuidDiagnostic;
+            currentDiagnostic.create();
+            currentDiagnostic.uploadToFirebase(currentDiagnostic.id);
 
-            currentPractitioner.addDiagnostic(currentDiagnostic);
-            Navigator.pushNamedAndRemoveUntil(
-                context, "homeOnc", (route) => false);
+            Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
           },
         ),
       ],

@@ -1,6 +1,7 @@
+import 'dart:convert';
+
+import 'package:electrocardio/services/images_service.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ElectroViewScreen extends StatelessWidget {
@@ -8,8 +9,10 @@ class ElectroViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
+    ImageService imageService = ImageService();
     return PhotoView(
-        imageProvider: NetworkImage(
-            "https://i1.wp.com/electrocardiografia.wordpress.com/files/2008/11/ecg-2.png"));
+      imageProvider: Image.memory(base64Decode(imageService.decryptImage(arguments["imageData"]))).image,
+    );
   }
 }

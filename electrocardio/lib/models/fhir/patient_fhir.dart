@@ -1,6 +1,9 @@
 import 'package:electrocardio/models/fhir/patient_contact_fhir.dart';
+import 'package:electrocardio/services/patient_service.dart';
 import 'package:fhir/r4.dart' as r4;
 import 'package:flutter/cupertino.dart';
+
+import '../../communicators/all_communicator.dart';
 
 class AppPatient with ChangeNotifier {
   late String id;
@@ -87,7 +90,16 @@ class AppPatient with ChangeNotifier {
     emergencyContact = contact;
   }
 
-  void createFHIR() {
+  uploadToFirebase(String uId) {
+    //Firebase
+    final PatientService patientService = PatientService();
+    AllCommunicator patientComunicator = AllCommunicator(yaml: this.patientFHIR.toYaml());
+    patientComunicator.id = uId;
+    patientComunicator.isNew = true;
+    patientService.createNewpatient(patientComunicator);
+  }
+
+  void create() {
     final patient = r4.Patient(
       generalPractitioner: <r4.Reference>[
         r4.Reference(

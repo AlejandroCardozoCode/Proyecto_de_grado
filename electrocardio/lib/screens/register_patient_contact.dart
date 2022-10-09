@@ -220,7 +220,6 @@ class _RegisterPatientContactState extends State<RegisterPatientContact> {
 
                       currentPatient.emergencyContact = currentPatientContact;
                       currentPatient.addEmergencyContact(currentPatientContact);
-                      curentPractitioner.addPatientToList(currentPatient);
                       Navigator.popAndPushNamed(context, "newReport");
                     } else {
                       showAlert(context);

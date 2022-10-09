@@ -1,5 +1,8 @@
+import 'package:electrocardio/services/observation_service.dart';
 import 'package:flutter/cupertino.dart';
 import "package:fhir/r4.dart" as r4;
+
+import '../../communicators/all_communicator.dart';
 
 class AppObservation with ChangeNotifier {
   late String observationId;
@@ -7,6 +10,8 @@ class AppObservation with ChangeNotifier {
   late String practitionerIdReference;
   late String dateTime;
   late String actualObservation;
+
+  late r4.Observation observationFHIR;
 
   copy(AppObservation parameterObservation) {
     observationId = parameterObservation.observationId;
@@ -38,6 +43,15 @@ class AppObservation with ChangeNotifier {
     practitionerIdReference = observation.performer![0].reference!;
     dateTime = observation.issued!.valueString;
     actualObservation = observation.valueString!;
+  }
+
+  uploadToFirebase(String uId) {
+    //Firebase
+    final ObservationService observationService = ObservationService();
+    AllCommunicator observationComunicator = AllCommunicator(yaml: this.observationFHIR.toYaml());
+    observationComunicator.id = uId;
+    observationComunicator.isNew = true;
+    observationService.createNewObservation(observationComunicator);
   }
 
   create() {
@@ -75,5 +89,6 @@ class AppObservation with ChangeNotifier {
       ],
       valueString: actualObservation,
     );
+    this.observationFHIR = observation;
   }
 }

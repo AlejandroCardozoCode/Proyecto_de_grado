@@ -1,5 +1,8 @@
+import 'package:electrocardio/services/diagnostic_report_service.dart';
 import 'package:fhir/r4.dart' as r4;
 import 'package:flutter/cupertino.dart';
+
+import '../../communicators/all_communicator.dart';
 
 // implementacionde la clase de diagnostico con el estandar HL7 FHIR http://hl7.org/fhir/diagnosticreport.html
 class AppDiagosticReport with ChangeNotifier {
@@ -13,13 +16,14 @@ class AppDiagosticReport with ChangeNotifier {
   late String diagnostic;
   late String priority;
 
+  late r4.DiagnosticReport diagnosticReportFHIR;
+
   copy(AppDiagosticReport currentDiagnostic) {
     id = currentDiagnostic.id;
     patientIdReference = currentDiagnostic.patientIdReference;
     dateTime = currentDiagnostic.dateTime;
     practitionerIdReferenceOnco = currentDiagnostic.practitionerIdReferenceOnco;
-    practitionerIdReferenceCardio =
-        currentDiagnostic.practitionerIdReferenceCardio;
+    practitionerIdReferenceCardio = currentDiagnostic.practitionerIdReferenceCardio;
     observationId = currentDiagnostic.observationId;
     imageReference = currentDiagnostic.imageReference;
     diagnostic = currentDiagnostic.diagnostic;
@@ -28,18 +32,25 @@ class AppDiagosticReport with ChangeNotifier {
   }
 
   loadFromYaml(String diagnosticYaml) {
-    r4.DiagnosticReport diagnosticReport =
-        r4.DiagnosticReport.fromYaml(diagnosticYaml);
+    r4.DiagnosticReport diagnosticReport = r4.DiagnosticReport.fromYaml(diagnosticYaml);
     id = diagnosticReport.identifier![0].value!;
     patientIdReference = diagnosticReport.basedOn![0].reference!;
     dateTime = diagnosticReport.issued!.valueString;
     practitionerIdReferenceOnco = diagnosticReport.performer![0].reference!;
-    practitionerIdReferenceCardio =
-        diagnosticReport.resultsInterpreter![0].reference!;
+    practitionerIdReferenceCardio = diagnosticReport.resultsInterpreter![0].reference!;
     observationId = diagnosticReport.result![0].reference!;
     imageReference = diagnosticReport.media![0].link.reference!;
     diagnostic = diagnosticReport.conclusion!;
     priority = diagnosticReport.identifier![1].value!;
+  }
+
+  uploadToFirebase(String uId) {
+    //Firebase
+    final DiagnosticReportService diagnosticReportService = DiagnosticReportService();
+    AllCommunicator diagnosticComunicator = AllCommunicator(yaml: this.diagnosticReportFHIR.toYaml());
+    diagnosticComunicator.id = uId;
+    diagnosticComunicator.isNew = true;
+    diagnosticReportService.createNewDiagnosticReport(diagnosticComunicator);
   }
 
   create() {
@@ -107,6 +118,7 @@ class AppDiagosticReport with ChangeNotifier {
       ],
       conclusion: diagnostic,
     );
+    this.diagnosticReportFHIR = diagnosticReport;
   }
 
   void resetValues() {

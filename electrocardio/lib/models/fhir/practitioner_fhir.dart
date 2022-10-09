@@ -28,15 +28,6 @@ class AppPractitioner with ChangeNotifier {
   late List<AppDiagosticReport> diagnosticList = [];
 
   AppPractitioner() {}
-  addPatientToList(AppPatient patient) {
-    patientList.add(patient);
-  }
-
-  clearLists() {
-    this.patientList = [];
-    this.diagnosticList = [];
-    this.observationList = [];
-  }
 
   clearValues() {
     active = "";
@@ -50,16 +41,49 @@ class AppPractitioner with ChangeNotifier {
     birthDate = "";
     role = "";
     imgUrl = "";
-    clearLists();
   }
 
-  generatePatients() {
-    AppPatient newPatient = AppPatient();
-    newPatient.setPatientValues("123123", "Estiben", "Giraldo", "319192929", "Hombre", "12-12-2001", "calle 100", "F2", "Casado", this.id, AppPatientContact());
-    patientList.insert(0, newPatient);
-    newPatient = AppPatient();
-    newPatient.setPatientValues("456456", "diego", "Giraldo", "319192929", "Hombre", "12-12-2001", "calle 100", "F2", "Casado", this.id, AppPatientContact());
-    patientList.insert(0, newPatient);
+  loadPractitionerData() {
+    generateDiagnostic();
+    generateObservations();
+    generatePatients();
+  }
+
+  generatePatients() async {
+    PatientService patientService = PatientService();
+    List<AppPatient> allPatients = await patientService.loadPatients();
+    this.patientList.clear();
+    allPatients.forEach((patient) {
+      if (patient.practitionerId == this.id) {
+        patientList.add(patient);
+      }
+    });
+    notifyListeners();
+  }
+
+  generateObservations() async {
+    ObservationService observationService = ObservationService();
+    List<AppObservation> allObservations = await observationService.loadObservations();
+    this.observationList.clear();
+    allObservations.forEach((observation) {
+      if (observation.practitionerIdReference == this.id) {
+        observationList.add(observation);
+      }
+    });
+    notifyListeners();
+  }
+
+  generateDiagnostic() async {
+    DiagnosticReportService diagnosticReportService = DiagnosticReportService();
+    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports();
+    this.diagnosticList.clear();
+    allDiagnostics.forEach((diagnostic) {
+      if (diagnostic.practitionerIdReferenceOnco == this.id) {
+        diagnosticList.add(diagnostic);
+      }
+    });
+
+    notifyListeners();
   }
 
   void loadFromYaml(String practitionerYaml) async {
@@ -122,8 +146,6 @@ class AppPractitioner with ChangeNotifier {
       ],
     );
     this.r4Class = practitioner;
-    this.loadFromYaml(practitioner.toYaml());
-    return this;
   }
 
   uploadToFirebase(String uId) {
@@ -160,38 +182,5 @@ class AppPractitioner with ChangeNotifier {
     } else {
       return null;
     }
-  }
-
-  void addObservation(AppObservation currentObservation) {
-    AppObservation observation = AppObservation().copy(currentObservation);
-    observationList.insert(0, observation);
-  }
-
-  void addDiagnostic(AppDiagosticReport currentDiagnostic) {
-    AppDiagosticReport diagnostic = AppDiagosticReport().copy(currentDiagnostic);
-    diagnosticList.insert(0, diagnostic);
-  }
-
-  void diagnosticTestValues() {
-    AppObservation observation = AppObservation();
-    observation.observationId = "obs1";
-    observation.patientIdReference = "testtest";
-    observation.practitionerIdReference = "testtest";
-    observation.dateTime = "2022-02";
-    observation.actualObservation =
-        "Dolor voluptua clita eos takimata sed rebum rebum takimata dolores. Labore accusam consetetur lorem sea eos kasd, et gubergren justo voluptua nonumy duo dolores erat. Diam kasd est sanctus magna et labore vero aliquyam, magna lorem sed lorem invidunt duo stet sanctus diam. Elitr accusam sea ipsum takimata, lorem et.";
-    addObservation(observation);
-
-    AppDiagosticReport diagnostic = AppDiagosticReport();
-    diagnostic.id = "diag1";
-    diagnostic.patientIdReference = "testtest";
-    diagnostic.dateTime = "2022-02";
-    diagnostic.practitionerIdReferenceOnco = "testtest";
-    diagnostic.practitionerIdReferenceCardio = "testtest";
-    diagnostic.observationId = "obs1";
-    diagnostic.imageReference = "testtest";
-    diagnostic.diagnostic = "";
-    diagnostic.priority = "TOP";
-    addDiagnostic(diagnostic);
   }
 }

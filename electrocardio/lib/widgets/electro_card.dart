@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:electrocardio/models/fhir/diagnostic_report_fhir.dart';
 import 'package:electrocardio/models/fhir/observation_fhir.dart';
+import 'package:electrocardio/services/images_service.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,18 +24,16 @@ class _ElectroCardState extends State<ElectroCard> {
   @override
   Widget build(BuildContext context) {
     AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
+    ImageService imageService = ImageService();
     return GestureDetector(
       onTap: () async {
-        XFile? image =
-            await ImagePicker().pickImage(source: ImageSource.camera);
+        XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
         setState(
           () {
             if (image != null) {
-              //imagePath = image.path;
               fileImage = File(image.path);
               loadImage = true;
-              currentDiagnostic.imageReference =
-                  "https://i1.wp.com/electrocardiografia.wordpress.com/files/2008/11/ecg-2.png";
+              currentDiagnostic.imageReference = imageService.encryptImage(image);
             }
           },
         );
@@ -52,10 +51,7 @@ class _ElectroCardState extends State<ElectroCard> {
           child: Column(
             children: [
               Image(
-                image: loadImage
-                    ? FileImage(fileImage)
-                    : const AssetImage("assets/img/electro_placeholder.png")
-                        as ImageProvider,
+                image: loadImage ? FileImage(fileImage) : const AssetImage("assets/img/electro_placeholder.png") as ImageProvider,
                 fit: BoxFit.cover,
                 height: 250,
               ),

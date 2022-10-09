@@ -57,17 +57,16 @@ class LoginScreen extends StatelessWidget {
                         backgroundColor: ThemeApp.appRed,
                       ),
                       onPressed: () async {
-                        print(formValues);
                         final authService = Provider.of<AuthService>(context, listen: false);
                         final practitionerService = PractitionerService();
                         final String? uId = await authService.loginUser(formValues["userName"]!, formValues["pwd"]!);
-                        print(formValues);
-                        print(uId);
                         if (uId != null) {
                           context.read<AppPractitioner>().loadFromYaml(await practitionerService.getPtactitioner(uId));
                           if (context.read<AppPractitioner>().role == "Oncologo") {
+                            context.read<AppPractitioner>().loadPractitionerData();
                             Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
                           } else if (context.read<AppPractitioner>().role == "Cardiologo") {
+                            context.read<AppPractitioner>().loadPractitionerData();
                             Navigator.pushNamedAndRemoveUntil(context, "homeCar", (route) => false);
                           }
                         } else {
