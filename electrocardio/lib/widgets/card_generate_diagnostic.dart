@@ -72,11 +72,13 @@ class CardGenerateDiagnostic extends StatelessWidget {
                       },
                     );
 
-                    String data = await compute(ImageService.decryptImage, imageData);
+                    String data =
+                        await compute(ImageService.decryptImage, imageData);
                     Uint8List decoded = await compute(base64Decode, data);
                     ImageProvider image = Image.memory(decoded).image;
                     Navigator.of(context).pop();
-                    Navigator.pushNamed(context, "electroView", arguments: {'imageData': image});
+                    Navigator.pushNamed(context, "electroView",
+                        arguments: {'imageData': image});
                   },
                   child: Text(
                     "Ver\nImagen",
@@ -170,15 +172,24 @@ class CardGenerateDiagnostic extends StatelessWidget {
     return Container();
   }
 
-  void showAlert(BuildContext context, String text, String tittle) => showDialog(
+  void showAlert(BuildContext context, String text, String tittle) =>
+      showModalBottomSheet(
         context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        )),
         builder: (_) => CardPopUp(
           text: text,
           tittle: tittle,
         ),
       );
+
   void showAlert2(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => const AlertGlobal(alertText: "Aun no se ha generado el reporte para este electrocardiograma"),
+        builder: (_) => const AlertGlobal(
+            alertText:
+                "Aun no se ha generado el reporte para este electrocardiograma"),
       );
 }

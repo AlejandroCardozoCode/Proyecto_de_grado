@@ -9,46 +9,38 @@ class CardPopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 100),
-      child: Card(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              FittedBox(
-                child: Text(
-                  tittle,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.rubik(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return Container(
+      height: 600,
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const SizedBox(
+              height: 50,
+            ),
+            FittedBox(
+              child: Text(
+                tittle,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.rubik(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(
-                height: 50,
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Text(
+                text,
+                textAlign: TextAlign.left,
+                style: GoogleFonts.rubik(),
               ),
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Text(
-                  text,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.rubik(),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

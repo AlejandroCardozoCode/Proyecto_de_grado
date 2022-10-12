@@ -59,12 +59,21 @@ class ReportListScreen extends StatelessWidget {
           itemCount: currentPractitioner.diagnosticList.length,
           itemBuilder: (BuildContext context, int index) {
             return CardReportElectro(
-              patientName: currentPractitioner.findPatientById(currentPractitioner.diagnosticList[index].patientIdReference)!.firstName,
+              patientName: currentPractitioner
+                  .findPatientById(currentPractitioner
+                      .diagnosticList[index].patientIdReference)!
+                  .id,
               reportDate: currentPractitioner.diagnosticList[index].dateTime,
-              textDiagnostic: currentPractitioner.diagnosticList[index].diagnostic,
-              textObservation: currentPractitioner.findObservationById(currentPractitioner.diagnosticList[index].observationId)!.actualObservation,
-              textpriority: currentPractitioner.diagnosticList[index].priority.substring(0, 3),
-              imageData: currentPractitioner.diagnosticList[index].imageReference,
+              textDiagnostic:
+                  currentPractitioner.diagnosticList[index].diagnostic,
+              textObservation: currentPractitioner
+                  .findObservationById(
+                      currentPractitioner.diagnosticList[index].observationId)!
+                  .actualObservation,
+              textpriority: currentPractitioner.diagnosticList[index].priority
+                  .substring(0, 3),
+              imageData:
+                  currentPractitioner.diagnosticList[index].imageReference,
             );
           },
         ),
