@@ -315,24 +315,19 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     onPressed: () async {
 // nuevo
                       if (isValidName && isValidId && isValidAddress && isValidBirth && isValidGender && isValidLastName && isValidPass && isValidPass2 && isValidEmail && isValidRole) {
-                        print(formValues);
-                        final authService = Provider.of<AuthService>(context, listen: false);
-                        final String? userId = await authService.createUser(formValues["email"]!, formValues["pwd"]!);
                         //ToDo crear usuario en autenticacion y obtener el uid en firebase y asignarlo en una variable
-                        if (userId != null) {
-                          practitioner.firstName = formValues["firstName"]!;
-                          practitioner.lastName = formValues["lastName"]!;
-                          practitioner.id = formValues["id"]!;
-                          practitioner.idFirebase = userId;
-                          practitioner.role = formValues["role"]!;
-                          practitioner.active = "true";
-                          practitioner.address = formValues["address"]!;
-                          practitioner.birthDate = formValues["birthDate"]!;
-                          practitioner.email = formValues["email"]!;
-                          practitioner.gender = formValues["gender"]!;
-
-                          Navigator.popAndPushNamed(context, "profilePicture");
-                        }
+                        Navigator.popAndPushNamed(context, "profilePicture", arguments: {
+                          "email": formValues["email"],
+                          "pwd": formValues["pwd"],
+                          "firstName": formValues["firstName"],
+                          "lastName": formValues["lastName"],
+                          "id": formValues["id"],
+                          "role": formValues["role"],
+                          "active": "true",
+                          "address": formValues["address"],
+                          "birthDate": formValues["birthDate"],
+                          "gender": formValues["gender"],
+                        });
                       } else {
                         print(formValues);
                         showAlert(context);

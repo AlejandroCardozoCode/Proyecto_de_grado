@@ -4,10 +4,13 @@ import 'package:electrocardio/models/fhir/diagnostic_report_fhir.dart';
 import 'package:electrocardio/models/fhir/observation_fhir.dart';
 import 'package:electrocardio/services/images_service.dart';
 import 'package:electrocardio/theme/theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import 'custom_progress_indicator.dart';
 
 class ElectroCard extends StatefulWidget {
   ElectroCard({Key? key}) : super(key: key);
@@ -28,13 +31,23 @@ class _ElectroCardState extends State<ElectroCard> {
     return GestureDetector(
       onTap: () async {
         XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+        if (image != null) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            barrierColor: Color.fromARGB(99, 0, 0, 0),
+            builder: (context) {
+              return customProgressIndicator(text: "Procesando imagen");
+            },
+          );
+          currentDiagnostic.imageReference = await compute(imageService.encryptImage, image);
+          print(currentDiagnostic.imageReference);
+          Navigator.of(context).pop();
+        }
         setState(
           () {
-            if (image != null) {
-              fileImage = File(image.path);
-              loadImage = true;
-              currentDiagnostic.imageReference = imageService.encryptImage(image);
-            }
+            fileImage = File(image!.path);
+            loadImage = true;
           },
         );
       },

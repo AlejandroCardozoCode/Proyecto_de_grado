@@ -34,29 +34,31 @@ class PractitionerService {
     return this.practitioners;
   }
 
-  Future createNewPractitioner(AllCommunicator practitioner) async {
-    isSaving = true;
-
-    if (practitioner.isNew) await createPractitioner(practitioner);
-
-    practitioner.isNew = false;
-    isSaving = false;
-  }
-
   Future<String> getPtactitioner(String uId) async {
     isLoading = true;
 
     final url = Uri.https(_baseUrl, 'practitioner/${uId}.json');
     final respuesta = await http.get(url);
     final decodeData = json.decode(respuesta.body);
-    String yaml = decodeData['yaml']!;
-    return yaml;
+    if (decodeData != null) {
+      if (decodeData["yaml"] != null) {
+        String yaml = decodeData['yaml'];
+        return yaml;
+      }
+    }
+    return "";
   }
 
-  Future createPractitioner(AllCommunicator practitioner) async {
-    final url = Uri.https(_baseUrl, 'practitioner/${practitioner.id}.json');
-    final respuesta = await http.put(url, body: practitioner.toJson());
-    final decodeData = json.decode(respuesta.body);
-    this.practitioners.add(practitioner);
+  Future createPractitioner(AllCommunicator practitioner, String role) async {
+    final url = "";
+    if (role == "Cardiologo") {
+      final url = Uri.https(_baseUrl, 'practitioner/cardiologist/${practitioner.id}.json');
+      final respuesta = await http.put(url, body: practitioner.toJson());
+      final decodeData = json.decode(respuesta.body);
+    } else {
+      final url = Uri.https(_baseUrl, 'practitioner/oncologist/${practitioner.id}.json');
+      final respuesta = await http.put(url, body: practitioner.toJson());
+      final decodeData = json.decode(respuesta.body);
+    }
   }
 }

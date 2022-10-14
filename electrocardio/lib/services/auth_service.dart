@@ -19,7 +19,7 @@ class AuthService extends ChangeNotifier {
       //storage.write(key: 'idToken', value: decodeResp['idToken']);
       return decodeResp['localId'];
     } else {
-      return decodeResp['error']['message'];
+      return "";
     }
   }
 

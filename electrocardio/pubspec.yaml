@@ -45,6 +45,7 @@ dependencies:
   uuid: ^3.0.6
   flutter_launcher_icons: ^0.10.0
   encrypt: ^5.0.1
+  lottie: ^1.4.3
 
 dev_dependencies:
   flutter_test:

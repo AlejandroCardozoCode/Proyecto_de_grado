@@ -58,28 +58,35 @@ class LoginScreen extends StatelessWidget {
                         backgroundColor: ThemeApp.appRed,
                       ),
                       onPressed: () async {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          barrierColor: Color.fromARGB(122, 255, 255, 255),
-                          builder: (context) {
-                            return customProgressIndicator();
-                          },
-                        );
-                        final authService = Provider.of<AuthService>(context, listen: false);
+                        loadingAlert(context, "Iniciando sesión");
+                        final authService =
+                            Provider.of<AuthService>(context, listen: false);
                         final practitionerService = PractitionerService();
-                        final String? uId = await authService.loginUser(formValues["userName"]!, formValues["pwd"]!);
-                        if (uId != null) {
-                          context.read<AppPractitioner>().loadFromYaml(await practitionerService.getPtactitioner(uId));
-                          if (context.read<AppPractitioner>().role == "Oncologo") {
-                            await context.read<AppPractitioner>().loadPractitionerOncoData();
+                        final String? uId = await authService.loginUser(
+                            formValues["userName"]!, formValues["pwd"]!);
+                        Navigator.of(context).pop();
+                        loadingAlert(context, "Obteniendo datos");
+                        String yaml =
+                            await practitionerService.getPtactitioner(uId!);
+                        if (yaml.isNotEmpty) {
+                          context.read<AppPractitioner>().loadFromYaml(yaml);
+                          if (context.read<AppPractitioner>().role ==
+                              "Oncologo") {
+                            await context
+                                .read<AppPractitioner>()
+                                .loadPractitionerOncoData();
                             Navigator.of(context).pop();
-                            Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
-                          } else if (context.read<AppPractitioner>().role == "Cardiologo") {
-                            await context.read<AppPractitioner>().loadPractitionerCardioData();
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "homeOnc", (route) => false);
+                          } else if (context.read<AppPractitioner>().role ==
+                              "Cardiologo") {
+                            await context
+                                .read<AppPractitioner>()
+                                .loadPractitionerCardioData();
                             print(context.read<AppPractitioner>().id);
                             Navigator.of(context).pop();
-                            Navigator.pushNamedAndRemoveUntil(context, "homeCar", (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "homeCar", (route) => false);
                           }
                         } else {
                           Navigator.of(context).pop();
@@ -116,6 +123,17 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Future<dynamic> loadingAlert(BuildContext context, String text) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Color.fromARGB(99, 0, 0, 0),
+      builder: (context) {
+        return customProgressIndicator(text: text);
+      },
     );
   }
 

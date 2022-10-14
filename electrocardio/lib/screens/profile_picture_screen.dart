@@ -1,10 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:convert';
-
 import 'package:electrocardio/services/images_service.dart';
 import 'package:electrocardio/theme/theme.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -12,6 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../models/fhir/app_fhir_clases.dart';
+import '../services/auth_service.dart';
+import '../widgets/widgets.dart';
 
 class ProfilePictureScreen extends StatefulWidget {
   const ProfilePictureScreen({Key? key}) : super(key: key);
@@ -28,6 +25,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
   @override
   Widget build(BuildContext context) {
     AppPractitioner practitioner = context.read<AppPractitioner>();
+    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     var w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -93,7 +91,6 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                       setState(
                         () {
                           if (image != null) {
-                            //imagePath = image.path;
                             fileImage = File(image.path);
                             ImageService imageService = ImageService();
                             var base64img = imageService.convertToBase64(image);
@@ -116,11 +113,42 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                     style: ElevatedButton.styleFrom(
                       primary: ThemeApp.appRed,
                     ),
-                    onPressed: () {
-                      print(practitioner.imgUrl);
-                      practitioner.create();
-                      practitioner.uploadToFirebase(practitioner.idFirebase);
-                      Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+                    onPressed: () async {
+                      if (!loadImage) {
+                        showAlert(context);
+                        return;
+                      }
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        barrierColor: Color.fromARGB(99, 0, 0, 0),
+                        builder: (context) {
+                          return customProgressIndicator(text: "Enviando datos");
+                        },
+                      );
+
+                      final authService = Provider.of<AuthService>(context, listen: false);
+                      final String? userId = await authService.createUser(arguments["email"]!, arguments["pwd"]!);
+                      if (!userId!.isEmpty) {
+                        practitioner.firstName = arguments["firstName"]!;
+                        practitioner.lastName = arguments["lastName"]!;
+                        practitioner.id = arguments["id"]!;
+                        practitioner.idFirebase = userId;
+                        practitioner.role = arguments["role"]!;
+                        practitioner.active = "true";
+                        practitioner.address = arguments["address"]!;
+                        practitioner.birthDate = arguments["birthDate"]!;
+                        practitioner.email = arguments["email"]!;
+                        practitioner.gender = arguments["gender"]!;
+
+                        practitioner.create();
+                        await practitioner.uploadToFirebase(practitioner.idFirebase, practitioner.role);
+                        Navigator.of(context).pop();
+                        Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+                      } else {
+                        Navigator.of(context).pop();
+                        showAlertAccount(context);
+                      }
                     },
                     child: SizedBox(
                       height: 40,
@@ -139,4 +167,18 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
       ),
     );
   }
+
+  void showAlert(BuildContext context) => showDialog(
+        context: context,
+        builder: (_) => AlertGlobal(
+          alertText: "No se ha seleccionado una imagen",
+        ),
+      );
+
+  void showAlertAccount(BuildContext context) => showDialog(
+        context: context,
+        builder: (_) => AlertAccountCreation(
+          alertText: "No se ha podido crear la cuenta, es posible que ya exista una con este correo",
+        ),
+      );
 }

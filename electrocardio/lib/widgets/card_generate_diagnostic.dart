@@ -66,9 +66,10 @@ class CardGenerateDiagnostic extends StatelessWidget {
                     showDialog(
                       context: context,
                       barrierDismissible: false,
-                      barrierColor: Color.fromARGB(122, 255, 255, 255),
+                      barrierColor: Color.fromARGB(99, 0, 0, 0),
                       builder: (context) {
-                        return customProgressIndicator();
+                        return customProgressIndicator(
+                            text: "Generando imagen");
                       },
                     );
 

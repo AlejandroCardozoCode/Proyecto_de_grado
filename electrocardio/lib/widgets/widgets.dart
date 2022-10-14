@@ -13,3 +13,4 @@ export 'patient_banner.dart';
 export 'alert_global.dart';
 export 'custom_progress_indicator.dart';
 export 'alert_send_diagnostic.dart';
+export 'alert_account_creation.dart';

@@ -26,7 +26,7 @@ class PatientService {
       final tempPati = AllCommunicator.fromMap(value);
       tempPati.id = key;
       AppPatient actualPatient = AppPatient();
-      actualPatient..loadFromYaml(tempPati.yaml);
+      actualPatient.loadFromYaml(tempPati.yaml);
       patients.add(actualPatient);
     });
     this.isLoading = false;

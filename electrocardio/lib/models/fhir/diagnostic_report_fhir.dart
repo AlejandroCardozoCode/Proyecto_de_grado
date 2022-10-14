@@ -44,13 +44,13 @@ class AppDiagosticReport with ChangeNotifier {
     priority = diagnosticReport.identifier![1].value!;
   }
 
-  uploadToFirebase(String uId) {
+  uploadToFirebase(String uId) async {
     //Firebase
     final DiagnosticReportService diagnosticReportService = DiagnosticReportService();
     AllCommunicator diagnosticComunicator = AllCommunicator(yaml: this.diagnosticReportFHIR.toYaml());
     diagnosticComunicator.id = uId;
     diagnosticComunicator.isNew = true;
-    diagnosticReportService.createNewDiagnosticReport(diagnosticComunicator);
+    await diagnosticReportService.createNewDiagnosticReport(diagnosticComunicator);
   }
 
   create() {
@@ -59,16 +59,13 @@ class AppDiagosticReport with ChangeNotifier {
         r4.Identifier(value: id),
         r4.Identifier(value: priority),
       ],
-      //revisar
       basedOn: <r4.Reference>[
         r4.Reference(
           reference: patientIdReference,
           type: r4.FhirUri("Patient"),
         )
       ],
-      //http://hl7.org/fhir/valueset-diagnostic-report-status.html
       status: r4.Code("final"),
-      // http://hl7.org/fhir/valueset-diagnostic-service-sections.html
       category: <r4.CodeableConcept>[
         r4.CodeableConcept(
           coding: <r4.Coding>[

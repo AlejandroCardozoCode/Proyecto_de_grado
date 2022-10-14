@@ -1,9 +1,4 @@
-import 'dart:developer';
-
 import 'package:electrocardio/models/fhir/app_fhir_clases.dart';
-import 'package:electrocardio/models/fhir/diagnostic_report_fhir.dart';
-import 'package:electrocardio/models/fhir/observation_fhir.dart';
-import 'package:electrocardio/models/fhir/patient_fhir.dart';
 import 'package:fhir/r4.dart' as r4;
 import 'package:flutter/cupertino.dart';
 
@@ -247,13 +242,13 @@ class AppPractitioner with ChangeNotifier {
     notifyListeners();
   }
 
-  uploadToFirebase(String uId) {
+  uploadToFirebase(String uId, String role) async {
     //Firebase
     final PractitionerService practitionerService = PractitionerService();
     AllCommunicator practitionerComunicator = AllCommunicator(yaml: this.r4Class.toYaml());
     practitionerComunicator.id = uId;
     practitionerComunicator.isNew = true;
-    practitionerService.createNewPractitioner(practitionerComunicator);
+    await practitionerService.createPractitioner(practitionerComunicator, role);
   }
 
   AppPatient? findPatientById(String patientId) {
