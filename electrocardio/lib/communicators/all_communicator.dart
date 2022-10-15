@@ -2,22 +2,22 @@ import 'dart:convert';
 
 class AllCommunicator {
   AllCommunicator({
-    required this.yaml,
+    required this.jsonVar,
   });
 
-  String yaml;
+  Map<String, dynamic> jsonVar;
   String id = "";
   bool isNew = false;
 
   factory AllCommunicator.fromJson(String str) => AllCommunicator.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  String toJson() => json.encode(jsonVar);
 
   factory AllCommunicator.fromMap(Map<String, dynamic> json) => AllCommunicator(
-        yaml: json["yaml"] != null ? json["yaml"] : "",
+        jsonVar: json,
       );
 
   Map<String, dynamic> toMap() => {
-        "yaml": yaml,
+        "": jsonVar,
       };
 }

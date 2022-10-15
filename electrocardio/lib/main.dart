@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //creacion de providers para el manejo de los objetos dentro de la aplicacion
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -42,17 +41,16 @@ class MyApp extends StatelessWidget {
           routes: {
             "homeOnc": (context) => const HomeOncologo(),
             "homeCar": (context) => const HomeCardiologo(),
-            "register": (context) => const RegistryScreen(),
+            "register": (context) => const RegisterPractitioner(),
             "login": (context) => const LoginScreen(),
-            "profilePicture": (context) => const ProfilePictureScreen(),
+            "profilePicture": (context) => const LoadPractitionerProfilePictureScreen(),
             "selectPatient": (context) => const SelectPatient(),
             "newPatient": (context) => const RegisterPatient(),
-            "contactPatientInfo": (context) => const RegisterPatientContact(),
-            "newReport": (context) => const NewReportScreen(),
-            "clinicalHistory": (context) => const ObservationScreen(),
-            "reportList": (context) => const ReportListScreen(),
+            "newReport": (context) => const TakeElectroPictureScreen(),
+            "clinicalHistory": (context) => const WriteObservationScreen(),
+            "reportList": (context) => const ObservationList(),
             "profile": (context) => const ProfileScreen(),
-            "electroView": (context) => const ElectroViewScreen(),
+            "electroView": (context) => const ShowImageScreen(),
             //"payment": (context) => const PaymentScreen(),
             "patientList": (context) => const PatientListScreen(),
             "writeDiagnostic": (context) => const WriteDiagnostic(),

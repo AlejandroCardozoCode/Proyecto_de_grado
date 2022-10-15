@@ -10,14 +10,14 @@ import '../models/fhir/app_fhir_clases.dart';
 import '../services/auth_service.dart';
 import '../widgets/widgets.dart';
 
-class ProfilePictureScreen extends StatefulWidget {
-  const ProfilePictureScreen({Key? key}) : super(key: key);
+class LoadPractitionerProfilePictureScreen extends StatefulWidget {
+  const LoadPractitionerProfilePictureScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfilePictureScreen> createState() => _ProfilePictureScreenState();
+  State<LoadPractitionerProfilePictureScreen> createState() => _LoadPractitionerProfilePictureScreenState();
 }
 
-class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
+class _LoadPractitionerProfilePictureScreenState extends State<LoadPractitionerProfilePictureScreen> {
   String imagePath = "assets/img/profile_placeholder.png";
   File fileImage = File('');
   bool loadImage = false;

@@ -6,8 +6,8 @@ import 'package:uuid/uuid.dart';
 import '../models/fhir/app_fhir_clases.dart';
 import 'custom_progress_indicator.dart';
 
-class AlertSendElectro extends StatelessWidget {
-  const AlertSendElectro({Key? key}) : super(key: key);
+class AlertSendObservation extends StatelessWidget {
+  const AlertSendObservation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,7 @@ class AlertSendElectro extends StatelessWidget {
 
     return AlertDialog(
       title: const Text("Enviar reorte"),
-      content: const Text(
-          "Su reporte sera recivido por un cardiologo y sera respondido lo mas pronto posible"),
+      content: const Text("Su reporte sera recivido por un cardiologo y sera respondido lo mas pronto posible"),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: [
         TextButton(
@@ -45,33 +44,27 @@ class AlertSendElectro extends StatelessWidget {
             currentObservation.observationId = uuidObservation.toString();
             currentObservation.patientIdReference = currentPatient.id;
             currentObservation.practitionerIdReference = currentPractitioner.id;
-            currentObservation.dateTime =
-                "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
+            currentObservation.dateTime = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
             // subir observacion a la lista de observaciones
             currentObservation.create();
-            await currentObservation
-                .uploadToFirebase(currentObservation.observationId);
+            await currentObservation.uploadToFirebase(currentObservation.observationId);
             currentPractitioner.addObservationToList(currentObservation);
 
             var uuidDiagnostic = Uuid().v1();
             currentDiagnostic.id = uuidDiagnostic.toString();
             currentDiagnostic.patientIdReference = currentPatient.id;
-            currentDiagnostic.dateTime =
-                "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
-            currentDiagnostic.practitionerIdReferenceOnco =
-                currentPractitioner.id;
+            currentDiagnostic.dateTime = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
+            currentDiagnostic.practitionerIdReferenceOnco = currentPractitioner.id;
             currentDiagnostic.practitionerIdReferenceCardio = "";
             currentDiagnostic.observationId = uuidObservation;
             currentDiagnostic.diagnostic = "";
-            currentDiagnostic.priority =
-                currentDiagnostic.priority + uuidDiagnostic;
+            currentDiagnostic.priority = currentDiagnostic.priority + uuidDiagnostic;
             currentDiagnostic.create();
             await currentDiagnostic.uploadToFirebase(currentDiagnostic.id);
             currentPractitioner.addDiagnosticToList(currentDiagnostic);
 
             Navigator.of(context).pop();
-            Navigator.pushNamedAndRemoveUntil(
-                context, "homeOnc", (route) => false);
+            Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
           },
         ),
       ],

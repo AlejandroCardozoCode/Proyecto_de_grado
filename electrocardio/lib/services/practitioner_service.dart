@@ -1,12 +1,16 @@
+import 'dart:developer';
+
+import 'package:flutter/services.dart';
+
 import '../communicators/all_communicator.dart';
 import '../models/fhir/app_fhir_clases.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class PractitionerService {
-  final String _baseUrl = 'test2-64528-default-rtdb.firebaseio.com';
+import 'keys_service.dart';
 
+class PractitionerService {
   //Doctores que se encuentran en la app
   final List<AllCommunicator> practitioners = [];
 
@@ -21,6 +25,7 @@ class PractitionerService {
   Future loadPractitioners() async {
     isLoading = true;
 
+    String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'practitioner.json');
     final respuesta = await http.get(url);
     final Map<String, dynamic> practitionersMap = json.decode(respuesta.body);
@@ -34,31 +39,28 @@ class PractitionerService {
     return this.practitioners;
   }
 
-  Future<String> getPtactitioner(String uId) async {
+  Future<Map<String, dynamic>> getPtactitioner(String uId) async {
     isLoading = true;
 
+    String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'practitioner/${uId}.json');
     final respuesta = await http.get(url);
     final decodeData = json.decode(respuesta.body);
-    if (decodeData != null) {
-      if (decodeData["yaml"] != null) {
-        String yaml = decodeData['yaml'];
-        return yaml;
-      }
+    if (decodeData["active"] != null) {
+      return decodeData;
     }
-    return "";
+    return {};
   }
 
   Future createPractitioner(AllCommunicator practitioner, String role) async {
-    final url = "";
+    String _baseUrl = await obtainURL();
+    final url = Uri.https(_baseUrl, 'practitioner/${practitioner.id}.json');
+    final response = await http.put(url, body: practitioner.toJson());
+    log(role);
     if (role == "Cardiologo") {
-      final url = Uri.https(_baseUrl, 'practitioner/cardiologist/${practitioner.id}.json');
-      final respuesta = await http.put(url, body: practitioner.toJson());
-      final decodeData = json.decode(respuesta.body);
-    } else {
-      final url = Uri.https(_baseUrl, 'practitioner/oncologist/${practitioner.id}.json');
-      final respuesta = await http.put(url, body: practitioner.toJson());
-      final decodeData = json.decode(respuesta.body);
+      final url2 = Uri.https(_baseUrl, 'cardiologistList.json');
+      final response2 = await http.put(url2, body: {practitioner.id});
+      log(response2.body.toString());
     }
   }
 }

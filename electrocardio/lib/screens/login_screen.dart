@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,34 +61,23 @@ class LoginScreen extends StatelessWidget {
                       ),
                       onPressed: () async {
                         loadingAlert(context, "Iniciando sesión");
-                        final authService =
-                            Provider.of<AuthService>(context, listen: false);
+                        final authService = Provider.of<AuthService>(context, listen: false);
                         final practitionerService = PractitionerService();
-                        final String? uId = await authService.loginUser(
-                            formValues["userName"]!, formValues["pwd"]!);
+                        final String? uId = await authService.loginUser(formValues["userName"]!, formValues["pwd"]!);
                         Navigator.of(context).pop();
                         loadingAlert(context, "Obteniendo datos");
-                        String yaml =
-                            await practitionerService.getPtactitioner(uId!);
-                        if (yaml.isNotEmpty) {
-                          context.read<AppPractitioner>().loadFromYaml(yaml);
-                          if (context.read<AppPractitioner>().role ==
-                              "Oncologo") {
-                            await context
-                                .read<AppPractitioner>()
-                                .loadPractitionerOncoData();
+                        Map<String, dynamic> jsonValue = await practitionerService.getPtactitioner(uId!);
+                        if (jsonValue.isNotEmpty) {
+                          context.read<AppPractitioner>().loadFromJson(jsonValue);
+                          if (context.read<AppPractitioner>().role == "Oncologo") {
+                            await context.read<AppPractitioner>().loadPractitionerOncoData();
                             Navigator.of(context).pop();
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, "homeOnc", (route) => false);
-                          } else if (context.read<AppPractitioner>().role ==
-                              "Cardiologo") {
-                            await context
-                                .read<AppPractitioner>()
-                                .loadPractitionerCardioData();
+                            Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
+                          } else if (context.read<AppPractitioner>().role == "Cardiologo") {
+                            await context.read<AppPractitioner>().loadPractitionerCardioData();
                             print(context.read<AppPractitioner>().id);
                             Navigator.of(context).pop();
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, "homeCar", (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context, "homeCar", (route) => false);
                           }
                         } else {
                           Navigator.of(context).pop();

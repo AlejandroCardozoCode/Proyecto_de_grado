@@ -36,8 +36,8 @@ class AppObservation with ChangeNotifier {
     this.actualObservation = actualObservation;
   }
 
-  loadFromYaml(String observationYaml) {
-    r4.Observation observation = r4.Observation.fromYaml(observationYaml);
+  loadFromJson(Map<String, dynamic> observationYaml) {
+    r4.Observation observation = r4.Observation.fromJson(observationYaml);
     observationId = observation.identifier![0].value!;
     patientIdReference = observation.subject!.reference!;
     practitionerIdReference = observation.performer![0].reference!;
@@ -48,7 +48,7 @@ class AppObservation with ChangeNotifier {
   uploadToFirebase(String uId) {
     //Firebase
     final ObservationService observationService = ObservationService();
-    AllCommunicator observationComunicator = AllCommunicator(yaml: this.observationFHIR.toYaml());
+    AllCommunicator observationComunicator = AllCommunicator(jsonVar: this.observationFHIR.toJson());
     observationComunicator.id = uId;
     observationComunicator.isNew = true;
     observationService.createNewObservation(observationComunicator);

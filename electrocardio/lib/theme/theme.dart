@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ThemeApp {
   static final Color primary = Color.fromARGB(255, 65, 131, 255);
@@ -13,37 +12,18 @@ class ThemeApp {
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide.none,
         )),
-    /*
-    inputDecorationTheme: InputDecorationTheme(
-      floatingLabelStyle: TextStyle(
-        color: primary,
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: primary),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: primary),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-    ),
-    */
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        primary: primary,
+        backgroundColor: primary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         elevation: 5,
         shadowColor: const Color.fromARGB(56, 158, 158, 158),
       ),
     ),
-    floatingActionButtonTheme:
-        FloatingActionButtonThemeData(backgroundColor: primary),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: primary),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: primary,
+        foregroundColor: primary,
         textStyle: const TextStyle(color: Colors.white),
       ),
     ),

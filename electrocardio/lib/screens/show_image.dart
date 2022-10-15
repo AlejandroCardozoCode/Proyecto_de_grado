@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:photo_view/photo_view.dart';
 
-class ElectroViewScreen extends StatelessWidget {
-  const ElectroViewScreen({Key? key}) : super(key: key);
+class ShowImageScreen extends StatelessWidget {
+  const ShowImageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

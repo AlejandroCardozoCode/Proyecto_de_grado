@@ -20,8 +20,8 @@ class AppPatient with ChangeNotifier {
   late r4.Patient patientFHIR;
   AppPatient();
 
-  void loadFromYaml(String patientYaml) {
-    r4.Patient patient = r4.Patient.fromYaml(patientYaml);
+  void loadFromJson(Map<String, dynamic> patientYaml) {
+    r4.Patient patient = r4.Patient.fromJson(patientYaml);
     id = patient.identifier![0].value!;
     firstName = patient.name![0].given![0];
     lastName = patient.name![0].family!;
@@ -91,13 +91,13 @@ class AppPatient with ChangeNotifier {
     emergencyContact = contact;
   }
 
-  uploadToFirebase(String uId) {
+  uploadToFirebase(String uId) async {
     //Firebase
     final PatientService patientService = PatientService();
-    AllCommunicator patientComunicator = AllCommunicator(yaml: this.patientFHIR.toYaml());
+    AllCommunicator patientComunicator = AllCommunicator(jsonVar: this.patientFHIR.toJson());
     patientComunicator.id = uId;
     patientComunicator.isNew = true;
-    patientService.createNewpatient(patientComunicator);
+    await patientService.createNewpatient(patientComunicator);
   }
 
   void create() {

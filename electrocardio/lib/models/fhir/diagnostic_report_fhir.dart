@@ -31,8 +31,8 @@ class AppDiagosticReport with ChangeNotifier {
     return this;
   }
 
-  loadFromYaml(String diagnosticYaml) {
-    r4.DiagnosticReport diagnosticReport = r4.DiagnosticReport.fromYaml(diagnosticYaml);
+  loadFromJson(Map<String, dynamic> diagnosticYaml) {
+    r4.DiagnosticReport diagnosticReport = r4.DiagnosticReport.fromJson(diagnosticYaml);
     id = diagnosticReport.identifier![0].value!;
     patientIdReference = diagnosticReport.basedOn![0].reference!;
     dateTime = diagnosticReport.issued!.valueString;
@@ -47,7 +47,7 @@ class AppDiagosticReport with ChangeNotifier {
   uploadToFirebase(String uId) async {
     //Firebase
     final DiagnosticReportService diagnosticReportService = DiagnosticReportService();
-    AllCommunicator diagnosticComunicator = AllCommunicator(yaml: this.diagnosticReportFHIR.toYaml());
+    AllCommunicator diagnosticComunicator = AllCommunicator(jsonVar: this.diagnosticReportFHIR.toJson());
     diagnosticComunicator.id = uId;
     diagnosticComunicator.isNew = true;
     await diagnosticReportService.createNewDiagnosticReport(diagnosticComunicator);

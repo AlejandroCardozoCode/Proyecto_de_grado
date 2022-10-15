@@ -58,7 +58,7 @@ class DiagnosticListScreen extends StatelessWidget {
           physics: const AlwaysScrollableScrollPhysics(),
           itemCount: currentPractitioner.diagnosticList.length,
           itemBuilder: (BuildContext context, int index) {
-            return CardGenerateDiagnostic(
+            return DiagnosticCard(
               patientId: currentPractitioner.diagnosticList[index].patientIdReference,
               reportDate: currentPractitioner.diagnosticList[index].dateTime,
               textObservation: currentPractitioner.findObservationById(currentPractitioner.diagnosticList[index].observationId)!.actualObservation,

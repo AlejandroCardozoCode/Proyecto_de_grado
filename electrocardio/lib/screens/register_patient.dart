@@ -383,6 +383,10 @@ class _RegisterPatientState extends State<RegisterPatient> {
                   child: Text("Divorciado"),
                 ),
                 DropdownMenuItem(
+                  value: "I",
+                  child: Text("Interlocutorio"),
+                ),
+                DropdownMenuItem(
                   value: "L",
                   child: Text("Legalmente separado"),
                 ),
@@ -391,12 +395,16 @@ class _RegisterPatientState extends State<RegisterPatient> {
                   child: Text("Casado"),
                 ),
                 DropdownMenuItem(
-                  value: "S",
-                  child: Text("Nunca casado"),
+                  value: "P",
+                  child: Text("Polígamo"),
                 ),
                 DropdownMenuItem(
                   value: "W",
                   child: Text("Viudo"),
+                ),
+                DropdownMenuItem(
+                  value: "UNK",
+                  child: Text("Desconocido"),
                 ),
               ],
               onChanged: (value) {

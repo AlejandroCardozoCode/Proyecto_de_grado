@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class NewReportScreen extends StatelessWidget {
-  const NewReportScreen({Key? key}) : super(key: key);
+class TakeElectroPictureScreen extends StatelessWidget {
+  const TakeElectroPictureScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class NewReportScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                ElectroCard(),
+                TakeElectroPictureCard(),
                 SizedBox(
                   height: w * 0.05,
                 ),
@@ -82,7 +82,6 @@ class NewReportScreen extends StatelessWidget {
 
   void showAlert(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => AlertGlobal(
-            alertText: "No se ha tomado la foto del electrocardiograma"),
+        builder: (_) => AlertGlobal(alertText: "No se ha tomado la foto del electrocardiograma"),
       );
 }

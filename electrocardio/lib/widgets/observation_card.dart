@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../services/services.dart';
 import 'widgets.dart';
 
-class CardReportElectro extends StatelessWidget {
+class ObservationCard extends StatelessWidget {
   final String patientName;
   final String reportDate;
   final String textDiagnostic;
@@ -16,7 +16,7 @@ class CardReportElectro extends StatelessWidget {
   final String textpriority;
   final String imageData;
 
-  const CardReportElectro({
+  const ObservationCard({
     Key? key,
     required this.patientName,
     required this.reportDate,
@@ -64,18 +64,15 @@ class CardReportElectro extends StatelessWidget {
                       barrierDismissible: false,
                       barrierColor: Color.fromARGB(99, 0, 0, 0),
                       builder: (context) {
-                        return customProgressIndicator(
-                            text: "Generando imagen");
+                        return customProgressIndicator(text: "Generando imagen");
                       },
                     );
 
-                    String data =
-                        await compute(ImageService.decryptImage, imageData);
+                    String data = await compute(ImageService.decryptImage, imageData);
                     Uint8List decoded = await compute(base64Decode, data);
                     ImageProvider image = Image.memory(decoded).image;
                     Navigator.of(context).pop();
-                    Navigator.pushNamed(context, "electroView",
-                        arguments: {'imageData': image});
+                    Navigator.pushNamed(context, "electroView", arguments: {'imageData': image});
                   },
                   child: Text(
                     "Ver\nImagen",
@@ -172,8 +169,7 @@ class CardReportElectro extends StatelessWidget {
     return Container();
   }
 
-  void showAlert(BuildContext context, String text, String tittle) =>
-      showModalBottomSheet(
+  void showAlert(BuildContext context, String text, String tittle) => showModalBottomSheet(
         context: context,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -187,8 +183,6 @@ class CardReportElectro extends StatelessWidget {
       );
   void showAlert2(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => const AlertGlobal(
-            alertText:
-                "Aun no se ha generado el reporte para este electrocardiograma"),
+        builder: (_) => const AlertGlobal(alertText: "Aun no se ha generado el reporte para este electrocardiograma"),
       );
 }

@@ -7,14 +7,14 @@ import 'package:provider/provider.dart';
 import '../models/fhir/practitioner_fhir.dart';
 import '../widgets/widgets.dart';
 
-class RegistryScreen extends StatefulWidget {
-  const RegistryScreen({Key? key}) : super(key: key);
+class RegisterPractitioner extends StatefulWidget {
+  const RegisterPractitioner({Key? key}) : super(key: key);
 
   @override
-  State<RegistryScreen> createState() => _RegistryScreenState();
+  State<RegisterPractitioner> createState() => _RegisterPractitionerState();
 }
 
-class _RegistryScreenState extends State<RegistryScreen> {
+class _RegisterPractitionerState extends State<RegisterPractitioner> {
   bool terms = false;
 
   String birthDate = "Ingrese fecha de nacimiento";

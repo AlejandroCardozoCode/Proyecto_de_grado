@@ -29,8 +29,8 @@ class AppPractitioner with ChangeNotifier {
   DiagnosticReportService diagnosticReportService = DiagnosticReportService();
 
   AppPractitioner() {}
-  void loadFromYaml(String practitionerYaml) async {
-    r4.Practitioner practitioner = r4.Practitioner.fromYaml(practitionerYaml);
+  void loadFromJson(Map<String, dynamic> practitionerYaml) async {
+    r4.Practitioner practitioner = r4.Practitioner.fromJson(practitionerYaml);
     active = practitioner.active.toString();
     id = practitioner.identifier![0].value!;
     idFirebase = practitioner.identifier![1].value!;
@@ -94,8 +94,8 @@ class AppPractitioner with ChangeNotifier {
   loadPractitionerOncoData() async {
     final result = await Future.wait([
       patientService.loadPatients(),
-      observationService.loadObservations(),
-      diagnosticReportService.loadDiagnosticReports(),
+      observationService.loadObservations(this.id),
+      diagnosticReportService.loadDiagnosticReports(this.id),
     ]);
     this.patientList.clear();
     this.observationList.clear();
@@ -120,8 +120,8 @@ class AppPractitioner with ChangeNotifier {
 
   loadPractitionerCardioData() async {
     final result = await Future.wait([
-      diagnosticReportService.loadDiagnosticReports(),
-      observationService.loadObservations(),
+      diagnosticReportService.loadDiagnosticReports(this.id),
+      observationService.loadObservations(this.id),
     ]);
 
     this.diagnosticList.clear();
@@ -164,30 +164,21 @@ class AppPractitioner with ChangeNotifier {
   }
 
   generateObservations() async {
-    List<AppObservation> allObservations = await observationService.loadObservations();
+    List<AppObservation> allObservations = await observationService.loadObservations(this.id);
     this.observationList.clear();
-    allObservations.forEach((observation) {
-      if (observation.practitionerIdReference == this.id) {
-        observationList.insert(0, observation);
-      }
-    });
+    this.observationList.addAll(allObservations);
     notifyListeners();
   }
 
   generateDiagnostic() async {
-    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports();
+    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports(this.id);
     this.diagnosticList.clear();
-    allDiagnostics.forEach((diagnostic) {
-      if (diagnostic.practitionerIdReferenceOnco == this.id) {
-        diagnosticList.insert(0, diagnostic);
-      }
-    });
-
+    this.diagnosticList.addAll(allDiagnostics);
     notifyListeners();
   }
 
   generateDiagnosticCardio() async {
-    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports();
+    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports(this.id);
     this.diagnosticList.clear();
     List<AppDiagosticReport> topList = [];
     List<AppDiagosticReport> midList = [];
@@ -213,7 +204,7 @@ class AppPractitioner with ChangeNotifier {
   }
 
   generateObservationsCardio() async {
-    List<AppObservation> allObservations = await observationService.loadObservations();
+    List<AppObservation> allObservations = await observationService.loadObservations(this.id);
     this.observationList.clear();
     this.observationList.addAll(allObservations);
     notifyListeners();
@@ -245,7 +236,7 @@ class AppPractitioner with ChangeNotifier {
   uploadToFirebase(String uId, String role) async {
     //Firebase
     final PractitionerService practitionerService = PractitionerService();
-    AllCommunicator practitionerComunicator = AllCommunicator(yaml: this.r4Class.toYaml());
+    AllCommunicator practitionerComunicator = AllCommunicator(jsonVar: this.r4Class.toJson());
     practitionerComunicator.id = uId;
     practitionerComunicator.isNew = true;
     await practitionerService.createPractitioner(practitionerComunicator, role);

@@ -6,14 +6,14 @@ import '../models/fhir/app_fhir_clases.dart';
 import '../theme/theme.dart';
 import '../widgets/widgets.dart';
 
-class ObservationScreen extends StatefulWidget {
-  const ObservationScreen({Key? key}) : super(key: key);
+class WriteObservationScreen extends StatefulWidget {
+  const WriteObservationScreen({Key? key}) : super(key: key);
 
   @override
-  State<ObservationScreen> createState() => _ObservationScreenState();
+  State<WriteObservationScreen> createState() => _WriteObservationScreenState();
 }
 
-class _ObservationScreenState extends State<ObservationScreen> {
+class _WriteObservationScreenState extends State<WriteObservationScreen> {
   String observationValue = "";
   String priority = "";
   TextEditingController controller = TextEditingController();
@@ -91,8 +91,7 @@ class _ObservationScreenState extends State<ObservationScreen> {
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: CustomTextField(
-                    hintText:
-                        "Por favor ingrese informacion relevante para el cardiologo",
+                    hintText: "Por favor ingrese informacion relevante para el cardiologo",
                     controller: controller,
                   ),
                 ),
@@ -141,18 +140,15 @@ class _ObservationScreenState extends State<ObservationScreen> {
 
   void showAlert(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => AlertGlobal(
-            alertText:
-                "Se necesitan al menos 10 caracteres, usted a escrito ${controller.text.length}"),
+        builder: (_) => AlertGlobal(alertText: "Se necesitan al menos 10 caracteres, usted a escrito ${controller.text.length}"),
       );
   void showAlertPriority(BuildContext context) => showDialog(
         context: context,
-        builder: (_) =>
-            AlertGlobal(alertText: "No se ha seleccionado una prioridad"),
+        builder: (_) => AlertGlobal(alertText: "No se ha seleccionado una prioridad"),
       );
 
   void showSendElectroDialog(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => const AlertSendElectro(),
+        builder: (_) => const AlertSendObservation(),
       );
 }

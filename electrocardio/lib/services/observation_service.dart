@@ -5,28 +5,31 @@ import 'package:electrocardio/models/fhir/app_fhir_clases.dart';
 
 import 'package:http/http.dart' as http;
 
-class ObservationService {
-  final String _baseUrl = 'test2-64528-default-rtdb.firebaseio.com';
+import 'keys_service.dart';
 
+class ObservationService {
   bool isLoading = true;
   bool isSaving = false;
 
   ObservationService() {
-    loadObservations();
+    // loadObservations();
   }
 
-  Future loadObservations() async {
+  Future loadObservations(String idPractitioner) async {
     isLoading = true;
 
     final List<AppObservation> observations = [];
+
+    String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'observation.json');
-    final respuesta = await http.get(url);
-    final Map<String, dynamic> observationsMap = json.decode(respuesta.body);
+    final response = await http.get(url);
+    final Map<String, dynamic> observationsMap = json.decode(response.body);
     observationsMap.forEach((key, value) {
       final tempObser = AllCommunicator.fromMap(value);
       tempObser.id = key;
       AppObservation actualObservation = AppObservation();
-      actualObservation.loadFromYaml(tempObser.yaml);
+      actualObservation.loadFromJson(tempObser.jsonVar);
+      if (actualObservation.practitionerIdReference == idPractitioner || actualObservation.practitionerIdReference == idPractitioner) observations.add(actualObservation);
       observations.add(actualObservation);
     });
     this.isLoading = false;
@@ -44,8 +47,9 @@ class ObservationService {
   }
 
   Future createObservation(AllCommunicator observation) async {
+    String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'observation/${observation.id}.json');
-    final respuesta = await http.put(url, body: observation.toJson());
-    final decodeData = json.decode(respuesta.body);
+    final response = await http.put(url, body: observation.toJson());
+    final decodeData = json.decode(response.body);
   }
 }

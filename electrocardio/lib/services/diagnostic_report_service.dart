@@ -6,30 +6,29 @@ import 'package:electrocardio/models/fhir/app_fhir_clases.dart';
 import '../communicators/all_communicator.dart';
 import 'package:http/http.dart' as http;
 
+import 'keys_service.dart';
+
 class DiagnosticReportService {
-  final String _baseUrl = 'test2-64528-default-rtdb.firebaseio.com';
   bool isLoading = true;
   bool isSaving = false;
 
   DiagnosticReportService() {
-    loadDiagnosticReports();
+    //  loadDiagnosticReports();
   }
-
-  Future loadDiagnosticReports() async {
+  Future loadDiagnosticReports(String idPractitioner) async {
     isLoading = true;
 
     final List<AppDiagosticReport> diagnosticReports = [];
 
+    String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'diagnosticReport.json');
     final respuesta = await http.get(url);
-    final Map<String, dynamic> diagnosticReportsMap =
-        json.decode(respuesta.body);
+    final Map<String, dynamic> diagnosticReportsMap = json.decode(respuesta.body);
     diagnosticReportsMap.forEach((key, value) {
       final tempDiaRep = AllCommunicator.fromMap(value);
-      tempDiaRep.id = key;
       AppDiagosticReport actualReport = AppDiagosticReport();
-      actualReport.loadFromYaml(tempDiaRep.yaml);
-      diagnosticReports.add(actualReport);
+      actualReport.loadFromJson(tempDiaRep.jsonVar);
+      if (actualReport.practitionerIdReferenceCardio == idPractitioner || actualReport.practitionerIdReferenceOnco == idPractitioner) diagnosticReports.add(actualReport);
     });
     this.isLoading = false;
 
@@ -46,8 +45,8 @@ class DiagnosticReportService {
   }
 
   Future createDiagnosticReport(AllCommunicator diagnosticReport) async {
-    final url =
-        Uri.https(_baseUrl, 'diagnosticReport/${diagnosticReport.id}.json');
+    String _baseUrl = await obtainURL();
+    final url = Uri.https(_baseUrl, 'diagnosticReport/${diagnosticReport.id}.json');
     final respuesta = await http.put(url, body: diagnosticReport.toJson());
     final decodeData = json.decode(respuesta.body);
   }

@@ -12,14 +12,14 @@ import 'package:provider/provider.dart';
 
 import 'custom_progress_indicator.dart';
 
-class ElectroCard extends StatefulWidget {
-  ElectroCard({Key? key}) : super(key: key);
+class TakeElectroPictureCard extends StatefulWidget {
+  TakeElectroPictureCard({Key? key}) : super(key: key);
 
   @override
-  State<ElectroCard> createState() => _ElectroCardState();
+  State<TakeElectroPictureCard> createState() => _TakeElectroPictureCardState();
 }
 
-class _ElectroCardState extends State<ElectroCard> {
+class _TakeElectroPictureCardState extends State<TakeElectroPictureCard> {
   String imagePath = "assets/img/electro_placeholder.png";
   File fileImage = File('');
   bool loadImage = false;
