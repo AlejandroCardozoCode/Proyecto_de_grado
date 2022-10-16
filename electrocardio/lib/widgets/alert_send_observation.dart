@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:electrocardio/services/practitioner_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -43,7 +44,7 @@ class AlertSendObservation extends StatelessWidget {
 
             currentObservation.observationId = uuidObservation.toString();
             currentObservation.patientIdReference = currentPatient.id;
-            currentObservation.practitionerIdReference = currentPractitioner.id;
+            currentObservation.practitionerIdReference = currentPractitioner.idFirebase;
             currentObservation.dateTime = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
             // subir observacion a la lista de observaciones
             currentObservation.create();
@@ -54,8 +55,10 @@ class AlertSendObservation extends StatelessWidget {
             currentDiagnostic.id = uuidDiagnostic.toString();
             currentDiagnostic.patientIdReference = currentPatient.id;
             currentDiagnostic.dateTime = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
-            currentDiagnostic.practitionerIdReferenceOnco = currentPractitioner.id;
-            currentDiagnostic.practitionerIdReferenceCardio = "";
+            currentDiagnostic.practitionerIdReferenceOnco = currentPractitioner.idFirebase;
+            PractitionerService practitionerService = PractitionerService();
+            String practitionerIdCardio = await practitionerService.obtainCurrentIndexCardiologist();
+            currentDiagnostic.practitionerIdReferenceCardio = practitionerIdCardio;
             currentDiagnostic.observationId = uuidObservation;
             currentDiagnostic.diagnostic = "";
             currentDiagnostic.priority = currentDiagnostic.priority + uuidDiagnostic;

@@ -52,15 +52,52 @@ class PractitionerService {
     return {};
   }
 
+  Future<int> obtainCardilogistLenght() async {
+    String _baseUrl = await obtainURL();
+    final url = Uri.https(_baseUrl, 'cardiologistList/list.json');
+    final response = await http.get(url);
+    if (json.decode(response.body) != null) {
+      List list = json.decode(response.body);
+      return list.length;
+    }
+    return 0;
+  }
+
   Future createPractitioner(AllCommunicator practitioner, String role) async {
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'practitioner/${practitioner.id}.json');
     final response = await http.put(url, body: practitioner.toJson());
     log(role);
     if (role == "Cardiologo") {
-      final url2 = Uri.https(_baseUrl, 'cardiologistList.json');
-      final response2 = await http.put(url2, body: {practitioner.id});
+      int nextPosition = await obtainCardilogistLenght();
+      final url2 = Uri.https(_baseUrl, 'cardiologistList/list/${nextPosition}.json');
+      final response2 = await http.put(url2, body: json.encode(practitioner.id));
       log(response2.body.toString());
     }
+  }
+
+  Future<String> obtainCurrentIndexCardiologist() async {
+    String _baseUrl = await obtainURL();
+    final url = Uri.https(_baseUrl, 'cardiologistList.json');
+    final response = await http.get(url);
+    Map<String, dynamic> mapValues = json.decode(response.body);
+    if (mapValues["counter"] != null) {
+      int counter = mapValues["counter"];
+      if (mapValues["list"] != null) {
+        if (counter == mapValues.length) {
+          counter = -1;
+        }
+        List listCardio = mapValues["list"];
+        setCurrentIndexCardiologist(counter + 1);
+        return listCardio[counter + 1];
+      }
+    }
+    return "";
+  }
+
+  Future<void> setCurrentIndexCardiologist(int newValue) async {
+    String _baseUrl = await obtainURL();
+    final url = Uri.https(_baseUrl, 'cardiologistList.json');
+    final response = await http.patch(url, body: json.encode({"counter": newValue}));
   }
 }

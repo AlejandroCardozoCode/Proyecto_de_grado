@@ -71,8 +71,9 @@ class DiagnosticCard extends StatelessWidget {
                         return customProgressIndicator(text: "Generando imagen");
                       },
                     );
-
-                    String data = await compute(ImageService.decryptImage, imageData);
+                    ImageService imageService = ImageService();
+                    await imageService.findKey();
+                    String data = await compute(imageService.decryptImage, imageData);
                     Uint8List decoded = await compute(base64Decode, data);
                     ImageProvider image = Image.memory(decoded).image;
                     Navigator.of(context).pop();

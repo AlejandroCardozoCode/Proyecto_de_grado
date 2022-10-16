@@ -28,6 +28,8 @@ class DiagnosticReportService {
       final tempDiaRep = AllCommunicator.fromMap(value);
       AppDiagosticReport actualReport = AppDiagosticReport();
       actualReport.loadFromJson(tempDiaRep.jsonVar);
+      log(actualReport.practitionerIdReferenceCardio);
+      log(idPractitioner);
       if (actualReport.practitionerIdReferenceCardio == idPractitioner || actualReport.practitionerIdReferenceOnco == idPractitioner) diagnosticReports.add(actualReport);
     });
     this.isLoading = false;

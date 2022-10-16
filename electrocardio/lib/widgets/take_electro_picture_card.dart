@@ -40,6 +40,8 @@ class _TakeElectroPictureCardState extends State<TakeElectroPictureCard> {
               return customProgressIndicator(text: "Procesando imagen");
             },
           );
+
+          await imageService.findKey();
           currentDiagnostic.imageReference = await compute(imageService.encryptImage, image);
           print(currentDiagnostic.imageReference);
           Navigator.of(context).pop();

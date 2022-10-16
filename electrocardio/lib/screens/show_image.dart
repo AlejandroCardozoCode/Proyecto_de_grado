@@ -1,8 +1,21 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:photo_view/photo_view.dart';
 
-class ShowImageScreen extends StatelessWidget {
+class ShowImageScreen extends StatefulWidget {
   const ShowImageScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ShowImageScreen> createState() => _ShowImageScreenState();
+}
+
+class _ShowImageScreenState extends State<ShowImageScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    secureScreen();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,5 +23,9 @@ class ShowImageScreen extends StatelessWidget {
     return PhotoView(
       imageProvider: arguments["imageData"],
     );
+  }
+
+  Future<void> secureScreen() async {
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   }
 }

@@ -7,7 +7,12 @@ import 'package:encrypt/encrypt.dart';
 import 'services.dart';
 
 class ImageService {
-  ImageService();
+  late String _key;
+  ImageService() {}
+
+  findKey() async {
+    this._key = await obtainKey();
+  }
 
   String convertToBase64(XFile image) {
     File imagePath = File(image.path);
@@ -18,15 +23,15 @@ class ImageService {
 
   Future<String> encryptImage(XFile image) async {
     String base64 = convertToBase64(image);
-    final key = Key.fromUtf8(await obtainKey());
+    final key = Key.fromUtf8(this._key);
     final iv = IV.fromLength(16);
     final encrypter = Encrypter(AES(key));
     final encrypted = encrypter.encrypt(base64, iv: iv);
     return encrypted.base64;
   }
 
-  static Future<String> decryptImage(String image) async {
-    final key = Key.fromUtf8(await obtainKey());
+  Future<String> decryptImage(String image) async {
+    final key = Key.fromUtf8(this._key);
     final iv = IV.fromLength(16);
     final encrypter = Encrypter(AES(key));
     final decrypted = encrypter.decrypt64(image, iv: iv);

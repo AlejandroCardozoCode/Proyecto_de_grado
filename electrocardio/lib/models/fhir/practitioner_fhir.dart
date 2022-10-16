@@ -94,24 +94,24 @@ class AppPractitioner with ChangeNotifier {
   loadPractitionerOncoData() async {
     final result = await Future.wait([
       patientService.loadPatients(),
-      observationService.loadObservations(this.id),
-      diagnosticReportService.loadDiagnosticReports(this.id),
+      observationService.loadObservations(this.idFirebase),
+      diagnosticReportService.loadDiagnosticReports(this.idFirebase),
     ]);
     this.patientList.clear();
     this.observationList.clear();
     this.diagnosticList.clear();
     result[0].forEach((patient) {
-      if (patient.practitionerId == this.id) {
+      if (patient.practitionerId == this.idFirebase) {
         patientList.add(patient);
       }
     });
     result[1].forEach((observation) {
-      if (observation.practitionerIdReference == this.id) {
+      if (observation.practitionerIdReference == this.idFirebase) {
         observationList.add(observation);
       }
     });
     result[2].forEach((diagnostic) {
-      if (diagnostic.practitionerIdReferenceOnco == this.id) {
+      if (diagnostic.practitionerIdReferenceOnco == this.idFirebase) {
         diagnosticList.add(diagnostic);
       }
     });
@@ -120,8 +120,8 @@ class AppPractitioner with ChangeNotifier {
 
   loadPractitionerCardioData() async {
     final result = await Future.wait([
-      diagnosticReportService.loadDiagnosticReports(this.id),
-      observationService.loadObservations(this.id),
+      diagnosticReportService.loadDiagnosticReports(this.idFirebase),
+      observationService.loadObservations(this.idFirebase),
     ]);
 
     this.diagnosticList.clear();
@@ -164,21 +164,21 @@ class AppPractitioner with ChangeNotifier {
   }
 
   generateObservations() async {
-    List<AppObservation> allObservations = await observationService.loadObservations(this.id);
+    List<AppObservation> allObservations = await observationService.loadObservations(this.idFirebase);
     this.observationList.clear();
     this.observationList.addAll(allObservations);
     notifyListeners();
   }
 
   generateDiagnostic() async {
-    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports(this.id);
+    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports(this.idFirebase);
     this.diagnosticList.clear();
     this.diagnosticList.addAll(allDiagnostics);
     notifyListeners();
   }
 
   generateDiagnosticCardio() async {
-    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports(this.id);
+    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports(this.idFirebase);
     this.diagnosticList.clear();
     List<AppDiagosticReport> topList = [];
     List<AppDiagosticReport> midList = [];
@@ -204,7 +204,7 @@ class AppPractitioner with ChangeNotifier {
   }
 
   generateObservationsCardio() async {
-    List<AppObservation> allObservations = await observationService.loadObservations(this.id);
+    List<AppObservation> allObservations = await observationService.loadObservations(this.idFirebase);
     this.observationList.clear();
     this.observationList.addAll(allObservations);
     notifyListeners();
