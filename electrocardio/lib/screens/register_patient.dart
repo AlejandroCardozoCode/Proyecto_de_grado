@@ -257,7 +257,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
                             formValues["id"],
                             formValues["id"],
                             formValues["id"],
-                            currentPractitioner.id,
+                            currentPractitioner.idFirebase,
                             AppPatientContact(),
                           );
                           currentPatient.create();

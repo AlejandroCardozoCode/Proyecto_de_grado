@@ -23,18 +23,21 @@ class ObservationService {
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'observation.json');
     final response = await http.get(url);
-    final Map<String, dynamic> observationsMap = json.decode(response.body);
-    observationsMap.forEach((key, value) {
-      final tempObser = AllCommunicator.fromMap(value);
-      tempObser.id = key;
-      AppObservation actualObservation = AppObservation();
-      actualObservation.loadFromJson(tempObser.jsonVar);
-      if (actualObservation.practitionerIdReference == idPractitioner || actualObservation.practitionerIdReference == idPractitioner) observations.add(actualObservation);
-      observations.add(actualObservation);
-    });
-    this.isLoading = false;
+    if (json.decode(response.body) != null) {
+      final Map<String, dynamic> observationsMap = json.decode(response.body);
+      observationsMap.forEach((key, value) {
+        final tempObser = AllCommunicator.fromMap(value);
+        tempObser.id = key;
+        AppObservation actualObservation = AppObservation();
+        actualObservation.loadFromJson(tempObser.jsonVar);
+        if (actualObservation.practitionerIdReference == idPractitioner || actualObservation.practitionerIdReference == idPractitioner) observations.add(actualObservation);
+        observations.add(actualObservation);
+      });
+      this.isLoading = false;
 
-    return Future.value(observations);
+      return Future.value(observations);
+    }
+    return null;
   }
 
   Future createNewObservation(AllCommunicator observation) async {

@@ -93,28 +93,37 @@ class AppPractitioner with ChangeNotifier {
 
   loadPractitionerOncoData() async {
     final result = await Future.wait([
-      patientService.loadPatients(),
+      patientService.loadPatients(this.idFirebase),
       observationService.loadObservations(this.idFirebase),
       diagnosticReportService.loadDiagnosticReports(this.idFirebase),
     ]);
     this.patientList.clear();
     this.observationList.clear();
     this.diagnosticList.clear();
-    result[0].forEach((patient) {
-      if (patient.practitionerId == this.idFirebase) {
-        patientList.add(patient);
-      }
-    });
-    result[1].forEach((observation) {
-      if (observation.practitionerIdReference == this.idFirebase) {
-        observationList.add(observation);
-      }
-    });
-    result[2].forEach((diagnostic) {
-      if (diagnostic.practitionerIdReferenceOnco == this.idFirebase) {
-        diagnosticList.add(diagnostic);
-      }
-    });
+
+    if (result[0] != null) {
+      result[0].forEach((patient) {
+        if (patient.practitionerId == this.idFirebase) {
+          patientList.add(patient);
+        }
+      });
+    }
+
+    if (result[1] != null) {
+      result[1].forEach((observation) {
+        if (observation.practitionerIdReference == this.idFirebase) {
+          observationList.add(observation);
+        }
+      });
+    }
+
+    if (result[2] != null) {
+      result[2].forEach((diagnostic) {
+        if (diagnostic.practitionerIdReferenceOnco == this.idFirebase) {
+          diagnosticList.add(diagnostic);
+        }
+      });
+    }
     notifyListeners();
   }
 
@@ -125,35 +134,39 @@ class AppPractitioner with ChangeNotifier {
     ]);
 
     this.diagnosticList.clear();
+    this.observationList.clear();
     List<AppDiagosticReport> topList = [];
     List<AppDiagosticReport> midList = [];
     List<AppDiagosticReport> lowList = [];
 
-    result[0].forEach(
-      (diagnostic) {
-        if (diagnostic.diagnostic == "") {
-          if (diagnostic.priority.substring(0, 3) == "TOP") {
-            topList.add(diagnostic);
-          } else if (diagnostic.priority.substring(0, 3) == "MID") {
-            midList.add(diagnostic);
-          } else {
-            lowList.add(diagnostic);
+    if (result[0] != null) {
+      result[0].forEach(
+        (diagnostic) {
+          if (diagnostic.diagnostic == "") {
+            if (diagnostic.priority.substring(0, 3) == "TOP") {
+              topList.add(diagnostic);
+            } else if (diagnostic.priority.substring(0, 3) == "MID") {
+              midList.add(diagnostic);
+            } else {
+              lowList.add(diagnostic);
+            }
+            ;
           }
-          ;
-        }
-      },
-    );
-    diagnosticList.addAll(topList);
-    diagnosticList.addAll(midList);
-    diagnosticList.addAll(lowList);
+        },
+      );
+      diagnosticList.addAll(topList);
+      diagnosticList.addAll(midList);
+      diagnosticList.addAll(lowList);
+    }
 
-    this.observationList.clear();
-    this.observationList.addAll(result[1]);
+    if (result[1] != null) {
+      this.observationList.addAll(result[1]);
+    }
     notifyListeners();
   }
 
   generatePatients() async {
-    List<AppPatient> allPatients = await patientService.loadPatients();
+    List<AppPatient> allPatients = await patientService.loadPatients(this.idFirebase);
     this.patientList.clear();
     allPatients.forEach((patient) {
       if (patient.practitionerId == this.id) {

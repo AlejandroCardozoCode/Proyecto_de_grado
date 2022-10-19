@@ -22,25 +22,26 @@ class DiagnosticReportService {
 
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'diagnosticReport.json');
-    final respuesta = await http.get(url);
-    final Map<String, dynamic> diagnosticReportsMap = json.decode(respuesta.body);
-    diagnosticReportsMap.forEach((key, value) {
-      final tempDiaRep = AllCommunicator.fromMap(value);
-      AppDiagosticReport actualReport = AppDiagosticReport();
-      actualReport.loadFromJson(tempDiaRep.jsonVar);
-      log(actualReport.practitionerIdReferenceCardio);
-      log(idPractitioner);
-      if (actualReport.practitionerIdReferenceCardio == idPractitioner || actualReport.practitionerIdReferenceOnco == idPractitioner) diagnosticReports.add(actualReport);
-    });
-    this.isLoading = false;
+    final response = await http.get(url);
+    if (json.decode(response.body) != null) {
+      final Map<String, dynamic> diagnosticReportsMap = json.decode(response.body);
+      diagnosticReportsMap.forEach((key, value) {
+        final tempDiaRep = AllCommunicator.fromMap(value);
+        AppDiagosticReport actualReport = AppDiagosticReport();
+        actualReport.loadFromJson(tempDiaRep.jsonVar);
+        if (actualReport.practitionerIdReferenceCardio == idPractitioner || actualReport.practitionerIdReferenceOnco == idPractitioner) diagnosticReports.add(actualReport);
+      });
+      this.isLoading = false;
 
-    return Future.value(diagnosticReports);
+      return Future.value(diagnosticReports);
+    }
+    return null;
   }
 
   Future createNewDiagnosticReport(AllCommunicator diagnosticReport) async {
     isSaving = true;
 
-    if (diagnosticReport.isNew) await createDiagnosticReport(diagnosticReport);
+    await createDiagnosticReport(diagnosticReport);
 
     diagnosticReport.isNew = false;
     isSaving = false;
@@ -49,7 +50,7 @@ class DiagnosticReportService {
   Future createDiagnosticReport(AllCommunicator diagnosticReport) async {
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'diagnosticReport/${diagnosticReport.id}.json');
-    final respuesta = await http.put(url, body: diagnosticReport.toJson());
+    final respuesta = await http.put(url, body: await diagnosticReport.toJson());
     final decodeData = json.decode(respuesta.body);
   }
 }

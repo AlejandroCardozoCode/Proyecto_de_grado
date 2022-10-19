@@ -15,24 +15,29 @@ class PatientService {
     // loadPatients();
   }
 
-  Future<List<AppPatient>> loadPatients() async {
+  Future<List<AppPatient>> loadPatients(String id) async {
     isLoading = true;
 
     final List<AppPatient> patients = [];
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'patient.json');
-    final respuesta = await http.get(url);
-    final Map<String, dynamic> patientsMap = json.decode(respuesta.body);
-    patientsMap.forEach((key, value) {
-      final tempPati = AllCommunicator.fromMap(value);
-      tempPati.id = key;
-      AppPatient actualPatient = AppPatient();
-      actualPatient.loadFromJson(tempPati.jsonVar);
-      patients.add(actualPatient);
-    });
-    this.isLoading = false;
+    final response = await http.get(url);
+    if (json.decode(response.body) != null) {
+      final Map<String, dynamic> patientsMap = json.decode(response.body);
+      patientsMap.forEach((key, value) {
+        final tempPati = AllCommunicator.fromMap(value);
+        tempPati.id = key;
+        AppPatient actualPatient = AppPatient();
+        actualPatient.loadFromJson(tempPati.jsonVar);
+        if (actualPatient.practitionerId == id) {
+          patients.add(actualPatient);
+        }
+      });
+      this.isLoading = false;
 
-    return Future.value(patients);
+      return Future.value(patients);
+    }
+    return [];
   }
 
   Future createNewpatient(AllCommunicator patient) async {

@@ -19,7 +19,7 @@ class PractitionerService {
   bool isSaving = false;
 
   PractitionerService() {
-    this.loadPractitioners();
+//    this.loadPractitioners();
   }
 
   Future loadPractitioners() async {
@@ -27,16 +27,19 @@ class PractitionerService {
 
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'practitioner.json');
-    final respuesta = await http.get(url);
-    final Map<String, dynamic> practitionersMap = json.decode(respuesta.body);
-    practitionersMap.forEach((key, value) {
-      final tempPracti = AllCommunicator.fromMap(value);
-      tempPracti.id = key;
-      this.practitioners.add(tempPracti);
-    });
-    this.isLoading = false;
+    final response = await http.get(url);
+    if (json.decode(response.body) != null) {
+      final Map<String, dynamic> practitionersMap = json.decode(response.body);
+      practitionersMap.forEach((key, value) {
+        final tempPracti = AllCommunicator.fromMap(value);
+        tempPracti.id = key;
+        this.practitioners.add(tempPracti);
+      });
+      this.isLoading = false;
 
-    return this.practitioners;
+      return this.practitioners;
+    }
+    return null;
   }
 
   Future<Map<String, dynamic>> getPtactitioner(String uId) async {
@@ -46,6 +49,9 @@ class PractitionerService {
     final url = Uri.https(_baseUrl, 'practitioner/${uId}.json');
     final respuesta = await http.get(url);
     final decodeData = json.decode(respuesta.body);
+    if (decodeData == null) {
+      return {};
+    }
     if (decodeData["active"] != null) {
       return decodeData;
     }
@@ -67,12 +73,16 @@ class PractitionerService {
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'practitioner/${practitioner.id}.json');
     final response = await http.put(url, body: practitioner.toJson());
-    log(role);
     if (role == "Cardiologo") {
       int nextPosition = await obtainCardilogistLenght();
       final url2 = Uri.https(_baseUrl, 'cardiologistList/list/${nextPosition}.json');
+      final url3 = Uri.https(_baseUrl, 'cardiologistList/counter.json');
       final response2 = await http.put(url2, body: json.encode(practitioner.id));
-      log(response2.body.toString());
+      final response3 = await http.get(url3);
+      if (json.decode(response3.body) == null) {
+        final url4 = Uri.https(_baseUrl, 'cardiologistList.json');
+        await http.patch(url4, body: json.encode({"counter": 0}));
+      }
     }
   }
 
@@ -80,16 +90,26 @@ class PractitionerService {
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'cardiologistList.json');
     final response = await http.get(url);
-    Map<String, dynamic> mapValues = json.decode(response.body);
-    if (mapValues["counter"] != null) {
-      int counter = mapValues["counter"];
-      if (mapValues["list"] != null) {
-        if (counter == mapValues.length) {
-          counter = -1;
+    if (json.decode(response.body) != null) {
+      Map<String, dynamic> mapValues = json.decode(response.body);
+      if (mapValues["counter"] != null) {
+        int counter = mapValues["counter"];
+        if (mapValues["list"] != null) {
+          List listCardio = mapValues["list"];
+          if (counter == listCardio.length - 1) {
+            counter = 0;
+
+            setCurrentIndexCardiologist(counter);
+
+            return listCardio[counter];
+          }
+          if (listCardio.length == 1) {
+            setCurrentIndexCardiologist(counter);
+            return listCardio[counter];
+          }
+          setCurrentIndexCardiologist(counter + 1);
+          return listCardio[counter + 1];
         }
-        List listCardio = mapValues["list"];
-        setCurrentIndexCardiologist(counter + 1);
-        return listCardio[counter + 1];
       }
     }
     return "";

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import '../models/fhir/app_fhir_clases.dart';
 import 'custom_progress_indicator.dart';
+import 'widgets.dart';
 
 class AlertSendObservation extends StatelessWidget {
   const AlertSendObservation({Key? key}) : super(key: key);
@@ -41,6 +42,13 @@ class AlertSendObservation extends StatelessWidget {
                 return customProgressIndicator(text: "Enviando datos");
               },
             );
+            PractitionerService practitionerService = PractitionerService();
+            String practitionerIdCardio = await practitionerService.obtainCurrentIndexCardiologist();
+            if (practitionerIdCardio == "") {
+              Navigator.of(context).pop();
+              showAlert(context);
+              return;
+            }
 
             currentObservation.observationId = uuidObservation.toString();
             currentObservation.patientIdReference = currentPatient.id;
@@ -56,8 +64,6 @@ class AlertSendObservation extends StatelessWidget {
             currentDiagnostic.patientIdReference = currentPatient.id;
             currentDiagnostic.dateTime = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
             currentDiagnostic.practitionerIdReferenceOnco = currentPractitioner.idFirebase;
-            PractitionerService practitionerService = PractitionerService();
-            String practitionerIdCardio = await practitionerService.obtainCurrentIndexCardiologist();
             currentDiagnostic.practitionerIdReferenceCardio = practitionerIdCardio;
             currentDiagnostic.observationId = uuidObservation;
             currentDiagnostic.diagnostic = "";
@@ -73,4 +79,9 @@ class AlertSendObservation extends StatelessWidget {
       ],
     );
   }
+
+  void showAlert(BuildContext context) => showDialog(
+        context: context,
+        builder: (_) => AlertGlobal(alertText: "No hay cardiologos disponibles para asignar la observacion, intente más tarde"),
+      );
 }
