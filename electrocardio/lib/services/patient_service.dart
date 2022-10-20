@@ -10,6 +10,7 @@ import 'keys_service.dart';
 class PatientService {
   bool isLoading = true;
   bool isSaving = false;
+  String _baseUrl = "";
 
   PatientService() {
     // loadPatients();
@@ -17,13 +18,15 @@ class PatientService {
 
   Future<List<AppPatient>> loadPatients(String id) async {
     isLoading = true;
-
     final List<AppPatient> patients = [];
-    String _baseUrl = await obtainURL();
+    if (this._baseUrl == "") {
+      this._baseUrl = await obtainURL();
+    }
     final url = Uri.https(_baseUrl, 'patient.json');
     final response = await http.get(url);
-    if (json.decode(response.body) != null) {
-      final Map<String, dynamic> patientsMap = json.decode(response.body);
+    var jsonDecoded = json.decode(response.body);
+    if (jsonDecoded != null) {
+      final Map<String, dynamic> patientsMap = jsonDecoded;
       patientsMap.forEach((key, value) {
         final tempPati = AllCommunicator.fromMap(value);
         tempPati.id = key;

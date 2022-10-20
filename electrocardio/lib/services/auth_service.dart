@@ -10,6 +10,7 @@ class AuthService extends ChangeNotifier {
       'email': email,
       'password': password,
     };
+
     final url = Uri.https(await obtainAuthUrl(), '/v1/accounts:signUp', {'key': await obtainFireBaseToken()});
     final resp = await http.post(url, body: json.encode(authData));
     final Map<String, dynamic> decodeResp = jsonDecode(resp.body);

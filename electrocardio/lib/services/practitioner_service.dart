@@ -17,7 +17,7 @@ class PractitionerService {
   late AppPractitioner selectedPractitioner;
   bool isLoading = true;
   bool isSaving = false;
-
+  String _baseUrl = "";
   PractitionerService() {
 //    this.loadPractitioners();
   }
@@ -25,11 +25,15 @@ class PractitionerService {
   Future loadPractitioners() async {
     isLoading = true;
 
-    String _baseUrl = await obtainURL();
+    if (this._baseUrl == "") {
+      this._baseUrl = await obtainURL();
+    }
+
     final url = Uri.https(_baseUrl, 'practitioner.json');
     final response = await http.get(url);
-    if (json.decode(response.body) != null) {
-      final Map<String, dynamic> practitionersMap = json.decode(response.body);
+    var jsonDecoded = json.decode(response.body);
+    if (jsonDecoded != null) {
+      final Map<String, dynamic> practitionersMap = jsonDecoded;
       practitionersMap.forEach((key, value) {
         final tempPracti = AllCommunicator.fromMap(value);
         tempPracti.id = key;

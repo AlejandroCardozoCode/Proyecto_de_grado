@@ -11,6 +11,7 @@ class ObservationService {
   bool isLoading = true;
   bool isSaving = false;
 
+  String _baseUrl = "";
   ObservationService() {
     // loadObservations();
   }
@@ -20,11 +21,15 @@ class ObservationService {
 
     final List<AppObservation> observations = [];
 
-    String _baseUrl = await obtainURL();
+    if (this._baseUrl == "") {
+      this._baseUrl = await obtainURL();
+    }
+
     final url = Uri.https(_baseUrl, 'observation.json');
     final response = await http.get(url);
-    if (json.decode(response.body) != null) {
-      final Map<String, dynamic> observationsMap = json.decode(response.body);
+    var jsonDecoded = json.decode(response.body);
+    if (jsonDecoded != null) {
+      final Map<String, dynamic> observationsMap = jsonDecoded;
       observationsMap.forEach((key, value) {
         final tempObser = AllCommunicator.fromMap(value);
         tempObser.id = key;

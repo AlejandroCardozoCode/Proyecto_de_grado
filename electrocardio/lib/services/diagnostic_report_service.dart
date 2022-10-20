@@ -12,6 +12,7 @@ class DiagnosticReportService {
   bool isLoading = true;
   bool isSaving = false;
 
+  String _baseUrl = "";
   DiagnosticReportService() {
     //  loadDiagnosticReports();
   }
@@ -20,11 +21,15 @@ class DiagnosticReportService {
 
     final List<AppDiagosticReport> diagnosticReports = [];
 
-    String _baseUrl = await obtainURL();
+    if (this._baseUrl == "") {
+      this._baseUrl = await obtainURL();
+    }
+
     final url = Uri.https(_baseUrl, 'diagnosticReport.json');
     final response = await http.get(url);
-    if (json.decode(response.body) != null) {
-      final Map<String, dynamic> diagnosticReportsMap = json.decode(response.body);
+    var jsonDecoded = json.decode(response.body);
+    if (jsonDecoded != null) {
+      final Map<String, dynamic> diagnosticReportsMap = jsonDecoded;
       diagnosticReportsMap.forEach((key, value) {
         final tempDiaRep = AllCommunicator.fromMap(value);
         AppDiagosticReport actualReport = AppDiagosticReport();

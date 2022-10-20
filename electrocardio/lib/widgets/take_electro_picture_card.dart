@@ -30,7 +30,7 @@ class _TakeElectroPictureCardState extends State<TakeElectroPictureCard> {
     ImageService imageService = ImageService();
     return GestureDetector(
       onTap: () async {
-        XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+        XFile? image = await ImagePicker().pickImage(source: ImageSource.camera, maxHeight: 1500, maxWidth: 1500);
         if (image != null) {
           showDialog(
             context: context,
