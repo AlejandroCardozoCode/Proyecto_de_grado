@@ -50,7 +50,8 @@ class DiagnosticReportService {
   Future createDiagnosticReport(AllCommunicator diagnosticReport) async {
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'diagnosticReport/${diagnosticReport.id}.json');
-    final respuesta = await http.put(url, body: await diagnosticReport.toJson());
+    String jsonValue = await diagnosticReport.toJson();
+    final respuesta = await http.put(url, body: jsonValue);
     final decodeData = json.decode(respuesta.body);
   }
 }
