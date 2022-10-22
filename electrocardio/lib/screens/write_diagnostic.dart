@@ -1,4 +1,3 @@
-import 'package:electrocardio/models/fhir/observation_fhir.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +17,7 @@ class _WriteDiagnostic extends State<WriteDiagnostic> {
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
+    AppDiagnosticReport currentDiagnostic = context.watch<AppDiagnosticReport>();
     final w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -48,8 +47,7 @@ class _WriteDiagnostic extends State<WriteDiagnostic> {
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: CustomTextField(
-                    hintText:
-                        "Por favor escriba la informacion respectiva a el diagnostico del electrocardiograma",
+                    hintText: "Por favor escriba la información respectiva a el diagnostico del electrocardiograma",
                     controller: controller,
                   ),
                 ),
@@ -92,9 +90,7 @@ class _WriteDiagnostic extends State<WriteDiagnostic> {
 
   void showAlert(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => AlertGlobal(
-            alertText:
-                "Se necesitan al menos 40 caracteres, usted a escrito ${controller.text.length}"),
+        builder: (_) => AlertGlobal(alertText: "Se necesitan al menos 40 caracteres, usted a escrito ${controller.text.length}"),
       );
 
   void showSendDiagnostic(BuildContext context) => showDialog(

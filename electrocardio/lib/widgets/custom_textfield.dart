@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final String? hintText;
   final TextEditingController controller;
-  const CustomTextField({Key? key, this.hintText, required this.controller})
-      : super(key: key);
+  const CustomTextField({Key? key, this.hintText, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +14,7 @@ class CustomTextField extends StatelessWidget {
         maxLines: 50,
         autofocus: true,
         validator: (value) {
-          if (value == null) return "Formulario vacio";
-          //TODO: ARREGLAR disparo de alertas
-          //if(value.length > 70 )
+          if (value == null) return "Formulario vacío";
         },
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(

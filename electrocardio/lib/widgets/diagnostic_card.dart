@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:electrocardio/models/fhir/app_fhir_clases.dart';
 import 'package:electrocardio/widgets/card_pop_up.dart';
@@ -15,23 +14,23 @@ class DiagnosticCard extends StatelessWidget {
   final String patientId;
   final String reportDate;
   final String textObservation;
-  final String textpriority;
+  final String textPriority;
   final String imageData;
-  final AppDiagosticReport currentDiagnostic;
+  final AppDiagnosticReport currentDiagnostic;
 
   const DiagnosticCard({
     Key? key,
     required this.patientId,
     required this.reportDate,
     required this.textObservation,
-    required this.textpriority,
+    required this.textPriority,
     required this.imageData,
     required this.currentDiagnostic,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
+    AppDiagnosticReport currentDiagnostic = context.watch<AppDiagnosticReport>();
     final w = MediaQuery.of(context).size.width;
     return Card(
       child: Column(
@@ -39,7 +38,7 @@ class DiagnosticCard extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          getPriority(textpriority),
+          getPriority(textPriority),
           ListTile(
             leading: const ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -94,11 +93,11 @@ class DiagnosticCard extends StatelessWidget {
                 width: w * 0.25,
                 child: TextButton(
                   onPressed: () {
-                    showAlert(context, textObservation, "Observacion");
+                    showAlert(context, textObservation, "Observación");
                   },
                   child: FittedBox(
                     child: Text(
-                      "Ver\nObservacion",
+                      "Ver\nObservación",
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,

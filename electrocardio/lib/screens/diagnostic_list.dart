@@ -31,7 +31,7 @@ class DiagnosticListScreen extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                "Aqui encontrara un listado de todos los reportes pendientes que tiene que fueron asignado a usted, por favor respondalos en orden",
+                "Aquí encontrara un listado de todos los reportes pendientes que tiene que fueron asignado a usted, por favor responda en orden",
                 textAlign: TextAlign.left,
                 style: GoogleFonts.rubik(
                   fontSize: 16,
@@ -62,7 +62,7 @@ class DiagnosticListScreen extends StatelessWidget {
               patientId: currentPractitioner.diagnosticList[index].patientIdReference,
               reportDate: currentPractitioner.diagnosticList[index].dateTime,
               textObservation: currentPractitioner.findObservationById(currentPractitioner.diagnosticList[index].observationId)!.actualObservation,
-              textpriority: currentPractitioner.diagnosticList[index].priority.substring(0, 3),
+              textPriority: currentPractitioner.diagnosticList[index].priority.substring(0, 3),
               imageData: currentPractitioner.diagnosticList[index].imageReference,
               currentDiagnostic: currentPractitioner.diagnosticList[index],
             );

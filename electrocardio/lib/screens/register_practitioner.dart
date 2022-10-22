@@ -1,10 +1,7 @@
-import 'package:electrocardio/services/services.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import '../models/fhir/practitioner_fhir.dart';
 import '../widgets/widgets.dart';
 
 class RegisterPractitioner extends StatefulWidget {
@@ -43,7 +40,6 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
 
   @override
   Widget build(BuildContext context) {
-    AppPractitioner practitioner = context.watch<AppPractitioner>();
     return SafeArea(
       child: Scaffold(
         body: SafeArea(
@@ -63,14 +59,14 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
                     height: 40,
                   ),
                   CustomForm(
-                    labelText: "Cedula",
+                    labelText: "Cédula",
                     inputType: TextInputType.number,
                     formField: 'id',
                     formValues: formValues,
                     validator: (value) {
                       if (value!.length < 6) {
                         isValidId = false;
-                        return "La cedula tiene que tener minimo 6 digitos\n";
+                        return "La cédula tiene que tener mínimo 6 dígitos\n";
                       }
                       isValidId = true;
                       return null;
@@ -122,7 +118,7 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         isValidEmail = false;
-                        return "El campo no puede estar vacio";
+                        return "El campo no puede estar vacío";
                       }
 
                       const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
@@ -223,11 +219,11 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
                       items: const [
                         DropdownMenuItem(
                           value: "Cardiologo",
-                          child: Text("Cardiologo"),
+                          child: Text("Cardiólogo"),
                         ),
                         DropdownMenuItem(
                           value: "Oncologo",
-                          child: Text("Oncologo"),
+                          child: Text("Oncólogo"),
                         ),
                       ],
                       onChanged: (value) {
@@ -244,13 +240,13 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
                     height: 30,
                   ),
                   CustomForm(
-                    labelText: "Direcction",
+                    labelText: "Dirección",
                     formField: 'address',
                     formValues: formValues,
                     validator: (value) {
                       if (value!.length < 5) {
                         isValidAddress = false;
-                        return "Ingrese una direccion valida\n";
+                        return "Ingrese una dirección valida\n";
                       }
                       isValidAddress = true;
                       return null;
@@ -305,7 +301,7 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
                           });
                         },
                       ),
-                      const Text("Acepto terminos y condiciones")
+                      const Text("Acepto términos y condiciones")
                     ],
                   ),
                   const SizedBox(
@@ -315,7 +311,6 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
                     onPressed: () async {
 // nuevo
                       if (isValidName && isValidId && isValidAddress && isValidBirth && isValidGender && isValidLastName && isValidPass && isValidPass2 && isValidEmail && isValidRole) {
-                        //ToDo crear usuario en autenticacion y obtener el uid en firebase y asignarlo en una variable
                         Navigator.popAndPushNamed(context, "profilePicture", arguments: {
                           "email": formValues["email"],
                           "pwd": formValues["pwd"],
@@ -332,11 +327,9 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
                         print(formValues);
                         showAlert(context);
                       }
-
-//                      Navigator.pushNamed(context, "profilePicture");
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: ThemeApp.appRed,
+                      backgroundColor: ThemeApp.appRed,
                       elevation: 2,
                     ),
                     child: const SizedBox(

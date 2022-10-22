@@ -94,10 +94,10 @@ class AppPatient with ChangeNotifier {
   uploadToFirebase(String uId) async {
     //Firebase
     final PatientService patientService = PatientService();
-    AllCommunicator patientComunicator = AllCommunicator(jsonVar: this.patientFHIR.toJson());
-    patientComunicator.id = uId;
-    patientComunicator.isNew = true;
-    await patientService.createNewpatient(patientComunicator);
+    AllCommunicator patientCommunicator = AllCommunicator(jsonVar: this.patientFHIR.toJson());
+    patientCommunicator.id = uId;
+    patientCommunicator.isNew = true;
+    await patientService.createNewPatient(patientCommunicator);
   }
 
   void create() {

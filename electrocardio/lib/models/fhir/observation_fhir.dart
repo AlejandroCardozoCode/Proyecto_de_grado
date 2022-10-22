@@ -48,10 +48,10 @@ class AppObservation with ChangeNotifier {
   uploadToFirebase(String uId) {
     //Firebase
     final ObservationService observationService = ObservationService();
-    AllCommunicator observationComunicator = AllCommunicator(jsonVar: this.observationFHIR.toJson());
-    observationComunicator.id = uId;
-    observationComunicator.isNew = true;
-    observationService.createNewObservation(observationComunicator);
+    AllCommunicator observationCommunicator = AllCommunicator(jsonVar: this.observationFHIR.toJson());
+    observationCommunicator.id = uId;
+    observationCommunicator.isNew = true;
+    observationService.createNewObservation(observationCommunicator);
   }
 
   create() {

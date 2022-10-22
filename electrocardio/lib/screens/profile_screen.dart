@@ -46,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
                 width: 150,
                 child: Center(
                   child: Text(
-                    "Cerrar Sesion",
+                    "Cerrar sesión",
                     style: GoogleFonts.rubik(
                       fontSize: 18,
                     ),

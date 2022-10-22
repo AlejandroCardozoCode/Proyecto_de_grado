@@ -1,4 +1,3 @@
-import 'package:electrocardio/models/fhir/observation_fhir.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +19,7 @@ class _WriteObservationScreenState extends State<WriteObservationScreen> {
   @override
   Widget build(BuildContext context) {
     AppObservation currentObservation = context.watch<AppObservation>();
-    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
+    AppDiagnosticReport currentDiagnostic = context.watch<AppDiagnosticReport>();
     final w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -91,7 +90,7 @@ class _WriteObservationScreenState extends State<WriteObservationScreen> {
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: CustomTextField(
-                    hintText: "Por favor ingrese informacion relevante para el cardiologo",
+                    hintText: "Por favor ingrese información relevante para el cardiólogo",
                     controller: controller,
                   ),
                 ),

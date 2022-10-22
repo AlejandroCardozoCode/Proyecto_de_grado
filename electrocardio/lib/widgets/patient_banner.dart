@@ -17,7 +17,7 @@ class PatientBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppPatient currentPatient = context.watch<AppPatient>();
-    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
+    AppDiagnosticReport currentDiagnostic = context.watch<AppDiagnosticReport>();
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),

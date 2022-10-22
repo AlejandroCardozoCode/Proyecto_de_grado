@@ -19,7 +19,7 @@ class DiagnosticReportService {
   Future loadDiagnosticReports(String idPractitioner) async {
     isLoading = true;
 
-    final List<AppDiagosticReport> diagnosticReports = [];
+    final List<AppDiagnosticReport> diagnosticReports = [];
 
     if (this._baseUrl == "") {
       this._baseUrl = await obtainURL();
@@ -32,7 +32,7 @@ class DiagnosticReportService {
       final Map<String, dynamic> diagnosticReportsMap = jsonDecoded;
       diagnosticReportsMap.forEach((key, value) {
         final tempDiaRep = AllCommunicator.fromMap(value);
-        AppDiagosticReport actualReport = AppDiagosticReport();
+        AppDiagnosticReport actualReport = AppDiagnosticReport();
         actualReport.loadFromJson(tempDiaRep.jsonVar);
         if (actualReport.practitionerIdReferenceCardio == idPractitioner || actualReport.practitionerIdReferenceOnco == idPractitioner) diagnosticReports.add(actualReport);
       });

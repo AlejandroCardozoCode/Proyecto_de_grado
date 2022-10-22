@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -35,10 +32,7 @@ class ProfileInfoCard extends StatelessWidget {
               children: [
                 Text(
                   "${practitioner.firstName} ${practitioner.lastName}",
-                  style: GoogleFonts.rubik(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600),
+                  style: GoogleFonts.rubik(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(
                   height: 30,
@@ -60,7 +54,7 @@ class ProfileInfoCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "Direccion: ",
+                      "Dirección: ",
                       style: GoogleFonts.rubik(),
                     ),
                     Text(
@@ -88,7 +82,7 @@ class ProfileInfoCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "Especilaidad: ",
+                      "Especialidad: ",
                       style: GoogleFonts.rubik(),
                     ),
                     Text(

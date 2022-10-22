@@ -46,7 +46,7 @@ class PractitionerService {
     return null;
   }
 
-  Future<Map<String, dynamic>> getPtactitioner(String uId) async {
+  Future<Map<String, dynamic>> getPractitioner(String uId) async {
     isLoading = true;
 
     String _baseUrl = await obtainURL();
@@ -62,7 +62,7 @@ class PractitionerService {
     return {};
   }
 
-  Future<int> obtainCardilogistLenght() async {
+  Future<int> obtainCardiologistLength() async {
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'cardiologistList/list.json');
     final response = await http.get(url);
@@ -78,7 +78,7 @@ class PractitionerService {
     final url = Uri.https(_baseUrl, 'practitioner/${practitioner.id}.json');
     final response = await http.put(url, body: practitioner.toJson());
     if (role == "Cardiologo") {
-      int nextPosition = await obtainCardilogistLenght();
+      int nextPosition = await obtainCardiologistLength();
       final url2 = Uri.https(_baseUrl, 'cardiologistList/list/${nextPosition}.json');
       final url3 = Uri.https(_baseUrl, 'cardiologistList/counter.json');
       final response2 = await http.put(url2, body: json.encode(practitioner.id));

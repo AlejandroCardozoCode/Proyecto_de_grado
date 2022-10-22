@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AppPatientContact>(
           create: (_) => AppPatientContact(),
         ),
-        ChangeNotifierProvider<AppDiagosticReport>(
-          create: (_) => AppDiagosticReport(),
+        ChangeNotifierProvider<AppDiagnosticReport>(
+          create: (_) => AppDiagnosticReport(),
         ),
         ChangeNotifierProvider<AppObservation>(
           create: (_) => AppObservation(),
@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
           title: 'Electrocardio Telegraph',
           initialRoute: "login",
           routes: {
-            "homeOnc": (context) => const HomeOncologo(),
-            "homeCar": (context) => const HomeCardiologo(),
+            "homeOnc": (context) => const HomeOncologist(),
+            "homeCar": (context) => const HomeCardiologist(),
             "register": (context) => const RegisterPractitioner(),
             "login": (context) => const LoginScreen(),
             "profilePicture": (context) => const LoadPractitionerProfilePictureScreen(),

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../communicators/all_communicator.dart';
 
 // implementacionde la clase de diagnostico con el estandar HL7 FHIR http://hl7.org/fhir/diagnosticreport.html
-class AppDiagosticReport with ChangeNotifier {
+class AppDiagnosticReport with ChangeNotifier {
   late String id;
   late String patientIdReference;
   late String dateTime;
@@ -18,7 +18,7 @@ class AppDiagosticReport with ChangeNotifier {
 
   late r4.DiagnosticReport diagnosticReportFHIR;
 
-  copy(AppDiagosticReport currentDiagnostic) {
+  copy(AppDiagnosticReport currentDiagnostic) {
     id = currentDiagnostic.id;
     patientIdReference = currentDiagnostic.patientIdReference;
     dateTime = currentDiagnostic.dateTime;
@@ -47,10 +47,10 @@ class AppDiagosticReport with ChangeNotifier {
   uploadToFirebase(String uId) async {
     //Firebase
     final DiagnosticReportService diagnosticReportService = DiagnosticReportService();
-    AllCommunicator diagnosticComunicator = AllCommunicator(jsonVar: this.diagnosticReportFHIR.toJson());
-    diagnosticComunicator.id = uId;
-    diagnosticComunicator.isNew = true;
-    await diagnosticReportService.createNewDiagnosticReport(diagnosticComunicator);
+    AllCommunicator diagnosticCommunicator = AllCommunicator(jsonVar: this.diagnosticReportFHIR.toJson());
+    diagnosticCommunicator.id = uId;
+    diagnosticCommunicator.isNew = true;
+    await diagnosticReportService.createNewDiagnosticReport(diagnosticCommunicator);
   }
 
   create() {

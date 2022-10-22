@@ -12,7 +12,7 @@ class TakeElectroPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppPatient currentPatient = context.watch<AppPatient>();
-    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
+    AppDiagnosticReport currentDiagnostic = context.watch<AppDiagnosticReport>();
     final w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Builder(builder: (context) {
@@ -54,7 +54,7 @@ class TakeElectroPictureScreen extends StatelessWidget {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: ThemeApp.appRed,
+                    backgroundColor: ThemeApp.appRed,
                   ),
                   child: SizedBox(
                     height: 50,

@@ -90,11 +90,11 @@ class ObservationCard extends StatelessWidget {
                 width: w * 0.25,
                 child: TextButton(
                   onPressed: () {
-                    showAlert(context, textObservation, "Observacion");
+                    showAlert(context, textObservation, "Observación");
                   },
                   child: FittedBox(
                     child: Text(
-                      "Ver\nObservacion",
+                      "Ver\nObservación",
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,

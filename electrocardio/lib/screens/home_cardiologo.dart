@@ -1,19 +1,16 @@
-import 'package:electrocardio/widgets/nav_bar_cardio.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../models/fhir/app_fhir_clases.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
 
-class HomeCardiologo extends StatefulWidget {
-  const HomeCardiologo({Key? key}) : super(key: key);
+class HomeCardiologist extends StatefulWidget {
+  const HomeCardiologist({Key? key}) : super(key: key);
 
   @override
-  State<HomeCardiologo> createState() => _HomeCardiologoState();
+  State<HomeCardiologist> createState() => _HomeCardiologistState();
 }
 
-class _HomeCardiologoState extends State<HomeCardiologo> {
+class _HomeCardiologistState extends State<HomeCardiologist> {
   int index = 0;
   AppNavBarCardio? navBar;
   @override
@@ -51,8 +48,6 @@ class _HomeCardiologoState extends State<HomeCardiologo> {
 
   @override
   Widget build(BuildContext context) {
-    // crear el practitioner de la aplicacion
-    //TODO se tiene que cargar desde un string ymal que va a estar en firebase
     return SafeArea(
       child: Scaffold(
         body: _body[index],

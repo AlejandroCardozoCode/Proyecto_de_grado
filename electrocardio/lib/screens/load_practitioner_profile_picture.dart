@@ -84,7 +84,7 @@ class _LoadPractitionerProfilePictureScreenState extends State<LoadPractitionerP
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: ThemeApp.primary,
+                      backgroundColor: ThemeApp.primary,
                     ),
                     onPressed: () async {
                       XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);

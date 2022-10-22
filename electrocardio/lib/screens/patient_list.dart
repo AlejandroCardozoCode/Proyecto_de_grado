@@ -1,5 +1,4 @@
 import 'package:electrocardio/models/fhir/patient_fhir.dart';
-import 'package:electrocardio/services/patient_service.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:electrocardio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,6 @@ class _PatientListScreenState extends State<PatientListScreen> {
   List<AppPatient> patientsList = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -56,7 +54,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
                   },
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    hintText: "Buscar por cedula",
+                    hintText: "Buscar por cédula",
                     suffixIcon: Icon(
                       Icons.search,
                       color: ThemeApp.primary,

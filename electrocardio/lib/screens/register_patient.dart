@@ -343,7 +343,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
           validator: (value) {
             if (value!.length < 6) {
               isValidPhone = false;
-              return "Ingrese un numero con almenos 6 dijitos\n";
+              return "Ingrese un numero con al menos 6 dígitos\n";
             }
             isValidPhone = true;
             return null;
@@ -353,13 +353,13 @@ class _RegisterPatientState extends State<RegisterPatient> {
           height: 20,
         ),
         CustomForm(
-          labelText: "Direccion",
+          labelText: "Dirección",
           formField: 'address',
           formValues: formValues,
           validator: (value) {
             if (value!.length < 5) {
               isValidAddress = false;
-              return "Ingrese una direccion valida\n";
+              return "Ingrese una dirección valida\n";
             }
             isValidAddress = true;
             return null;
@@ -431,7 +431,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
           height: 10,
         ),
         Text(
-          "Llene estos datos con informacion del contacto de emergencia del paciente",
+          "Llene estos datos con información del contacto de emergencia del paciente",
           textAlign: TextAlign.center,
           style: GoogleFonts.rubik(
             fontSize: 14,
@@ -451,6 +451,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
               }
 
               isValidNameE = true;
+              return null;
             }),
         const SizedBox(
           height: 30,
@@ -466,6 +467,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
             }
 
             isValidLastNameE = true;
+            return null;
           },
         ),
         const SizedBox(
@@ -479,9 +481,10 @@ class _RegisterPatientState extends State<RegisterPatient> {
           validator: (value) {
             if (value!.length < 6) {
               isValidPhoneE = false;
-              return "Ingrese un numero con almenos 6 dijitos\n";
+              return "Ingrese un numero con al menos 6 dígitos\n";
             }
             isValidPhoneE = true;
+            return null;
           },
         ),
         const SizedBox(
@@ -524,15 +527,16 @@ class _RegisterPatientState extends State<RegisterPatient> {
           height: 30,
         ),
         CustomForm(
-          labelText: "Direccion",
+          labelText: "Dirección",
           formField: 'contactAddress',
           formValues: formValues,
           validator: (value) {
             if (value!.length < 5) {
               isValidAddressE = false;
-              return "Ingrese una direccion valida\n";
+              return "Ingrese una dirección valida\n";
             }
             isValidAddressE = true;
+            return null;
           },
         ),
         const SizedBox(
@@ -545,7 +549,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
             decoration: const InputDecoration(
               fillColor: Colors.white,
               filled: true,
-              labelText: "Relacion",
+              labelText: "Relación",
             ),
             items: const [
               DropdownMenuItem(

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:electrocardio/models/fhir/diagnostic_report_fhir.dart';
-import 'package:electrocardio/models/fhir/observation_fhir.dart';
 import 'package:electrocardio/services/images_service.dart';
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/foundation.dart';
@@ -26,7 +25,7 @@ class _TakeElectroPictureCardState extends State<TakeElectroPictureCard> {
 
   @override
   Widget build(BuildContext context) {
-    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
+    AppDiagnosticReport currentDiagnostic = context.watch<AppDiagnosticReport>();
     ImageService imageService = ImageService();
     return GestureDetector(
       onTap: () async {

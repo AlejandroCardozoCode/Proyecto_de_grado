@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:electrocardio/communicators/all_communicator.dart';
 import 'package:electrocardio/models/fhir/app_fhir_clases.dart';
@@ -58,6 +59,6 @@ class ObservationService {
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'observation/${observation.id}.json');
     final response = await http.put(url, body: observation.toJson());
-    final decodeData = json.decode(response.body);
+    //log(json.decode(response.body));
   }
 }

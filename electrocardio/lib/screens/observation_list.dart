@@ -31,7 +31,7 @@ class ObservationList extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                "Aqui encontrara un listado de todos los reportes enviados junto con su respectivo analisis",
+                "Aquí encontrara un listado de todos los reportes enviados junto con su respectivo análisis",
                 textAlign: TextAlign.left,
                 style: GoogleFonts.rubik(
                   fontSize: 16,

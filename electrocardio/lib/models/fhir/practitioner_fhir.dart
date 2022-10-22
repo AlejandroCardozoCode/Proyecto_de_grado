@@ -22,7 +22,7 @@ class AppPractitioner with ChangeNotifier {
 
   late List<AppPatient> patientList = [];
   late List<AppObservation> observationList = [];
-  late List<AppDiagosticReport> diagnosticList = [];
+  late List<AppDiagnosticReport> diagnosticList = [];
 
   PatientService patientService = PatientService();
   ObservationService observationService = ObservationService();
@@ -135,9 +135,9 @@ class AppPractitioner with ChangeNotifier {
 
     this.diagnosticList.clear();
     this.observationList.clear();
-    List<AppDiagosticReport> topList = [];
-    List<AppDiagosticReport> midList = [];
-    List<AppDiagosticReport> lowList = [];
+    List<AppDiagnosticReport> topList = [];
+    List<AppDiagnosticReport> midList = [];
+    List<AppDiagnosticReport> lowList = [];
 
     if (result[0] != null) {
       result[0].forEach(
@@ -184,18 +184,18 @@ class AppPractitioner with ChangeNotifier {
   }
 
   generateDiagnostic() async {
-    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports(this.idFirebase);
+    List<AppDiagnosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports(this.idFirebase);
     this.diagnosticList.clear();
     this.diagnosticList.addAll(allDiagnostics);
     notifyListeners();
   }
 
   generateDiagnosticCardio() async {
-    List<AppDiagosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports(this.idFirebase);
+    List<AppDiagnosticReport> allDiagnostics = await diagnosticReportService.loadDiagnosticReports(this.idFirebase);
     this.diagnosticList.clear();
-    List<AppDiagosticReport> topList = [];
-    List<AppDiagosticReport> midList = [];
-    List<AppDiagosticReport> lowList = [];
+    List<AppDiagnosticReport> topList = [];
+    List<AppDiagnosticReport> midList = [];
+    List<AppDiagnosticReport> lowList = [];
     allDiagnostics.forEach(
       (diagnostic) {
         if (diagnostic.diagnostic == "") {
@@ -229,8 +229,8 @@ class AppPractitioner with ChangeNotifier {
     notifyListeners();
   }
 
-  addDiagnosticToList(AppDiagosticReport diagosticReport) {
-    AppDiagosticReport newDiagnostic = AppDiagosticReport().copy(diagosticReport);
+  addDiagnosticToList(AppDiagnosticReport diagnosticReport) {
+    AppDiagnosticReport newDiagnostic = AppDiagnosticReport().copy(diagnosticReport);
     this.diagnosticList.add(newDiagnostic);
     notifyListeners();
   }
@@ -241,18 +241,18 @@ class AppPractitioner with ChangeNotifier {
     notifyListeners();
   }
 
-  removeDiagnosticFromList(AppDiagosticReport diagosticReport) {
-    this.diagnosticList.removeWhere((AppDiagosticReport element) => element.id == diagosticReport.id);
+  removeDiagnosticFromList(AppDiagnosticReport diagnosticReport) {
+    this.diagnosticList.removeWhere((AppDiagnosticReport element) => element.id == diagnosticReport.id);
     notifyListeners();
   }
 
   uploadToFirebase(String uId, String role) async {
     //Firebase
     final PractitionerService practitionerService = PractitionerService();
-    AllCommunicator practitionerComunicator = AllCommunicator(jsonVar: this.r4Class.toJson());
-    practitionerComunicator.id = uId;
-    practitionerComunicator.isNew = true;
-    await practitionerService.createPractitioner(practitionerComunicator, role);
+    AllCommunicator practitionerCommunicator = AllCommunicator(jsonVar: this.r4Class.toJson());
+    practitionerCommunicator.id = uId;
+    practitionerCommunicator.isNew = true;
+    await practitionerService.createPractitioner(practitionerCommunicator, role);
   }
 
   AppPatient? findPatientById(String patientId) {

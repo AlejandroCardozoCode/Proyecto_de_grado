@@ -1,4 +1,3 @@
-import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +17,7 @@ class SelectPatient extends StatelessWidget {
         body: Column(
           children: [
             ProfileData(
-              practitionerName:
-                  "${practitioner.firstName} ${practitioner.lastName}",
+              practitionerName: "${practitioner.firstName} ${practitioner.lastName}",
               id: practitioner.id,
               role: practitioner.role,
               imgUrl: practitioner.imgUrl,

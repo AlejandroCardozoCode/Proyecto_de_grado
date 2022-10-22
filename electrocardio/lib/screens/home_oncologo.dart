@@ -1,17 +1,15 @@
 import 'package:electrocardio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../models/fhir/practitioner_fhir.dart';
 import 'screens.dart';
 
-class HomeOncologo extends StatefulWidget {
-  const HomeOncologo({Key? key}) : super(key: key);
+class HomeOncologist extends StatefulWidget {
+  const HomeOncologist({Key? key}) : super(key: key);
 
   @override
-  State<HomeOncologo> createState() => _HomeOncologoState();
+  State<HomeOncologist> createState() => _HomeOncologistState();
 }
 
-class _HomeOncologoState extends State<HomeOncologo> {
+class _HomeOncologistState extends State<HomeOncologist> {
   int index = 0;
   AppNavBarOnco? navBar;
   @override
@@ -37,9 +35,6 @@ class _HomeOncologoState extends State<HomeOncologo> {
 
   @override
   Widget build(BuildContext context) {
-    // crear el practitioner de la aplicacion
-    //TODO se tiene que cargar desde un string ymal que va a estar en firebase
-
     return SafeArea(
       child: Scaffold(
         body: _body[index],

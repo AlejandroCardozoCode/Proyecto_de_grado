@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import '../models/fhir/app_fhir_clases.dart';
-import 'custom_progress_indicator.dart';
 import 'widgets.dart';
 
 class AlertSendObservation extends StatelessWidget {
@@ -13,14 +12,14 @@ class AlertSendObservation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
+    AppDiagnosticReport currentDiagnostic = context.watch<AppDiagnosticReport>();
     AppObservation currentObservation = context.watch<AppObservation>();
     AppPatient currentPatient = context.watch<AppPatient>();
     AppPractitioner currentPractitioner = context.watch<AppPractitioner>();
 
     return AlertDialog(
-      title: const Text("Enviar reorte"),
-      content: const Text("Su reporte sera recivido por un cardiologo y sera respondido lo mas pronto posible"),
+      title: const Text("Enviar reporte"),
+      content: const Text("Su reporte sera recibido por un cardiólogo y sera respondido lo mas pronto posible"),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: [
         TextButton(
@@ -54,7 +53,7 @@ class AlertSendObservation extends StatelessWidget {
             currentObservation.patientIdReference = currentPatient.id;
             currentObservation.practitionerIdReference = currentPractitioner.idFirebase;
             currentObservation.dateTime = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
-            // subir observacion a la lista de observaciones
+            // subir observación a la lista de observaciones
             currentObservation.create();
             await currentObservation.uploadToFirebase(currentObservation.observationId);
             currentPractitioner.addObservationToList(currentObservation);
@@ -82,6 +81,6 @@ class AlertSendObservation extends StatelessWidget {
 
   void showAlert(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => AlertGlobal(alertText: "No hay cardiologos disponibles para asignar la observacion, intente más tarde"),
+        builder: (_) => AlertGlobal(alertText: "No hay cardiólogos disponibles para asignar la observación, intente más tarde"),
       );
 }

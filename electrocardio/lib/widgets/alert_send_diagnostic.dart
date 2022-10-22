@@ -11,12 +11,11 @@ class AlertSendDiagnostic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppDiagosticReport currentDiagnostic = context.watch<AppDiagosticReport>();
+    AppDiagnosticReport currentDiagnostic = context.watch<AppDiagnosticReport>();
     AppPractitioner currentPractitioner = context.watch<AppPractitioner>();
     return AlertDialog(
       title: const Text("Enviar diagnostico"),
-      content: const Text(
-          "Su Diagnostico sera enviado al doctor correspondiente que hizo la solicitud"),
+      content: const Text("Su Diagnostico sera enviado al doctor correspondiente que hizo la solicitud"),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: [
         TextButton(
@@ -38,11 +37,9 @@ class AlertSendDiagnostic extends StatelessWidget {
             );
             currentDiagnostic.create();
             await currentDiagnostic.uploadToFirebase(currentDiagnostic.id);
-            await currentPractitioner
-                .removeDiagnosticFromList(currentDiagnostic);
+            await currentPractitioner.removeDiagnosticFromList(currentDiagnostic);
             Navigator.of(context).pop();
-            Navigator.pushNamedAndRemoveUntil(
-                context, "homeCar", (route) => false);
+            Navigator.pushNamedAndRemoveUntil(context, "homeCar", (route) => false);
           },
         ),
       ],

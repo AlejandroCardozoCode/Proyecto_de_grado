@@ -43,7 +43,7 @@ class PatientService {
     return [];
   }
 
-  Future createNewpatient(AllCommunicator patient) async {
+  Future createNewPatient(AllCommunicator patient) async {
     isSaving = true;
 
     if (patient.isNew) await createpatient(patient);
@@ -56,6 +56,6 @@ class PatientService {
     String _baseUrl = await obtainURL();
     final url = Uri.https(_baseUrl, 'patient/${patient.id}.json');
     final respuesta = await http.put(url, body: patient.toJson());
-    final decodeData = json.decode(respuesta.body);
+    //log(json.decode(respuesta.body));
   }
 }
