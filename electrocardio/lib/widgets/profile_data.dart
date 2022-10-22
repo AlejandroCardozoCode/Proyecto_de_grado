@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class ProfileData extends StatelessWidget {
           children: [
             ClipOval(
               child: Image.memory(
-                base64Decode(imgUrl),
+                Uint8List.fromList(imgUrl.codeUnits),
                 height: 100,
                 width: 100,
                 fit: BoxFit.cover,

@@ -100,7 +100,11 @@ class ProfileInfoCard extends StatelessWidget {
                       style: GoogleFonts.rubik(),
                     ),
                     Text(
-                      practitioner.gender,
+                      (practitioner.gender == "male")
+                          ? "Hombre"
+                          : (practitioner.gender == "female")
+                              ? "Mujer"
+                              : "Otro",
                       style: GoogleFonts.rubik(
                         color: Colors.grey,
                       ),

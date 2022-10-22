@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ClipOval(
               child: Image.memory(
-                base64Decode(practitioner.imgUrl),
+                Uint8List.fromList(practitioner.imgUrl.codeUnits),
                 height: 120,
                 width: 120,
                 fit: BoxFit.cover,

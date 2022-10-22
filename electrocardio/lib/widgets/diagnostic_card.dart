@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:electrocardio/models/fhir/app_fhir_clases.dart';
 import 'package:electrocardio/widgets/card_pop_up.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import '../services/images_service.dart';
 import 'widgets.dart';
@@ -30,8 +27,6 @@ class DiagnosticCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppDiagnosticReport currentDiagnostic = context.watch<AppDiagnosticReport>();
-    final w = MediaQuery.of(context).size.width;
     return Card(
       child: Column(
         children: [
@@ -39,22 +34,50 @@ class DiagnosticCard extends StatelessWidget {
             height: 10,
           ),
           getPriority(textPriority),
-          ListTile(
-            leading: const ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              child: Image(
-                image: AssetImage("assets/img/electro_placeholder2.png"),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: 270,
+            child: ListTile(
+              leading: const ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                child: Image(
+                  image: AssetImage("assets/img/electro_placeholder2.png"),
+                ),
               ),
-            ),
-            title: Text(
-              "Paciente: $patientId",
-              style: GoogleFonts.rubik(),
-            ),
-            subtitle: Text(
-              "Fecha: $reportDate",
-              style: GoogleFonts.rubik(),
+              title: Text(
+                "Paciente: $patientId",
+                style: GoogleFonts.rubik(),
+              ),
+              subtitle: Text(
+                "Fecha: $reportDate",
+                style: GoogleFonts.rubik(),
+              ),
+              onTap: () async {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  barrierColor: Color.fromARGB(99, 0, 0, 0),
+                  builder: (context) {
+                    return customProgressIndicator(text: "Cargando datos");
+                  },
+                );
+                ImageService imageService = ImageService();
+                await imageService.findKey();
+                String data = await compute(imageService.decryptImage, imageData);
+                Uint8List decoded = Uint8List.fromList(data.codeUnits);
+                ImageProvider image = Image.memory(decoded).image;
+                currentDiagnostic.copy(this.currentDiagnostic);
+                Navigator.of(context).pop();
+                Navigator.pushNamed(context, "writeDiagnostic", arguments: {
+                  'observationText': textObservation,
+                  'imgData': image,
+                });
+              },
             ),
           ),
+          /*
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -73,7 +96,7 @@ class DiagnosticCard extends StatelessWidget {
                     ImageService imageService = ImageService();
                     await imageService.findKey();
                     String data = await compute(imageService.decryptImage, imageData);
-                    Uint8List decoded = await compute(base64Decode, data);
+                    Uint8List decoded = Uint8List.fromList(data.codeUnits);
                     ImageProvider image = Image.memory(decoded).image;
                     Navigator.of(context).pop();
                     Navigator.pushNamed(context, "electroView", arguments: {'imageData': image});
@@ -129,7 +152,7 @@ class DiagnosticCard extends StatelessWidget {
                 ),
               )
             ],
-          ),
+          ),*/
           const SizedBox(
             height: 15,
           ),

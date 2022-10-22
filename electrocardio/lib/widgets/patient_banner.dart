@@ -27,11 +27,15 @@ class PatientBanner extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           subtitle: Text(
-            "Genero: ${bannerPatient.gender}",
+            (bannerPatient.gender == "male")
+                ? "Hombre"
+                : (bannerPatient.gender == "female")
+                    ? "Mujer"
+                    : "Otro",
             style: GoogleFonts.rubik(),
           ),
           title: Text(
-            "Cedula: ${bannerPatient.id}",
+            "Cédula: ${bannerPatient.id}",
             style: GoogleFonts.rubik(),
           ),
           leading: Icon(

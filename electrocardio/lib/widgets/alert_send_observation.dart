@@ -66,6 +66,7 @@ class AlertSendObservation extends StatelessWidget {
             currentDiagnostic.practitionerIdReferenceCardio = practitionerIdCardio;
             currentDiagnostic.observationId = uuidObservation;
             currentDiagnostic.diagnostic = "";
+            currentDiagnostic.status = "partial";
             currentDiagnostic.priority = currentDiagnostic.priority + uuidDiagnostic;
             currentDiagnostic.create();
             await currentDiagnostic.uploadToFirebase(currentDiagnostic.id);

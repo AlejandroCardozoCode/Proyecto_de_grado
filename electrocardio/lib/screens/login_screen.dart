@@ -97,13 +97,13 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   Divider(
-                    thickness: 2,
+                    thickness: 1,
                     color: ThemeApp.primary,
                     height: 40,
                   ),
                   Container(
                     child: Text(
-                      "Ó puedes registrarte aquí",
+                      "¿No tienes una cuenta? regístrate aquí",
                       style: GoogleFonts.rubik(
                         color: ThemeApp.primary,
                       ),

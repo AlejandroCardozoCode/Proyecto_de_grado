@@ -169,7 +169,7 @@ class AppPractitioner with ChangeNotifier {
     List<AppPatient> allPatients = await patientService.loadPatients(this.idFirebase);
     this.patientList.clear();
     allPatients.forEach((patient) {
-      if (patient.practitionerId == this.id) {
+      if (patient.practitionerId == this.idFirebase) {
         patientList.add(patient);
       }
     });
@@ -198,7 +198,7 @@ class AppPractitioner with ChangeNotifier {
     List<AppDiagnosticReport> lowList = [];
     allDiagnostics.forEach(
       (diagnostic) {
-        if (diagnostic.diagnostic == "") {
+        if (diagnostic.status == "partial") {
           if (diagnostic.priority.substring(0, 3) == "TOP") {
             topList.add(diagnostic);
           } else if (diagnostic.priority.substring(0, 3) == "MID") {

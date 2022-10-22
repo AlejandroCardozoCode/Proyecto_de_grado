@@ -15,6 +15,7 @@ class AppDiagnosticReport with ChangeNotifier {
   late String imageReference;
   late String diagnostic;
   late String priority;
+  late String status;
 
   late r4.DiagnosticReport diagnosticReportFHIR;
 
@@ -28,6 +29,7 @@ class AppDiagnosticReport with ChangeNotifier {
     imageReference = currentDiagnostic.imageReference;
     diagnostic = currentDiagnostic.diagnostic;
     priority = currentDiagnostic.priority;
+    status = currentDiagnostic.status;
     return this;
   }
 
@@ -42,6 +44,7 @@ class AppDiagnosticReport with ChangeNotifier {
     imageReference = diagnosticReport.media![0].link.reference!;
     diagnostic = diagnosticReport.conclusion!;
     priority = diagnosticReport.identifier![1].value!;
+    status = diagnosticReport.status.toString();
   }
 
   uploadToFirebase(String uId) async {
@@ -65,7 +68,7 @@ class AppDiagnosticReport with ChangeNotifier {
           type: r4.FhirUri("Patient"),
         )
       ],
-      status: r4.Code("final"),
+      status: r4.Code(status),
       category: <r4.CodeableConcept>[
         r4.CodeableConcept(
           coding: <r4.Coding>[

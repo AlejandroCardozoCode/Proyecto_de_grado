@@ -60,14 +60,14 @@ class _LoadPractitionerProfilePictureScreenState extends State<LoadPractitionerP
                       backgroundColor: ThemeApp.primary,
                     ),
                     onPressed: () async {
-                      XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                      XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery, maxHeight: 1500, maxWidth: 1500, imageQuality: 70);
                       setState(
                         () {
                           if (image != null) {
                             fileImage = File(image.path);
                             ImageService imageService = ImageService();
-                            var base64img = imageService.convertToBase64(image);
-                            practitioner.imgUrl = base64img;
+                            var binaryImage = imageService.convertToBinary(image);
+                            practitioner.imgUrl = binaryImage;
                             loadImage = true;
                           }
                         },
@@ -87,14 +87,14 @@ class _LoadPractitionerProfilePictureScreenState extends State<LoadPractitionerP
                       backgroundColor: ThemeApp.primary,
                     ),
                     onPressed: () async {
-                      XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+                      XFile? image = await ImagePicker().pickImage(source: ImageSource.camera, maxHeight: 1500, maxWidth: 1500, imageQuality: 70);
                       setState(
                         () {
                           if (image != null) {
                             fileImage = File(image.path);
                             ImageService imageService = ImageService();
-                            var base64img = imageService.convertToBase64(image);
-                            practitioner.imgUrl = base64img;
+                            var binaryImage = imageService.convertToBinary(image);
+                            practitioner.imgUrl = binaryImage;
                             loadImage = true;
                           }
                         },

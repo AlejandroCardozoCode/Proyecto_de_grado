@@ -11,60 +11,55 @@ class SelectPatient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppPractitioner practitioner = context.watch<AppPractitioner>();
-    final w = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            ProfileData(
-              practitionerName: "${practitioner.firstName} ${practitioner.lastName}",
-              id: practitioner.id,
-              role: practitioner.role,
-              imgUrl: practitioner.imgUrl,
-            ),
-            SizedBox(
-              height: w * 0.06,
-            ),
-            Container(
-              width: w,
-              margin: const EdgeInsets.only(
-                left: 25,
-                bottom: 10,
-              ),
-              child: Text(
-                "Nuevo reporte",
-                style: GoogleFonts.rubik(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(
-                left: 25,
-                right: 25,
-              ),
-              child: Text(
-                "Para crear un nuevo reporte por favor seleccione un paciente existente o ingrese un nuevo paciente al sistema",
-                style: GoogleFonts.rubik(
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            const CustomPatientBanner(
-              icon: Icons.person_add,
-              text: "Agregar un nuevo paciente",
-              route: "newPatient",
-            ),
-            const CustomPatientBanner(
-              icon: Icons.format_list_bulleted_sharp,
-              text: "Seleccionar paciente",
-              route: "patientList",
-            )
-          ],
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ProfileData(
+          practitionerName: "${practitioner.firstName} ${practitioner.lastName}",
+          id: practitioner.id,
+          role: practitioner.role,
+          imgUrl: practitioner.imgUrl,
         ),
-      ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          margin: const EdgeInsets.only(
+            left: 25,
+            bottom: 10,
+          ),
+          child: Text(
+            "Nuevo reporte",
+            style: GoogleFonts.rubik(
+              fontSize: 20,
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(
+            left: 25,
+            right: 25,
+          ),
+          child: Text(
+            "Para crear un nuevo reporte por favor seleccione un paciente existente o ingrese un nuevo paciente al sistema",
+            style: GoogleFonts.rubik(
+              fontSize: 16,
+            ),
+          ),
+        ),
+        const CustomPatientBanner(
+          icon: Icons.person_add,
+          text: "Agregar un nuevo paciente",
+          route: "newPatient",
+        ),
+        const CustomPatientBanner(
+          icon: Icons.format_list_bulleted_sharp,
+          text: "Seleccionar paciente",
+          route: "patientList",
+        )
+      ],
     );
   }
 }

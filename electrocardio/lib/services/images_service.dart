@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/services.dart';
+import 'dart:developer';
+import 'dart:io' as io;
 import 'package:image_picker/image_picker.dart';
 import 'package:encrypt/encrypt.dart';
 
@@ -13,20 +13,27 @@ class ImageService {
   findKey() async {
     this._key = await obtainKey();
   }
-
+/*
   String convertToBase64(XFile image) {
-    File imagePath = File(image.path);
+    io.File imagePath = io.File(image.path);
     Uint8List bitImage = imagePath.readAsBytesSync();
     String base64Image = base64Encode(bitImage);
     return base64Image;
   }
+  */
+
+  String convertToBinary(XFile image) {
+    io.File imagePath = io.File(image.path);
+    String bitImage = String.fromCharCodes(imagePath.readAsBytesSync());
+    return bitImage;
+  }
 
   Future<String> encryptImage(XFile image) async {
-    String base64 = convertToBase64(image);
+    String blob = convertToBinary(image);
     final key = Key.fromUtf8(this._key);
     final iv = IV.fromLength(16);
     final encrypter = Encrypter(AES(key));
-    final encrypted = encrypter.encrypt(base64, iv: iv);
+    final encrypted = encrypter.encrypt(blob, iv: iv);
     return encrypted.base64;
   }
 
