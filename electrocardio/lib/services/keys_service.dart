@@ -25,3 +25,15 @@ Future<String> obtainAuthUrl() async {
   final data = await json.decode(response);
   return data["auth_url"];
 }
+
+Future<String> obtainPayuUser() async {
+  final String response = await rootBundle.loadString('assets/keys/keys.json');
+  final data = await json.decode(response);
+  return data["payu_user"];
+}
+
+Future<String> obtainPayuApiKey() async {
+  final String response = await rootBundle.loadString('assets/keys/keys.json');
+  final data = await json.decode(response);
+  return data["payu_api_key"];
+}

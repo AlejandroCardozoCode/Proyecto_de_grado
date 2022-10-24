@@ -46,6 +46,7 @@ dependencies:
   encrypt: ^5.0.1
   lottie: ^1.4.3
   flutter_windowmanager: ^0.2.0
+  speech_to_text: ^6.1.0
 
 dev_dependencies:
   flutter_test:

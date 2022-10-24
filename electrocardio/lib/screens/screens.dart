@@ -15,3 +15,4 @@ export 'patient_list.dart';
 export 'register_patient.dart';
 export 'diagnostic_list.dart';
 export 'write_diagnostic.dart';
+export 'add_payment_method.dart';

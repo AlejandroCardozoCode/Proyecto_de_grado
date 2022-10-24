@@ -44,6 +44,11 @@ class _AppNavBarOncoState extends State<AppNavBarOnco> {
                 icon: Icons.person,
                 text: "Perfil",
               ),
+              GButton(
+                gap: 10,
+                icon: Icons.credit_card,
+                text: "Pagos",
+              ),
             ],
           ),
         ),

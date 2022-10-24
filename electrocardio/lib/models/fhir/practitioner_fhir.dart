@@ -1,4 +1,5 @@
 import 'package:electrocardio/models/fhir/app_fhir_clases.dart';
+import 'package:electrocardio/models/payment/payment_method.dart';
 import 'package:fhir/r4.dart' as r4;
 import 'package:flutter/cupertino.dart';
 
@@ -24,6 +25,7 @@ class AppPractitioner with ChangeNotifier {
   late List<AppObservation> observationList = [];
   late List<AppDiagnosticReport> diagnosticList = [];
 
+  List<PaymentMethod> paymentMethodList = [];
   PatientService patientService = PatientService();
   ObservationService observationService = ObservationService();
   DiagnosticReportService diagnosticReportService = DiagnosticReportService();

@@ -24,6 +24,7 @@ class SelectPatient extends StatelessWidget {
           height: 10,
         ),
         Container(
+          alignment: Alignment.centerLeft,
           margin: const EdgeInsets.only(
             left: 25,
             bottom: 10,

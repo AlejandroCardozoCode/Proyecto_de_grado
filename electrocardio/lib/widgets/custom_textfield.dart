@@ -8,11 +8,11 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 200,
       child: TextFormField(
         controller: controller,
         maxLines: 50,
-        autofocus: true,
+        autofocus: false,
         validator: (value) {
           if (value == null) return "Formulario vacío";
         },

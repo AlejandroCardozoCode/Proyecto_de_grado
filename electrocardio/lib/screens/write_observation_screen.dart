@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../models/fhir/app_fhir_clases.dart';
 import '../theme/theme.dart';
 import '../widgets/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class WriteObservationScreen extends StatefulWidget {
   const WriteObservationScreen({Key? key}) : super(key: key);
@@ -15,7 +19,17 @@ class WriteObservationScreen extends StatefulWidget {
 class _WriteObservationScreenState extends State<WriteObservationScreen> {
   String observationValue = "";
   String priority = "";
+  late stt.SpeechToText _speech;
+  bool _isListening = false;
+  Color buttonColor = ThemeApp.primary;
+
   TextEditingController controller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _speech = stt.SpeechToText();
+  }
+
   @override
   Widget build(BuildContext context) {
     AppObservation currentObservation = context.watch<AppObservation>();
@@ -88,10 +102,23 @@ class _WriteObservationScreenState extends State<WriteObservationScreen> {
               ),
               Card(
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: CustomTextField(
-                    hintText: "Por favor ingrese información relevante para el cardiólogo",
-                    controller: controller,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 10,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      CustomTextField(
+                        hintText: "Por favor ingrese información relevante para el cardiólogo",
+                        controller: controller,
+                      ),
+                      FloatingActionButton(
+                        backgroundColor: buttonColor,
+                        onPressed: _listen,
+                        child: Icon(_isListening ? Icons.mic : Icons.mic_none),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -135,6 +162,34 @@ class _WriteObservationScreenState extends State<WriteObservationScreen> {
         ),
       ),
     );
+  }
+
+  void _listen() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) => log('onStatus: $val'),
+        onError: (val) => log('onError: $val'),
+      );
+      controller.text = "";
+      if (available) {
+        setState(() {
+          _isListening = true;
+          buttonColor = Colors.red;
+        });
+        _speech.listen(
+          localeId: "es_CO",
+          onResult: (val) => setState(() {
+            controller.text = val.recognizedWords;
+          }),
+        );
+      }
+    } else {
+      setState(() {
+        _isListening = false;
+        buttonColor = ThemeApp.primary;
+      });
+      _speech.stop();
+    }
   }
 
   void showAlert(BuildContext context) => showDialog(
