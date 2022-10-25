@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             "reportList": (context) => const ObservationList(),
             "profile": (context) => const ProfileScreen(),
             "electroView": (context) => const ShowImageScreen(),
-            "addPaymentMethod": (context) => const AddPaymentMethod(),
+            "addPaymentMethod": (context) => MySample(),
             "patientList": (context) => const PatientListScreen(),
             "writeDiagnostic": (context) => const WriteDiagnostic(),
           },

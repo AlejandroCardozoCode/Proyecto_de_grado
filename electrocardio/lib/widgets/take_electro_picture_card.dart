@@ -9,7 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../models/fhir/app_fhir_clases.dart';
 import 'custom_progress_indicator.dart';
+import 'widgets.dart';
 
 class TakeElectroPictureCard extends StatefulWidget {
   TakeElectroPictureCard({Key? key}) : super(key: key);
@@ -26,9 +28,14 @@ class _TakeElectroPictureCardState extends State<TakeElectroPictureCard> {
   @override
   Widget build(BuildContext context) {
     AppDiagnosticReport currentDiagnostic = context.watch<AppDiagnosticReport>();
+    AppPractitioner currentPractitioner = context.watch<AppPractitioner>();
     ImageService imageService = ImageService();
     return GestureDetector(
       onTap: () async {
+        if (currentPractitioner.paymentMethodList == null) {
+          showAlert(context);
+          return;
+        }
         XFile? image = await ImagePicker().pickImage(source: ImageSource.camera, maxHeight: 2000, maxWidth: 2000, imageQuality: 75);
         if (image != null) {
           showDialog(
@@ -43,13 +50,13 @@ class _TakeElectroPictureCardState extends State<TakeElectroPictureCard> {
           await imageService.findKey();
           currentDiagnostic.imageReference = await compute(imageService.encryptImage, image);
           Navigator.of(context).pop();
+          setState(
+            () {
+              fileImage = File(image.path);
+              loadImage = true;
+            },
+          );
         }
-        setState(
-          () {
-            fileImage = File(image!.path);
-            loadImage = true;
-          },
-        );
       },
       child: Card(
         margin: const EdgeInsets.all(30),
@@ -95,4 +102,9 @@ class _TakeElectroPictureCardState extends State<TakeElectroPictureCard> {
       ),
     );
   }
+
+  void showAlert(BuildContext context) => showDialog(
+        context: context,
+        builder: (_) => AlertGlobal(alertText: "No se ha agregado un método de pago, por favor ingrese uno en la pestaña del perfil para poder continuar"),
+      );
 }

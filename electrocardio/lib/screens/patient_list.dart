@@ -32,6 +32,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
     }
     return SafeArea(
       child: Scaffold(
+        appBar: ApplicationAppBar(darkIcons: true),
         body: Column(
           children: [
             Padding(

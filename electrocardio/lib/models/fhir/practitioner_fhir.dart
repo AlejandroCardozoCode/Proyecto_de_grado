@@ -25,12 +25,28 @@ class AppPractitioner with ChangeNotifier {
   late List<AppObservation> observationList = [];
   late List<AppDiagnosticReport> diagnosticList = [];
 
-  List<PaymentMethod> paymentMethodList = [];
+  PaymentMethod? paymentMethodList = null;
   PatientService patientService = PatientService();
   ObservationService observationService = ObservationService();
   DiagnosticReportService diagnosticReportService = DiagnosticReportService();
 
   AppPractitioner() {}
+
+  void addPaymentMethod(
+    String expiryDate,
+    String cardHolderName,
+    String cvvCode,
+    String address,
+    String country,
+    String state,
+    String city,
+    String cardNumber,
+  ) {
+    PaymentMethod paymentMethod = PaymentMethod(expiryDate, cardHolderName, cvvCode, address, country, state, city, cardNumber);
+    this.paymentMethodList = (paymentMethod);
+    notifyListeners();
+  }
+
   void loadFromJson(Map<String, dynamic> practitionerYaml) async {
     r4.Practitioner practitioner = r4.Practitioner.fromJson(practitionerYaml);
     active = practitioner.active.toString();
@@ -94,6 +110,7 @@ class AppPractitioner with ChangeNotifier {
   }
 
   loadPractitionerOncoData() async {
+    this.paymentMethodList = null;
     final result = await Future.wait([
       patientService.loadPatients(this.idFirebase),
       observationService.loadObservations(this.idFirebase),
