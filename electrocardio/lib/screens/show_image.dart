@@ -1,4 +1,6 @@
+import 'package:electrocardio/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -24,8 +26,14 @@ class _ShowImageScreenState extends State<ShowImageScreen> {
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
-    return PhotoView(
-      imageProvider: arguments["imageData"],
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: ApplicationAppBar(
+        darkIcons: false,
+      ),
+      body: PhotoView(
+        imageProvider: arguments["imageData"],
+      ),
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:electrocardio/models/payment/payment_method.dart';
+import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,15 +54,15 @@ class PaymentScreen extends StatelessWidget {
         ),
       );
     }
+    PaymentMethod paymentMethod = paymentMethodList[0];
     return CreditCardWidget(
-      cardNumber: "4099",
-      expiryDate: "",
-      cardHolderName: "",
-      cvvCode: "444",
-      isChipVisible: false,
+      cardNumber: paymentMethod.cardNumber,
+      expiryDate: paymentMethod.expiryDate,
+      cardHolderName: paymentMethod.cardHolderName,
+      cvvCode: paymentMethod.cvvCode,
       showBackView: false,
       onCreditCardWidgetChange: (CreditCardBrand) {},
-      cardBgColor: Colors.black,
+      cardBgColor: ThemeApp.appRed,
     );
   }
 }

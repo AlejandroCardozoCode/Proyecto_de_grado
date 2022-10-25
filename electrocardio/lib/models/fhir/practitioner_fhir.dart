@@ -31,6 +31,21 @@ class AppPractitioner with ChangeNotifier {
   DiagnosticReportService diagnosticReportService = DiagnosticReportService();
 
   AppPractitioner() {}
+
+  void addPaymentMethod(
+    String expiryDate,
+    String cardHolderName,
+    String cvvCode,
+    String address,
+    String country,
+    String state,
+    String city,
+  ) {
+    PaymentMethod paymentMethod = PaymentMethod(expiryDate, cardHolderName, cvvCode, address, country, state, city);
+    this.paymentMethodList.add(paymentMethod);
+    notifyListeners();
+  }
+
   void loadFromJson(Map<String, dynamic> practitionerYaml) async {
     r4.Practitioner practitioner = r4.Practitioner.fromJson(practitionerYaml);
     active = practitioner.active.toString();

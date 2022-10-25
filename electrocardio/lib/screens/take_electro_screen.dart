@@ -17,6 +17,9 @@ class TakeElectroPictureScreen extends StatelessWidget {
     return SafeArea(
       child: Builder(builder: (context) {
         return Scaffold(
+          appBar: ApplicationAppBar(
+            darkIcons: true,
+          ),
           body: SingleChildScrollView(
             child: Column(
               children: [

@@ -68,6 +68,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
     final w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        appBar: ApplicationAppBar(darkIcons: true),
         body: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20),

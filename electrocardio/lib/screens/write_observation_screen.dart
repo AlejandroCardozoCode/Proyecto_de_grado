@@ -37,6 +37,9 @@ class _WriteObservationScreenState extends State<WriteObservationScreen> {
     final w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        appBar: ApplicationAppBar(
+          darkIcons: true,
+        ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(
