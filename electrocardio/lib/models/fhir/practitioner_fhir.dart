@@ -25,7 +25,7 @@ class AppPractitioner with ChangeNotifier {
   late List<AppObservation> observationList = [];
   late List<AppDiagnosticReport> diagnosticList = [];
 
-  List<PaymentMethod> paymentMethodList = [];
+  PaymentMethod? paymentMethodList = null;
   PatientService patientService = PatientService();
   ObservationService observationService = ObservationService();
   DiagnosticReportService diagnosticReportService = DiagnosticReportService();
@@ -40,9 +40,10 @@ class AppPractitioner with ChangeNotifier {
     String country,
     String state,
     String city,
+    String cardNumber,
   ) {
-    PaymentMethod paymentMethod = PaymentMethod(expiryDate, cardHolderName, cvvCode, address, country, state, city);
-    this.paymentMethodList.add(paymentMethod);
+    PaymentMethod paymentMethod = PaymentMethod(expiryDate, cardHolderName, cvvCode, address, country, state, city, cardNumber);
+    this.paymentMethodList = (paymentMethod);
     notifyListeners();
   }
 
@@ -109,6 +110,7 @@ class AppPractitioner with ChangeNotifier {
   }
 
   loadPractitionerOncoData() async {
+    this.paymentMethodList = null;
     final result = await Future.wait([
       patientService.loadPatients(this.idFirebase),
       observationService.loadObservations(this.idFirebase),

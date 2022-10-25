@@ -8,15 +8,7 @@ class PaymentMethod {
   late String state;
   late String city;
 
-  PaymentMethod(
-    String expiryDate,
-    String cardHolderName,
-    String cvvCode,
-    String address,
-    String country,
-    String state,
-    String city,
-  ) {
+  PaymentMethod(String expiryDate, String cardHolderName, String cvvCode, String address, String country, String state, String city, String cardNumber) {
     this.cardNumber = cardNumber;
     this.expiryDate = expiryDate;
     this.cardHolderName = cardHolderName;

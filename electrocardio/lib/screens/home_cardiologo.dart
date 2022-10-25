@@ -16,22 +16,6 @@ class _HomeCardiologistState extends State<HomeCardiologist> {
   @override
   void initState() {
     super.initState();
-    /*
-    context.read<AppPractitioner>().create(
-          firstName: "Ricardo",
-          lastName: "Gomez",
-          id: "1023974032",
-          role: "Cardiologo",
-          active: "true",
-          address: "calle 15 sur # 10 - 60",
-          birthDate: "31-12-1998",
-          email: "abcdef@gmail.com",
-          gender: "Hombre",
-          imgUrl:
-              "https://painlesshire.com/wp-content/uploads/2017/07/doctor.jpg",
-        );
-    context.read<AppPractitioner>().diagnosticTestValues();
-*/
     navBar = AppNavBarCardio(
       currentIndex: (i) {
         setState(() {

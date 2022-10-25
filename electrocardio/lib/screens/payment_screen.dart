@@ -17,52 +17,64 @@ class PaymentScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          getChild(currentPractitioner.paymentMethodList),
+          getChild(context, currentPractitioner),
+        ],
+      ),
+    );
+  }
+
+  Widget getChild(BuildContext context, AppPractitioner practitioner) {
+    if (practitioner.paymentMethodList == null) {
+      return Column(
+        children: [
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 10,
+              ),
+              child: Text(
+                "No se tienen métodos de pago",
+                style: GoogleFonts.rubik(
+                  fontSize: 22,
+                ),
+              ),
+            ),
+          ),
           SizedBox(
             height: 20,
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-              ),
-            ),
+          FloatingActionButton(
             onPressed: () {
               Navigator.pushNamed(context, "addPaymentMethod");
             },
             child: Icon(Icons.add),
           )
         ],
-      ),
-    );
-  }
-
-  Widget getChild(List<PaymentMethod> paymentMethodList) {
-    if (paymentMethodList.isEmpty) {
-      return Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 20,
-            horizontal: 10,
-          ),
-          child: Text(
-            "No se tienen métodos de pago",
+      );
+    }
+    PaymentMethod? paymentMethod = practitioner.paymentMethodList;
+    return Container(
+      margin: EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Text(
+            "Ya ingresaste un método de pago",
             style: GoogleFonts.rubik(
               fontSize: 22,
             ),
           ),
-        ),
-      );
-    }
-    PaymentMethod paymentMethod = paymentMethodList[0];
-    return CreditCardWidget(
-      cardNumber: paymentMethod.cardNumber,
-      expiryDate: paymentMethod.expiryDate,
-      cardHolderName: paymentMethod.cardHolderName,
-      cvvCode: paymentMethod.cvvCode,
-      showBackView: false,
-      onCreditCardWidgetChange: (CreditCardBrand) {},
-      cardBgColor: ThemeApp.appRed,
+          CreditCardWidget(
+            cardNumber: paymentMethod!.cardNumber,
+            expiryDate: paymentMethod.expiryDate,
+            cardHolderName: paymentMethod.cardHolderName,
+            cvvCode: paymentMethod.cvvCode,
+            showBackView: false,
+            onCreditCardWidgetChange: (CreditCardBrand) {},
+            cardBgColor: ThemeApp.appRed,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -30,7 +30,6 @@ class _HomeOncologistState extends State<HomeOncologist> {
     const SelectPatient(),
     const ObservationList(),
     const ProfileScreen(),
-    const PaymentScreen(),
   ];
 
   @override

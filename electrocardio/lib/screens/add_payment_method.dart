@@ -158,7 +158,7 @@ class MySampleState extends State<MySample> {
                       if (country != null) this.country = country;
                     },
                     onStateChanged: (state) {
-                      countrySelected = true;
+                      stateSelected = true;
                       if (state != null) this.state = state;
                     },
                     defaultCountry: DefaultCountry.Colombia,
@@ -176,7 +176,7 @@ class MySampleState extends State<MySample> {
                 labelText: "Dirección",
                 formField: "address",
                 formValues: formValues,
-                inputType: TextInputType.number,
+                inputType: TextInputType.streetAddress,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Ingrese un valor valido";
@@ -198,7 +198,7 @@ class MySampleState extends State<MySample> {
                   ),
                   onPressed: () {
                     if (stateSelected && countrySelected && citySelected && !address.isEmpty) {
-                      currentPractitioner.addPaymentMethod(expiryDate, cardHolderName, cvvCode, address, country, state, city);
+                      currentPractitioner.addPaymentMethod(expiryDate, cardHolderName, cvvCode, address, country, state, city, cardNumber);
                       Navigator.pop(context);
                     }
                   },
