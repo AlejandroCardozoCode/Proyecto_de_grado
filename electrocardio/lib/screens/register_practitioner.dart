@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:electrocardio/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -301,7 +303,15 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
                           });
                         },
                       ),
-                      const Text("Acepto términos y condiciones")
+                      GestureDetector(
+                        onTap: () {
+                          showTerms(
+                            context,
+                            "Diam dolores justo sadipscing no ipsum ipsum nonumy lorem et eos, takimata aliquyam ipsum sed lorem, labore et lorem ipsum sadipscing takimata at, labore labore diam sit sit et sed diam amet nonumy, ipsum takimata tempor at dolore ea, at sit sanctus kasd et aliquyam sanctus et ut, amet sit et accusam et stet gubergren sanctus sed accusam. Elitr aliquyam magna diam diam et accusam duo diam sadipscing. Dolore justo erat sed sed amet. Et lorem invidunt sadipscing takimata diam ut consetetur. Sed elitr et et dolor vero vero. Erat magna elitr aliquyam at est ea. Amet at vero dolor sea ipsum amet lorem at et, lorem diam kasd consetetur justo sed. Kasd takimata magna et kasd sea et. Sed justo magna et no, et takimata ipsum sit duo et consetetur diam duo amet. Erat amet nonumy nonumy nonumy eos invidunt magna ipsum. No kasd accusam aliquyam justo, takimata accusam et et at at gubergren diam tempor. Labore et vero elitr sanctus tempor invidunt. Kasd clita rebum sit amet ut no erat aliquyam, clita et nonumy dolore consetetur. Kasd et at nonumy sed et diam vero. Consetetur erat no diam consetetur et et, sadipscing sed sed ipsum sit sea, vero et clita magna eos ut elitr lorem accusam, ea sed takimata clita kasd no ipsum, voluptua voluptua et ea amet. Kasd et voluptua et clita sanctus ut clita. At eos kasd tempor dolores. Elitr nonumy amet aliquyam amet et sed, gubergren vero elitr ipsum et, dolor sanctus dolore ipsum invidunt sadipscing erat, accusam voluptua eirmod consetetur ut lorem gubergren, et lorem dolore no sit est stet ipsum. Ea sit tempor et sanctus ipsum sea gubergren eirmod. Accusam ea elitr clita sed lorem et ipsum, ipsum amet magna est invidunt justo. Dolores clita sea amet invidunt ipsum rebum erat. Rebum et stet ea nonumy sit. Labore amet duo vero ea, eirmod ea lorem et nonumy justo ipsum dolor invidunt, duo no stet amet sed, ea clita et magna kasd vero dolor. Eirmod vero accusam sit sit amet sea sea, lorem sed at sanctus ut ut aliquyam ipsum no. Consetetur at dolor at dolor kasd at gubergren sanctus amet. Labore justo sea justo sea elitr lorem. Justo takimata sed sea ut labore sanctus invidunt, gubergren kasd amet kasd voluptua no. Et et nonumy diam elitr. Diam sed sadipscing amet tempor eos dolor eirmod, clita at consetetur elitr stet, sit sanctus sit consetetur consetetur ipsum sit diam accusam tempor, et voluptua et et sanctus erat labore, ut sit magna nonumy gubergren, amet diam dolore takimata ipsum sanctus, tempor erat dolore gubergren erat vero lorem sea, duo sit nonumy duo kasd sed ipsum sea et at. Sanctus eirmod sanctus nonumy invidunt duo ipsum ipsum, amet voluptua erat ut eos et et voluptua, dolor sit dolor est kasd. Takimata ipsum nonumy est ipsum et, clita et lorem kasd lorem dolore, magna sed nonumy no sed et dolores lorem. Clita elitr dolore amet sit lorem, clita sed no amet sea lorem tempor. Ipsum takimata amet et.",
+                          );
+                        },
+                        child: const Text("Acepto términos y condiciones"),
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -310,7 +320,7 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
                   ElevatedButton(
                     onPressed: () async {
 // nuevo
-                      if (isValidName && isValidId && isValidAddress && isValidBirth && isValidGender && isValidLastName && isValidPass && isValidPass2 && isValidEmail && isValidRole) {
+                      if (isValidName && isValidId && isValidAddress && isValidBirth && isValidGender && isValidLastName && isValidPass && isValidPass2 && isValidEmail && isValidRole && terms) {
                         Navigator.popAndPushNamed(context, "profilePicture", arguments: {
                           "email": formValues["email"],
                           "pwd": formValues["pwd"],
@@ -325,7 +335,7 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
                         });
                       } else {
                         print(formValues);
-                        showAlert(context);
+                        showAlert(context, "No se han completado todos los datos del formulario");
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -352,8 +362,12 @@ class _RegisterPractitionerState extends State<RegisterPractitioner> {
     );
   }
 
-  void showAlert(BuildContext context) => showDialog(
+  void showAlert(BuildContext context, String alertMessage) => showDialog(
         context: context,
-        builder: (_) => AlertGlobal(alertText: "Alguno de los campos no esta llenado correctamente"),
+        builder: (_) => AlertGlobal(alertText: alertMessage),
+      );
+  void showTerms(BuildContext context, String terms) => showDialog(
+        context: context,
+        builder: (_) => AlertGlobal(alertText: terms, title: "Terminos y condiciones", isScrollable: true),
       );
 }

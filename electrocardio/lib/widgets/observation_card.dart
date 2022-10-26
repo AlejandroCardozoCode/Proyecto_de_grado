@@ -184,6 +184,6 @@ class ObservationCard extends StatelessWidget {
       );
   void showAlert2(BuildContext context) => showDialog(
         context: context,
-        builder: (_) => const AlertGlobal(alertText: "Aun no se ha generado el reporte para este electrocardiograma"),
+        builder: (_) => AlertGlobal(alertText: "Aun no se ha generado el reporte para este electrocardiograma"),
       );
 }
