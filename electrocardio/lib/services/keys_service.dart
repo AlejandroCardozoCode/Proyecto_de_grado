@@ -37,3 +37,15 @@ Future<String> obtainPayuApiKey() async {
   final data = await json.decode(response);
   return data["payu_api_key"];
 }
+
+Future<String> obtainEmailApi() async {
+  final String response = await rootBundle.loadString('assets/keys/keys.json');
+  final data = await json.decode(response);
+  return data["email_api_key"];
+}
+
+Future<String> obtainEmailSecretKey() async {
+  final String response = await rootBundle.loadString('assets/keys/keys.json');
+  final data = await json.decode(response);
+  return data["email_secret_key"];
+}

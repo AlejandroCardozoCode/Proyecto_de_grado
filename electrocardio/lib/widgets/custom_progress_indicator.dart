@@ -4,9 +4,11 @@ import 'package:lottie/lottie.dart';
 
 class customProgressIndicator extends StatelessWidget {
   final String text;
+  final String asset;
   const customProgressIndicator({
     Key? key,
     required this.text,
+    required this.asset,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class customProgressIndicator extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(15),
                 child: Lottie.asset(
-                  "assets/img/loading_heart.json",
+                  asset,
                 ),
               ),
               Card(

@@ -137,7 +137,7 @@ class LoginScreen extends StatelessWidget {
       barrierDismissible: false,
       barrierColor: Color.fromARGB(99, 0, 0, 0),
       builder: (context) {
-        return customProgressIndicator(text: text);
+        return customProgressIndicator(text: text, asset: "assets/img/loading_heart.json");
       },
     );
   }

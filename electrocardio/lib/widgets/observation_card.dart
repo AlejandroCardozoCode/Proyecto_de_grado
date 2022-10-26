@@ -64,7 +64,7 @@ class ObservationCard extends StatelessWidget {
                       barrierDismissible: false,
                       barrierColor: Color.fromARGB(99, 0, 0, 0),
                       builder: (context) {
-                        return customProgressIndicator(text: "Generando imagen");
+                        return customProgressIndicator(text: "Generando imagen", asset: "assets/img/loading_heart.json");
                       },
                     );
                     ImageService imageService = ImageService();

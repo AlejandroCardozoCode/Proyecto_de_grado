@@ -303,6 +303,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.3"
+  mailjet:
+    dependency: "direct main"
+    description:
+      name: mailjet
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3+3"
   matcher:
     dependency: transitive
     description:
@@ -324,6 +331,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  mimalo:
+    dependency: transitive
+    description:
+      name: mimalo
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3+4"
   nested:
     dependency: transitive
     description:
@@ -443,6 +457,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.3"
+  sexy_api_client:
+    dependency: transitive
+    description:
+      name: sexy_api_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6+6"
   sky_engine:
     dependency: transitive
     description: flutter

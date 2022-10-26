@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:electrocardio/services/email_service.dart';
 import 'package:electrocardio/services/practitioner_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,13 +31,22 @@ class AlertSendObservation extends StatelessWidget {
           child: const Text("Enviar"),
           onPressed: () async {
             var uuidObservation = Uuid().v1();
-
             showDialog(
               context: context,
               barrierDismissible: false,
               barrierColor: Color.fromARGB(99, 0, 0, 0),
               builder: (context) {
-                return customProgressIndicator(text: "Enviando datos");
+                return customProgressIndicator(text: "Procesando su pago", asset: "assets/img/payment_animation.json");
+              },
+            );
+            await Future.delayed(const Duration(seconds: 5), () {});
+            Navigator.of(context).pop();
+            await showDialog(
+              context: context,
+              barrierDismissible: false,
+              barrierColor: Color.fromARGB(99, 0, 0, 0),
+              builder: (context) {
+                return customProgressIndicator(text: "Enviando datos", asset: "assets/img/loading_heart.json");
               },
             );
             PractitionerService practitionerService = PractitionerService();
@@ -49,6 +57,9 @@ class AlertSendObservation extends StatelessWidget {
               return;
             }
 
+            AppPractitioner cardiologist = AppPractitioner();
+            Map<String, dynamic> dataCardiologist = await practitionerService.getPractitioner(practitionerIdCardio);
+            cardiologist.loadFromJson(dataCardiologist);
             currentObservation.observationId = uuidObservation.toString();
             currentObservation.patientIdReference = currentPatient.id;
             currentObservation.practitionerIdReference = currentPractitioner.idFirebase;
@@ -71,8 +82,10 @@ class AlertSendObservation extends StatelessWidget {
             currentDiagnostic.create();
             await currentDiagnostic.uploadToFirebase(currentDiagnostic.id);
             currentPractitioner.addDiagnosticToList(currentDiagnostic);
-
+            EmailService emailService = EmailService();
+            await emailService.sendEmail(cardiologist.email, "${cardiologist.firstName + " " + cardiologist.lastName}");
             Navigator.of(context).pop();
+
             Navigator.pushNamedAndRemoveUntil(context, "homeOnc", (route) => false);
           },
         ),

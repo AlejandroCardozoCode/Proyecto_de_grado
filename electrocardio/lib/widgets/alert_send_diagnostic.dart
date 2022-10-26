@@ -32,7 +32,7 @@ class AlertSendDiagnostic extends StatelessWidget {
               barrierDismissible: false,
               barrierColor: Color.fromARGB(99, 0, 0, 0),
               builder: (context) {
-                return customProgressIndicator(text: "Enviando datos");
+                return customProgressIndicator(text: "Enviando datos", asset: "assets/img/loading_heart.json");
               },
             );
             currentDiagnostic.create();

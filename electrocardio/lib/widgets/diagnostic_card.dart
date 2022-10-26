@@ -60,7 +60,7 @@ class DiagnosticCard extends StatelessWidget {
                   barrierDismissible: false,
                   barrierColor: Color.fromARGB(99, 0, 0, 0),
                   builder: (context) {
-                    return customProgressIndicator(text: "Cargando datos");
+                    return customProgressIndicator(text: "Cargando datos", asset: "assets/img/loading_heart.json");
                   },
                 );
                 ImageService imageService = ImageService();
@@ -77,82 +77,6 @@ class DiagnosticCard extends StatelessWidget {
               },
             ),
           ),
-          /*
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: w * 0.25,
-                child: TextButton(
-                  onPressed: () async {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      barrierColor: Color.fromARGB(99, 0, 0, 0),
-                      builder: (context) {
-                        return customProgressIndicator(text: "Generando imagen");
-                      },
-                    );
-                    ImageService imageService = ImageService();
-                    await imageService.findKey();
-                    String data = await compute(imageService.decryptImage, imageData);
-                    Uint8List decoded = Uint8List.fromList(data.codeUnits);
-                    ImageProvider image = Image.memory(decoded).image;
-                    Navigator.of(context).pop();
-                    Navigator.pushNamed(context, "electroView", arguments: {'imageData': image});
-                  },
-                  child: Text(
-                    "Ver\nImagen",
-                    maxLines: 3,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.rubik(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: w * 0.25,
-                child: TextButton(
-                  onPressed: () {
-                    showAlert(context, textObservation, "Observación");
-                  },
-                  child: FittedBox(
-                    child: Text(
-                      "Ver\nObservación",
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.rubik(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: w * 0.25,
-                child: TextButton(
-                  onPressed: () {
-                    currentDiagnostic.copy(this.currentDiagnostic);
-                    Navigator.pushNamed(context, "writeDiagnostic");
-                  },
-                  child: FittedBox(
-                    child: Text(
-                      "Dar\nDiagnostico",
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.rubik(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),*/
           const SizedBox(
             height: 15,
           ),

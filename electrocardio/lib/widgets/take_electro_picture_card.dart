@@ -43,7 +43,7 @@ class _TakeElectroPictureCardState extends State<TakeElectroPictureCard> {
             barrierDismissible: false,
             barrierColor: Color.fromARGB(99, 0, 0, 0),
             builder: (context) {
-              return customProgressIndicator(text: "Procesando imagen");
+              return customProgressIndicator(text: "Procesando imagen", asset: "assets/img/loading_heart.json");
             },
           );
 
