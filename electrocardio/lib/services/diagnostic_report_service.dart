@@ -22,7 +22,8 @@ class DiagnosticReportService {
     final List<AppDiagnosticReport> diagnosticReports = [];
 
     if (this._baseUrl == "") {
-      this._baseUrl = await obtainURL();
+      KeyService keyService = KeyService();
+      this._baseUrl = await keyService.obtainURL();
     }
 
     final url = Uri.https(_baseUrl, 'diagnosticReport.json');
@@ -53,7 +54,8 @@ class DiagnosticReportService {
   }
 
   Future createDiagnosticReport(AllCommunicator diagnosticReport) async {
-    String _baseUrl = await obtainURL();
+    KeyService keyService = KeyService();
+    String _baseUrl = await keyService.obtainURL();
     final url = Uri.https(_baseUrl, 'diagnosticReport/${diagnosticReport.id}.json');
     String jsonValue = await diagnosticReport.toJson();
     final respuesta = await http.put(url, body: jsonValue);

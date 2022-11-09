@@ -20,7 +20,8 @@ class PatientService {
     isLoading = true;
     final List<AppPatient> patients = [];
     if (this._baseUrl == "") {
-      this._baseUrl = await obtainURL();
+      KeyService keyService = KeyService();
+      this._baseUrl = await keyService.obtainURL();
     }
     final url = Uri.https(_baseUrl, 'patient.json');
     final response = await http.get(url);
@@ -53,7 +54,9 @@ class PatientService {
   }
 
   Future createpatient(AllCommunicator patient) async {
-    String _baseUrl = await obtainURL();
+    KeyService keyService = KeyService();
+    String _baseUrl = await keyService.obtainURL();
+
     final url = Uri.https(_baseUrl, 'patient/${patient.id}.json');
     final respuesta = await http.put(url, body: patient.toJson());
     //log(json.decode(respuesta.body));

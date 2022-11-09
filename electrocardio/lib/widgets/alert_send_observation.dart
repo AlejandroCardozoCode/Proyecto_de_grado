@@ -66,7 +66,6 @@ class AlertSendObservation extends StatelessWidget {
             currentObservation.dateTime = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
             // subir observación a la lista de observaciones
             currentObservation.create();
-            await currentObservation.uploadToFirebase(currentObservation.observationId);
             currentPractitioner.addObservationToList(currentObservation);
 
             var uuidDiagnostic = Uuid().v1();
@@ -80,9 +79,11 @@ class AlertSendObservation extends StatelessWidget {
             currentDiagnostic.status = "partial";
             currentDiagnostic.priority = currentDiagnostic.priority + uuidDiagnostic;
             currentDiagnostic.create();
-            await currentDiagnostic.uploadToFirebase(currentDiagnostic.id);
             currentPractitioner.addDiagnosticToList(currentDiagnostic);
             EmailService emailService = EmailService();
+
+            await currentObservation.uploadToFirebase(currentObservation.observationId);
+            await currentDiagnostic.uploadToFirebase(currentDiagnostic.id);
             await emailService.sendEmail(cardiologist.email, "${cardiologist.firstName + " " + cardiologist.lastName}");
             Navigator.of(context).pop();
 

@@ -20,9 +20,9 @@ class LoginScreen extends StatelessWidget {
     };
 
     final GlobalKey<FormState> loginForm = GlobalKey<FormState>();
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             physics: const BouncingScrollPhysics(),

@@ -11,7 +11,8 @@ class ImageService {
   ImageService() {}
 
   findKey() async {
-    this._key = await obtainKey();
+    KeyService keyService = KeyService();
+    this._key = await keyService.obtainKey();
   }
 /*
   String convertToBase64(XFile image) {

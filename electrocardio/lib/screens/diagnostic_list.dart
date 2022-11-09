@@ -11,10 +11,10 @@ class DiagnosticListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppPractitioner currentPractitioner = context.watch<AppPractitioner>();
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(20),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

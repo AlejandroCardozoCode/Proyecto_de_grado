@@ -26,7 +26,8 @@ class PractitionerService {
     isLoading = true;
 
     if (this._baseUrl == "") {
-      this._baseUrl = await obtainURL();
+      KeyService keyService = KeyService();
+      this._baseUrl = await keyService.obtainURL();
     }
 
     final url = Uri.https(_baseUrl, 'practitioner.json');
@@ -49,7 +50,9 @@ class PractitionerService {
   Future<Map<String, dynamic>> getPractitioner(String uId) async {
     isLoading = true;
 
-    String _baseUrl = await obtainURL();
+    KeyService keyService = KeyService();
+    String _baseUrl = await keyService.obtainURL();
+
     final url = Uri.https(_baseUrl, 'practitioner/${uId}.json');
     final respuesta = await http.get(url);
     final decodeData = json.decode(respuesta.body);
@@ -63,18 +66,21 @@ class PractitionerService {
   }
 
   Future<int> obtainCardiologistLength() async {
-    String _baseUrl = await obtainURL();
+    KeyService keyService = KeyService();
+    String _baseUrl = await keyService.obtainURL();
     final url = Uri.https(_baseUrl, 'cardiologistList/list.json');
     final response = await http.get(url);
-    if (json.decode(response.body) != null) {
+    if (json.decode(response.body) != null || json.decode(response.body) != "") {
       List list = json.decode(response.body);
       return list.length;
     }
     return 0;
   }
 
-  Future createPractitioner(AllCommunicator practitioner, String role) async {
-    String _baseUrl = await obtainURL();
+  createPractitioner(AllCommunicator practitioner, String role) async {
+    KeyService keyService = KeyService();
+    String _baseUrl = await keyService.obtainURL();
+
     final url = Uri.https(_baseUrl, 'practitioner/${practitioner.id}.json');
     final response = await http.put(url, body: practitioner.toJson());
     if (role == "Cardiologo") {
@@ -88,10 +94,14 @@ class PractitionerService {
         await http.patch(url4, body: json.encode({"counter": 0}));
       }
     }
+    log(response.body);
+    return response.statusCode.toString();
   }
 
   Future<String> obtainCurrentIndexCardiologist() async {
-    String _baseUrl = await obtainURL();
+    KeyService keyService = KeyService();
+    String _baseUrl = await keyService.obtainURL();
+
     final url = Uri.https(_baseUrl, 'cardiologistList.json');
     final response = await http.get(url);
     if (json.decode(response.body) != null) {
@@ -120,7 +130,9 @@ class PractitionerService {
   }
 
   Future<void> setCurrentIndexCardiologist(int newValue) async {
-    String _baseUrl = await obtainURL();
+    KeyService keyService = KeyService();
+    String _baseUrl = await keyService.obtainURL();
+
     final url = Uri.https(_baseUrl, 'cardiologistList.json');
     final response = await http.patch(url, body: json.encode({"counter": newValue}));
   }
