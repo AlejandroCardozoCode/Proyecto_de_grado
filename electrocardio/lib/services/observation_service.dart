@@ -23,7 +23,8 @@ class ObservationService {
     final List<AppObservation> observations = [];
 
     if (this._baseUrl == "") {
-      this._baseUrl = await obtainURL();
+      KeyService keyService = KeyService();
+      this._baseUrl = await keyService.obtainURL();
     }
 
     final url = Uri.https(_baseUrl, 'observation.json');
@@ -56,7 +57,9 @@ class ObservationService {
   }
 
   Future createObservation(AllCommunicator observation) async {
-    String _baseUrl = await obtainURL();
+    KeyService keyService = KeyService();
+    String _baseUrl = await keyService.obtainURL();
+
     final url = Uri.https(_baseUrl, 'observation/${observation.id}.json');
     final response = await http.put(url, body: observation.toJson());
     //log(json.decode(response.body));

@@ -48,12 +48,12 @@ class MySampleState extends State<MySample> {
   @override
   Widget build(BuildContext context) {
     AppPractitioner currentPractitioner = context.watch<AppPractitioner>();
-    return SafeArea(
-      child: Scaffold(
-        appBar: ApplicationAppBar(
-          darkIcons: true,
-        ),
-        body: SingleChildScrollView(
+    return Scaffold(
+      appBar: ApplicationAppBar(
+        darkIcons: true,
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           physics: const BouncingScrollPhysics(),
           child: Column(

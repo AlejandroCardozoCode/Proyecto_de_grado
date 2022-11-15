@@ -34,11 +34,9 @@ class _HomeOncologistState extends State<HomeOncologist> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: _body[index],
-        bottomNavigationBar: navBar,
-      ),
+    return Scaffold(
+      body: SafeArea(child: _body[index]),
+      bottomNavigationBar: navBar,
     );
   }
 }

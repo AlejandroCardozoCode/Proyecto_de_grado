@@ -271,7 +271,8 @@ class AppPractitioner with ChangeNotifier {
     AllCommunicator practitionerCommunicator = AllCommunicator(jsonVar: this.r4Class.toJson());
     practitionerCommunicator.id = uId;
     practitionerCommunicator.isNew = true;
-    await practitionerService.createPractitioner(practitionerCommunicator, role);
+    final response = await practitionerService.createPractitioner(practitionerCommunicator, role) as String;
+    return response;
   }
 
   AppPatient? findPatientById(String patientId) {

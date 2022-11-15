@@ -10,8 +10,10 @@ class EmailService {
 
   Future<void> sendEmail(String emailReceiver, String name) async {
     log(emailReceiver);
-    apiKey = await obtainEmailApi();
-    secretKey = await obtainEmailSecretKey();
+
+    KeyService keyService = KeyService();
+    apiKey = await keyService.obtainEmailApi();
+    secretKey = await keyService.obtainEmailSecretKey();
     MailJet mailJet = MailJet(
       apiKey: apiKey,
       secretKey: secretKey,

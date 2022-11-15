@@ -27,9 +27,9 @@ class _LoadPractitionerProfilePictureScreenState extends State<LoadPractitionerP
     AppPractitioner practitioner = context.read<AppPractitioner>();
     final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     var w = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
           child: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: SizedBox(
